@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+\usepackage{achemso}
+\usepackage[margin=1.0in]{geometry}
+\usepackage[capitalize]{cleveref}
+\usepackage{setspace}
+\doublespacing
+
+\usepackage{appendix}
+\crefname{figure}{Fig.}{Figs.}
+\Crefname{figure}{Figure}{Figures}
+\crefname{table}{Tab.}{Tabs.}
+\Crefname{table}{Table}{Tables}
+\crefname{equation}{Eq.}{Eqs.}
+\Crefname{equation}{Equation}{Equations}
+\crefname{section}{Sec.}{Secs.}
+\Crefname{section}{Section}{Sections}
+\crefname{appsec}{appendix}{appendices}
+\Crefname{appsec}{Appendix}{Appendixes}
+
+
+\title{General Exam}
+\date{October 19, 2016 \\ CHB 239}
+\author{David Williams-Young\\ Department of Chemistry, University of Washington}
+
+
+\begin{document}
+\maketitle
+
+
+\newpage
+\section{Introduction}
+
+This work is organized into four sections.
+\cref{sec:Chebyshev} details the work I've contributed to accelerating 
+electronic dynamics through the Chebyshev expansion of the quantum propagator 
+in real-time density functional theory.
+\cref{sec:pp-X2C} focuses on my recent work of the extension of the
+particle-particle Tamm-Dancoff approximation to relativistic Hamiltonians.
+\cref{sec:pp-TSH} describes my contribtion to semi-classical non-adiabatic 
+molecular dynamics through the application of the particle-particle Tamm-Dancoff
+approximation to the trajectory surface hopping method.
+Finally, \cref{sec:Future} outlines my plan for future development in the field
+of electronic structure and dynamics in the relativistic treament of non-adiabatic
+phenomena in molecular systems.
+
+\section{The Chebyshev Expansion of the Quantum Propagator}
+\label{sec:Chebyshev}
+\section{The Relativistic Particle-Particle Tamm-Dancoff Approximation}
+\label{sec:pp-X2C}
+
+
+% TSH with pp-TDA
+\section{Trajectory Surface Hopping within the Particle-Particle Tamm-Dancoff Approximation}
+\label{sec:pp-TSH}
+
+Trajectory surface-hopping (TSH) is one of the most widely applied methods for
+simulating electronically non-adiabatic dynamics of molecular and
+condensed-phase
+systems.\cite{Barbatti11_1759,Tavernelli14_62,Tully12_22A301,Tully98_407,Hynes14_97}
+TSH is only tractable, however, if the electronic structure theory calculations
+required at each step in the numerical integration of the molecular equations
+of motion  may be reasonably afforded.  In an effort to enable simulation of
+larger systems, there has been a push recently to utilize low-scaling, single
+reference electronic structure methods in TSH dynamics
+studies.\cite{Lan15_1360,Rothlisberger07_023001,Li16_935} While TSH with single
+reference  methods is well-suited for describing non-radiative relaxation
+within the excited state manifold\cite{Subotnik14_4253,Barbatti14_1395}, most
+single reference  methods give a fundamentally flawed description of
+non-radiative processes that terminate via internal conversion to the ground
+electronic state.  Specifically, methods which represent the ground state by a
+single Slater determinant and the excited states as linear combinations of
+determinants give an incorrect topology for the ground and excited
+electronic energy surfaces in regions of the nuclear configuration space where
+they approach degeneracy.\cite{Massimo14_3074, Martinez06_1039,Li16_pp-TSH}
+Symmetry-mandated intersections in the ground and excited states' potential
+energy surfaces (PES's) can be absent with single reference  methods, so
+qualitatively incorrect timescales and mechanisms for ground state recovery
+processes can be predicted.  
+
+
+
+\section{Future Directions: Relativistic Electronic Dynamics with Multi-Configurational Wave Functions}
+\label{sec:Future}
+
+\bibliography{Journal_Short_Name,ppSH,Li_Group_References}
+\end{document}
