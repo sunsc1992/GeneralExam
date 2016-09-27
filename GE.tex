@@ -1,7 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage{achemso}
 \usepackage[margin=1.0in]{geometry}
-\usepackage[capitalize]{cleveref}
 \usepackage{setspace}
 \usepackage{amsmath}             % for equation typesetting
 \usepackage{amssymb}             % for equation typesetting
@@ -14,6 +13,8 @@
 \doublespacing
 
 \usepackage{appendix}
+
+\usepackage[capitalize]{cleveref}
 \crefname{figure}{Fig.}{Figs.}
 \Crefname{figure}{Figure}{Figures}
 \crefname{table}{Tab.}{Tabs.}
@@ -52,6 +53,7 @@
 \newcommand*\complexgenerallinear[1]{\generallinear{#1}{\mathbb{C}}}
 \newcommand*\mat[1]{\boldsymbol{#1}}
 
+\newcommand*\vc[1]{\boldsymbol{#1}}
 
 
 \title{General Exam}
@@ -72,10 +74,99 @@ transfer in the chromophores of solar cells to the ultrafast excitonic dynamics
 in nanocrystalline materials, molecular dynamics lies at the heart of chemistry.
 As such, to properly model these phenomena theoretically, we must often venture
 into the time-domain to capture the physics necessary to completely understand
-the problem at hand. As such, this task constitutes a primary focus of modern 
+the problem at hand. As such, this task constitutes a primary focus of modern
 \emph{ab initio} quantum molecular theory.
 
+In the quantum mechanical description of molecular systems, one may formally
+decompose the total molecular wave function, $\Psi(\vc{r},\vc{R}\vert t)$, into
+a product of wave functions that depend on the electronic and nuclear
+coordinates respectively, 
+\begin{equation} 
+\Psi(\vc{r},\vc{R} \vert t) = \Phi(\vc{r} \vert \vc{R},t) \Theta(\vc{R} \vert t) 
+\quad .  
+\label{eq:exactSepElecNuc}
+\end{equation} 
+Here, $\vc{r}$ and $\vc{R}$ are the electronic and nuclear coordinates
+respectively, $t$ is a time parameter, and $\Phi(\vc{r} \vert \vc{R}, t)$ and
+$\Theta(\vc{r} \vert t)$ are the time--dependent electronic and nuclear wave
+functions respectively. The vertical separator found in the parameters of the
+above wave functions are used to denote a parametric time dependence of the
+function on those parameters that appear to the right of the separator. It
+should be noted that the separation of the total molecular wave function in
+\cref{eq:exactSepElecNuc} is formally exact\cite{Gross10_PRL123002,
+Cederbaum08_JCP124101} without loss of generality in the non-relativistic
+treatment of quantum mechanics. Even so, the equations of motion for the time
+dependence of \cref{eq:exactSepElecNuc} are wildly complicated\cite{Ghosh15_MP1}
+and would only be pratical for molecules consisting of a few atoms.
+Nevertheless, this explicitly exact treatment allows one to, in principle,
+bifurcate the treatment of quantum molecular dynamics into explicit treatment of
+the electronic and nuclear time dependence separately. Thus, in order to
+theoretically treat molecular dynamics accurately, one must be able to treat
+both the electronic and nuclear degrees of freedom to some level of accuracy.
+This separation will be the underlying principle of the future directions that I
+propose in this work.
 
+Over the years, perhaps the most successful \emph{ab initio} treatment of the
+electronic degrees of freedom of the total eave function has been in the
+configuration interaction (CI) expansion of the electronic wave function. In the
+CI expansion, the total exact electronic wave function is written as a linear
+combination of Slater determinants,
+\begin{equation}
+\ket{\Phi (\vc{R},t)} = \sum_i c_i(t) \ket{\psi_i (\vc{R},t)}
+\quad ,
+\label{eq:CIExp}
+\end{equation}
+where $\left\lbrace\ket{\psi_i}\right\rbrace$ is a set of Slater determinantal
+electronic wave functions and $\left\lbrace c_i \right\rbrace$ is a set of
+expansion coefficients. We have now moved to an abstract vector space definition
+of the electronic wave function which we will maintain unless explicitly stated
+otherwise. In principle, the above expansion is exact given that all possibile
+electronic configurations are included. Given that each of the Slater
+determinants is written as a linear combintation of single particle Fock states,
+$\left\lbrace \phi_p \right\rbrace$, hereafter referred to as \emph{molecular
+orbitals}, there are a total of $\mathcal{C}(N,K)$ possible determinants that
+would need to be included in the expansion, where $N$ and $K$ are the total
+number of electrons and the number of molecular orbitals in 
+$\left\lbrace \phi_p \right\rbrace$. Such an exhaustive expansion is called
+\emph{full configuration interaction} (FCI) and is rendered impractical for the
+majority of systems due to the rapid growth of the total number of required
+Slater determinants.
+
+In practice, we as theoriticians must restrict which Slater determinants we
+include in \cref{eq:CIExp}. As a result, a vast proportion of research in the
+field of electronic structure theory has been centered on the proper way to
+restrict the expansion in such a way that all of the relavent physics is
+maintained while extraneous information may be discarded. Such methods as
+complete active space (CAS), coupled cluster (CC), multirefernce configuration
+interaction (MRCI), density matrix renormalization group (DMRG),
+particle--particle propagator methods (pp-RPA/TDA), and truncated CI methods may
+all be described, at their core, as algorithms to provide such a filtering of
+the physically relavent determinants of the CI expansion. While each of these
+methods have their faults and accolades, whether it be accuracy or computational
+burden, the work proposed in this work will primarily focus on CAS and MRCI
+methods, which will be explained further in \cref{sec:Future}, though the
+pp-RPA/TDA methods will be discussed to some extent in 
+\cref{sec:pp-X2C,sec:pp-TSH}.
+
+To properly treat the nuclear degrees of freedom, there exist a vast plethoria
+of computational methods to treat the nuclear dynamics to varying degrees of
+accuracy. In the proposed work, I will restrict the discussion of these methods
+to only include those that are semiclassical. Semiclassical nuclear dynamics
+algorithms are those that treat the nuclear motion classically (some varient of
+Netwon's equations of motion) while maintaining a quantum description of the
+electronic degrees if freedom. This is often a valid approach, as the nuclei of
+molecules are orders of magnitude heavier than the electrons, and thus move much
+slower. That is not to say that nuclei are not, strictly speaking, quantized in
+their time evoluation, but rather that a large proportion of quantum effects in
+full molecular dynamics are due to the time dependence of the electrons. Thus it
+is usually a valid assumption that they time evolve classically relative to
+their electronic counterparts. That being said, there are cases in which the
+quantum evolution of the nuclei must be explicitly treated, such as tunneling in
+lighter atoms, in which these semiclassical methods will not suffice to capture
+the necessacary physics.
+
+Within the semiclassical treatment of molecular dynamics, compuational methods
+may be further classified as either adiabatic or non-adiabatic. 
 
 %This work is organized into four sections.
 This work is organized into three subsequent sections.
@@ -102,11 +193,11 @@ phenomena in molecular systems.
 % TSH with pp-TDA
 \section{Trajectory Surface Hopping within the Particle-Particle Tamm-Dancoff Approximation}
 \label{sec:pp-TSH}
-Test\cite{Li16_pp-TSH}
+Test\cite{DBWY16_JCTC935,DBWY16_Accepted1,DBWY16_Submitted1,DBWY16_Submitted2}
 
 % Future
 \section{Future Directions: Relativistic Electronic Dynamics with Multi-Configurational Wave Functions}
 \label{sec:Future}
 
-\bibliography{Journal_Short_Name,ppSH,Li_Group_References,Chebyshev}
+\bibliography{Journal_Short_Name,ppSH,Li_Group_References,GE,DBWY}
 \end{document}
