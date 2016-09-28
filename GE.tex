@@ -77,23 +77,37 @@ into the time-domain to capture the physics necessary to completely understand
 the problem at hand. As such, this task constitutes a primary focus of modern
 \emph{ab initio} quantum molecular theory.
 
-In the quantum mechanical description of molecular systems, one may formally
-decompose the total molecular wave function, $\Psi(\vc{r},\vc{R}\vert t)$, into
-a product of wave functions that depend on the electronic and nuclear
-coordinates respectively, 
+In the quantum mechanical description of molecular systems, neglecting explicit
+coupling to a quantized photon field, time evolution of the total molecular wave
+function, $\ket{\Psi (t)}$ is governed by the wave equation (in atomic units),
+\begin{equation}
+\mathscr{H}(t) \ket{\Psi (t)} = i\partial_t \ket{\Psi(t)} \quad,
+\label{eq:WaveEq}
+\end{equation}
+where $\mathscr{H}(t)$ is the time--dependant Hamiltonian and $\partial_t$ is a
+partial derivative with respect to time, and $t$ is a time variable. We have
+adopted the standard descripton of the wave function as a state vector rather
+than an explicit function of coordiates. The moieties inclosed in parantheses
+are taken to be parameters, i.e. the wave function is parameterized by time.
+one may formally decompose $\ket{\Psi (t)}$ into a product of nuclear and
+electronic wave functions,
 \begin{equation} 
-\Psi(\vc{r},\vc{R} \vert t) = \Phi(\vc{r} \vert \vc{R},t) \Theta(\vc{R} \vert t) 
+\ket{\Psi (t)} = \ket{\Phi(\vc{R},t)}\otimes\ket{\Theta(t)} 
 \quad .  
 \label{eq:exactSepElecNuc}
 \end{equation} 
-Here, $\vc{r}$ and $\vc{R}$ are the electronic and nuclear coordinates
-respectively, $t$ is a time parameter, and $\Phi(\vc{r} \vert \vc{R}, t)$ and
-$\Theta(\vc{r} \vert t)$ are the time--dependent electronic and nuclear wave
-functions respectively. The vertical separator found in the parameters of the
-above wave functions are used to denote a parametric time dependence of the
-function on those parameters that appear to the right of the separator. It
-should be noted that the separation of the total molecular wave function in
-\cref{eq:exactSepElecNuc} is formally exact\cite{Gross10_PRL123002,
+
+%Here, $\vc{r}$ and $\vc{R}$ are the electronic and nuclear coordinates
+%respectively, $t$ is a time parameter, and $\Phi(\vc{r} \vert \vc{R}, t)$ and
+%$\Theta(\vc{r} \vert t)$ are the time--dependent electronic and nuclear wave
+%functions respectively. The vertical separator found in the parameters of the
+%above wave functions are used to denote a parametric time dependence of the
+%function on those parameters that appear to the right of the separator. 
+Here, $\ket{\Phi(\vc{R},t)}$ and $\ket{\Theta (t)}$ are the electronic and
+nuclear wave functions respectively and $\vc{R}$ is the expectation value of the
+nuclear position operator, $\vc{R} = \innerop{\Theta (t)}{\hat{\vc{R}}}{\Theta
+(t)}$.  It should be noted that the separation of the total molecular wave
+function in \cref{eq:exactSepElecNuc} is formally exact\cite{Gross10_PRL123002,
 Cederbaum08_JCP124101} without loss of generality in the non-relativistic
 treatment of quantum mechanics. Even so, the equations of motion for the time
 dependence of \cref{eq:exactSepElecNuc} are wildly complicated\cite{Ghosh15_MP1}
@@ -167,6 +181,7 @@ the necessacary physics.
 
 Within the semiclassical treatment of molecular dynamics, compuational methods
 may be further classified as either adiabatic or non-adiabatic. 
+%\Cref{eq:exactSepElecNuc,eq:CIExp
 
 %This work is organized into four sections.
 This work is organized into three subsequent sections.
