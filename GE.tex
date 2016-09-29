@@ -75,11 +75,14 @@ in nanocrystalline materials, molecular dynamics lies at the heart of chemistry.
 As such, to properly model these phenomena theoretically, we must often venture
 into the time-domain to capture the physics necessary to completely understand
 the problem at hand. As such, this task constitutes a primary focus of modern
-\emph{ab initio} quantum molecular theory.
+\emph{ab initio} quantum molecular theory. \textbf{In this work, I will outline
+my proposed research to accurately simulate \emph{ab initio} relativistic
+molecular dynamics using correlated multi--configurational wave functions}.
 
 In the quantum mechanical description of molecular systems, neglecting explicit
 coupling to a quantized photon field, time evolution of the total molecular wave
-function, $\ket{\Psi (t)}$ is governed by the wave equation (in atomic units),
+function, $\ket{\Psi (t)}$ is governed by the Hamiltonian wave equation 
+(in atomic units),
 \begin{equation}
 \mathscr{H}(t) \ket{\Psi (t)} = i\partial_t \ket{\Psi(t)} \quad,
 \label{eq:WaveEq}
@@ -89,14 +92,16 @@ partial derivative with respect to time, and $t$ is a time variable. We have
 adopted the standard description of the wave function as a state vector rather
 than an explicit function of coordinates. The moieties enclosed in parentheses
 are taken to be parameters, i.e. the wave function is parameterized by time.
-one may formally decompose $\ket{\Psi (t)}$ into a product of nuclear and
-electronic wave functions,
+In principle, one may solve \cref{eq:WaveEq} simultaneously for both the 
+electronic and nuclear degrees of freedom explicitly. This approach is, however,
+intractable for quantum systems exceeding more than a few particles. To simplfy
+the solutions of \cref{eq:WaveEq}, one may formally decompose $\ket{\Psi (t)}$
+into a product of nuclear and electronic wave functions,
 \begin{equation} 
 \ket{\Psi (t)} = \ket{\Phi(\vc{R}(t),t)}\otimes\ket{\Theta(t)} 
 \quad .  
 \label{eq:exactSepElecNuc}
 \end{equation} 
-
 %Here, $\vc{r}$ and $\vc{R}$ are the electronic and nuclear coordinates
 %respectively, $t$ is a time parameter, and $\Phi(\vc{r} \vert \vc{R}, t)$ and
 %$\Theta(\vc{r} \vert t)$ are the time--dependent electronic and nuclear wave
@@ -126,7 +131,7 @@ configuration interaction (CI) expansion of the electronic wave function. In the
 CI expansion, the exact electronic wave function is written as a linear
 combination of Slater determinants,
 \begin{equation}
-\ket{\Phi (\vc{R}(t),t)} = \sum_i c_i(t) \ket{\psi_i (\vc{R}(t),t)}
+\ket{\Phi (\vc{R}(t),t)} = \sum_i  \ket{\psi_i (\vc{R}(t),t)} c_i(t)
 \quad ,
 \label{eq:CIExp}
 \end{equation}
@@ -165,20 +170,82 @@ accuracy. In the proposed work, I will restrict the discussion of these methods
 to only include those that are semiclassical. Semiclassical nuclear dynamics
 algorithms are those that treat the nuclear motion classically (by some variant
 of Newton's equations of motion) while maintaining a quantum description of the
-electronic degrees of freedom. This is often a valid approach, as the nuclei of
-molecules are orders of magnitude heavier than the electrons, and thus move much
-slower. That is not to say that nuclei are not, strictly speaking, quantized in
-their time evolution, but rather that a large proportion of quantum effects in
-full molecular dynamics are due to the time dependence of the electrons. Thus it
-is usually a valid assumption that the nuclei time evolve classically relative to
-their electronic counterparts. That being said, there are cases in which the
-quantum evolution of the nuclei must be explicitly treated, such as tunneling in
-lighter atoms, in which these semiclassical methods will not suffice to capture
-the necessary physics.
+electronic degrees of freedom. That is to say that we may write the nuclear 
+wave function as a product of delta functions centered at the classical nuclear
+positions,
+\begin{equation}
+\inner{\vc{R}}{\Theta (t)} = 
+  \prod_{A = 0}^{N_\mathrm{atoms}} \delta^3(\vc{R} - \vc{R}_A(t))
+  \quad,
+  \label{eq:ClassicalNuclei}
+\end{equation}
+where $N_\mathrm{atoms}$ is the number of nuclei in the molecule.  This is
+often a valid approach, as the nuclei of molecules are orders of magnitude
+heavier than the electrons, and thus move much slower. That is not to say that
+nuclei are not, strictly speaking, quantized in their time evolution, but
+rather that a large proportion of quantum effects in full molecular dynamics
+are due to the time dependence of the electrons. Thus it is usually a valid
+assumption that the nuclei time evolve classically relative to their electronic
+counterparts. That being said, there are cases in which the quantum evolution
+of the nuclei must be explicitly treated, such as tunneling in lighter atoms,
+in which these semiclassical methods will not suffice to capture the necessary
+physics.
 
 Within the semiclassical treatment of molecular dynamics, computational methods
-may be further classified as either adiabatic or non-adiabatic. 
-%\Cref{eq:exactSepElecNuc,eq:CIExp
+may be further classified as either adiabatic or non-adiabatic. Both of these
+classifications may be characterized by their treatment of the transversal of
+the manifold of energy eigenstates,
+\begin{equation}
+\mathscr{H}(t) \ket{\Psi_I (t)} = E_I(t) \ket{\Psi_I (t)}
+\quad \forall t.
+\label{eq:EnergyEig}
+\end{equation}
+Where the index $I$ labels a particular energy eigenstate while $E_I$ represents
+the energy eigenvalue of that state. We will assume that $E_I(t)$ is a smooth
+function of $t$ for the sake simplicity. Adiabatic time evolution is rooted in
+the adiabatic theorem in that, given an initial state that exists as an energy
+eigen state of $\mathscr{H}(0)$, $\ket{\Psi_I(0)}$, at some time $t' > 0$ in the
+future, the quantum system will remain in an eigenstate of the
+\emph{corresponding} eigenstate of $\mathscr{H}(t')$, $\ket{\Psi_I(t')}$. In
+order for this approximation to be valid (although it can be proven that this
+assumption is a best an approximation while an exact adiabatic time evolution
+cannot exist unless the quantum system does not time-evolve), it is a
+necessacary and sufficient condition that the individual energy eigen states do
+not couple though the time-derivative operator,
+\begin{equation}
+\innerop{\Psi_I(t)}{\partial_t}{\Psi_J (t)}
+  \stackrel{\mathrm{\mbox{\footnotesize adiabatic}}}{=} 0
+  \quad \forall I,J,t.
+  \label{eq:AdiabaticNAC}
+\end{equation}
+\Cref{eq:AdiabaticNAC} may be interpreted as an inability to transport
+information between energy eigenstates within the adiabatic approximation and
+thus the inability to leave said eigenstate throughout the time--evolution.  In
+the field of \emph{ab initio} semiclassical dynamics, the workhorses of
+adiabatic time evolution are Born--Oppenheimer  (BOMD) and Car--Parinello (CPMD)
+molecular dynamics. In the proposed work, I will primariliy focus on the BOMD
+method as a choice for adiabatic time--evoluation which will be discussed in
+\cref{sec:Future}.  As it should logically follow, non-adiabatic dynamics may be
+characterized by the full inclusion of terms like the left-hand side of
+\cref{eq:AdiabaticNAC}, i.e.  it is in general not possible or practical to
+ignore the coupling between energy eigenstates. As such it is possible to
+transverse the manifold of energy eigenstates throughout the time evolution.
+In this proposed work, I will limit the discussion of non--adiabatic dynamics to
+that of the trajectory surface hopping (TSH) method which will be discussed at
+some length in \cref{sec:pp-TSH,sec:Future}.
+
+Recent years have also seen new developments in the realm of relativistic
+quantum chemistry.  Relativistic effects, while often neglected in most standard
+treatment of electronic structure, can have profound consequences in chemical
+systems.\cite{Pyykko12_45} Scalar relativistic effects cause the contraction of
+the core electron shells of heavy atoms, but perhaps of even more consequence is
+the introduction of spin couplings in the Hamiltonian.  Spin-spin and spin-orbit
+interactions can affect the electronic spin dynamics even in light atoms, and a
+direct consequence of these couplings on excited states is the loss of
+degeneracies of spin-eigenstates, giving rise to fine structure splittings (FSS)
+in atoms and molecules with symmetry-induced degeneracies. It is therefore
+desirable to develop accurate and cost-effective relativistic electronic
+structure methods able to model such effects.
 
 %This work is organized into four sections.
 This work is organized into three subsequent sections.
@@ -191,8 +258,8 @@ particle-particle Tamm-Dancoff approximation to relativistic Hamiltonians.
 molecular dynamics through the application of the particle-particle Tamm-Dancoff
 approximation to the trajectory surface hopping method.  Finally,
 \cref{sec:Future} outlines my plan for future development in the field of
-electronic structure and dynamics in the relativistic treatment of non-adiabatic
-phenomena in molecular systems.
+electronic structure and dynamics in the relativistic treatment of adiabatic and
+non-adiabatic phenomena in molecular systems.
 
 %\section{The Chebyshev Expansion of the Quantum Propagator}
 %\label{sec:Chebyshev}
