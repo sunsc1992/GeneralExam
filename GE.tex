@@ -88,7 +88,7 @@ function, $\ket{\Psi (t)}$ is governed by the Hamiltonian wave equation
 \label{eq:WaveEq}
 \end{equation}
 where $\mathscr{H}(t)$ is the time--dependent Hamiltonian and $\partial_t$ is a
-partial derivative with respect to time, and $t$ is a time variable. We have
+partial derivative with respect to time, and $t$ is a time parameter. We have
 adopted the standard description of the wave function as a state vector rather
 than an explicit function of coordinates. The moieties enclosed in parentheses
 are taken to be parameters, i.e. the wave function is parameterized by time.
@@ -156,18 +156,19 @@ expansion in such a way that all of the relevant physics is maintained while
 extraneous information may be discarded. Such methods as complete active space
 (CAS), coupled cluster (CC), multireference configuration interaction (MRCI),
 density matrix renormalization group (DMRG), particle--particle propagator
-methods (pp-RPA/TDA), and truncated CI methods may all be described, at their
-core, as algorithms to provide such a filtering of the physically relevant
-determinants of the CI expansion. While each of these methods have their faults
-and accolades, whether it be accuracy or computational burden, the future
+methods , and truncated CI methods may all be described, at their core, as
+algorithms to provide such a filtering of the physically relevant determinants
+of the CI expansion. While each of these methods have their faults and
+accolades, whether it be accuracy or computational burden, the future
 directions proposed in this work will primarily focus on CAS and MRCI methods,
-which will be explained further in \cref{sec:Future}, though the pp-RPA/TDA
-methods will be discussed to some extent in \cref{sec:pp-X2C,sec:pp-TSH}.
+which will be explained further in \cref{sec:Future}, though the
+particle--particle propagator methods will be discussed to some extent in
+\cref{sec:pp-X2C,sec:pp-TSH}.
 
 To properly treat the nuclear degrees of freedom, there exist a vast plethora
 of computational methods to treat the nuclear dynamics to varying degrees of
 accuracy. In the proposed work, I will restrict the discussion of these methods
-to only include those that are semiclassical. Semiclassical nuclear dynamics
+to only include those that are semi-classical. Semi-classical nuclear dynamics
 algorithms are those that treat the nuclear motion classically (by some variant
 of Newton's equations of motion) while maintaining a quantum description of the
 electronic degrees of freedom. That is to say that we may write the nuclear 
@@ -188,10 +189,10 @@ are due to the time dependence of the electrons. Thus it is usually a valid
 assumption that the nuclei time evolve classically relative to their electronic
 counterparts. That being said, there are cases in which the quantum evolution
 of the nuclei must be explicitly treated, such as tunneling in lighter atoms,
-in which these semiclassical methods will not suffice to capture the necessary
+in which these semi-classical methods will not suffice to capture the necessary
 physics.
 
-Within the semiclassical treatment of molecular dynamics, computational methods
+Within the semi-classical treatment of molecular dynamics, computational methods
 may be further classified as either adiabatic or non-adiabatic. Both of these
 classifications may be characterized by their treatment of the transversal of
 the manifold of energy eigenstates,
@@ -200,17 +201,17 @@ the manifold of energy eigenstates,
 \quad \forall t.
 \label{eq:EnergyEig}
 \end{equation}
-Where the index $I$ labels a particular energy eigenstate while $E_I$ represents
+Here the index $I$ labels a particular energy eigenstate while $E_I$ represents
 the energy eigenvalue of that state. We will assume that $E_I(t)$ is a smooth
 function of $t$ for the sake simplicity. Adiabatic time evolution is rooted in
 the adiabatic theorem in that, given an initial state that exists as an energy
-eigen state of $\mathscr{H}(0)$, $\ket{\Psi_I(0)}$, at some time $t' > 0$ in the
+eigenstate of $\mathscr{H}(0)$, $\ket{\Psi_I(0)}$, at some time $t' > 0$ in the
 future, the quantum system will remain in an eigenstate of the
 \emph{corresponding} eigenstate of $\mathscr{H}(t')$, $\ket{\Psi_I(t')}$. In
 order for this approximation to be valid (although it can be proven that this
 assumption is a best an approximation while an exact adiabatic time evolution
 cannot exist unless the quantum system does not time-evolve), it is a
-necessary and sufficient condition that the individual energy eigen states do
+necessary and sufficient condition that the individual energy eigenstates do
 not couple though the time-derivative operator,
 \begin{equation}
 \innerop{\Psi_I(t)}{\partial_t}{\Psi_J (t)}
@@ -221,7 +222,7 @@ not couple though the time-derivative operator,
 \Cref{eq:AdiabaticNAC} may be interpreted as an inability to transport
 information between energy eigenstates within the adiabatic approximation and
 thus the inability to leave said eigenstate throughout the time--evolution.  In
-the field of \emph{ab initio} semiclassical dynamics, the workhorses of
+the field of \emph{ab initio} semi-classical dynamics, the workhorses of
 adiabatic time evolution are Born--Oppenheimer  (BOMD) and Car--Parinello (CPMD)
 molecular dynamics. In the proposed work, I will primarily focus on the BOMD
 method as a choice for adiabatic time--evolution which will be discussed in
@@ -235,17 +236,22 @@ that of the trajectory surface hopping (TSH) method which will be discussed at
 some length in \cref{sec:pp-TSH,sec:Future}.
 
 Recent years have also seen new developments in the realm of relativistic
-quantum chemistry.  Relativistic effects, while often neglected in most standard
-treatment of electronic structure, can have profound consequences in chemical
-systems.\cite{Pyykko12_45} Scalar relativistic effects cause the contraction of
-the core electron shells of heavy atoms, but perhaps of even more consequence is
-the introduction of spin couplings in the Hamiltonian.  Spin-spin and spin-orbit
-interactions can affect the electronic spin dynamics even in light atoms, and a
-direct consequence of these couplings on excited states is the loss of
-degeneracies of spin-eigenstates, giving rise to fine structure splittings (FSS)
-in atoms and molecules with symmetry-induced degeneracies. It is therefore
-desirable to develop accurate and cost-effective relativistic electronic
-structure methods able to model such effects.
+quantum chemistry.  Relativistic effects, while often neglected in most
+standard treatment of electronic structure, can have profound consequences in
+chemical systems.\cite{Pyykko12_45} Scalar relativistic effects cause the
+contraction of the core electron shells of heavy atoms, but perhaps of even
+more consequence is the introduction of spin couplings in the Hamiltonian.
+Spin-spin and spin-orbit interactions can affect the electronic spin dynamics
+even in light atoms, and a direct consequence of these couplings on excited
+states is the loss of degeneracies of spin-eigenstates, giving rise to fine
+structure splittings (FSS) in atoms and molecules with symmetry-induced
+degeneracies. While much work has gone into the relativistic treatment of the
+mean--field description of ground state electronic structure, far less has been
+applied to the treatement of excited states.  In the proposed work, I plan to
+further my previous extension of perturbatively correlated excited state
+methods to two--component relativistic Hamiltonians\cite{DBWY16_Accepted1} to
+the far more accurate methods of CAS and MRCI.
+
 
 %This work is organized into four sections.
 This work is organized into three subsequent sections.
@@ -254,9 +260,11 @@ This work is organized into three subsequent sections.
 %in real-time density functional theory.
 \cref{sec:pp-X2C} focuses on my recent work of the extension of the
 particle-particle Tamm-Dancoff approximation to relativistic Hamiltonians.
+\cite{DBWY16_Accepted1}
 \cref{sec:pp-TSH} describes my contribution to semi-classical non-adiabatic
 molecular dynamics through the application of the particle-particle Tamm-Dancoff
-approximation to the trajectory surface hopping method.  Finally,
+approximation to the trajectory surface hopping method.\cite{DBWY16_Submitted1},  
+Finally,
 \cref{sec:Future} outlines my plan for future development in the field of
 electronic structure and dynamics in the relativistic treatment of adiabatic and
 non-adiabatic phenomena in molecular systems.
