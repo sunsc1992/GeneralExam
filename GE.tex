@@ -75,9 +75,7 @@ in nanocrystalline materials, molecular dynamics lies at the heart of chemistry.
 As such, to properly model these phenomena theoretically, we must often venture
 into the time-domain to capture the physics necessary to completely understand
 the problem at hand. As such, this task constitutes a primary focus of modern
-\emph{ab initio} quantum molecular theory. \textbf{In this work, I will outline
-my proposed research to accurately simulate \emph{ab initio} relativistic
-molecular dynamics using correlated multi--configurational wave functions}.
+\emph{ab initio} quantum molecular theory. 
 
 In the quantum mechanical description of molecular systems, neglecting explicit
 coupling to a quantized photon field, time evolution of the total molecular wave
@@ -87,16 +85,17 @@ function, $\ket{\Psi (t)}$ is governed by the Hamiltonian wave equation
 \mathscr{H}(t) \ket{\Psi (t)} = i\partial_t \ket{\Psi(t)} \quad,
 \label{eq:WaveEq}
 \end{equation}
-where $\mathscr{H}(t)$ is the time--dependent Hamiltonian and $\partial_t$ is a
+where $\mathscr{H}(t)$ is the time--dependent Hamiltonian, $\partial_t$ is a
 partial derivative with respect to time, and $t$ is a time parameter. We have
 adopted the standard description of the wave function as a state vector rather
 than an explicit function of coordinates. The moieties enclosed in parentheses
-are taken to be parameters, i.e. the wave function is parameterized by time.
-In principle, one may solve \cref{eq:WaveEq} simultaneously for both the 
-electronic and nuclear degrees of freedom explicitly. This approach is, however,
-intractable for quantum systems exceeding more than a few particles. To simplify
-the solutions of \cref{eq:WaveEq}, one may formally decompose $\ket{\Psi (t)}$
-into a product of nuclear and electronic wave functions,
+are taken to be parameters, i.e. the wave function is parameterized by time.  In
+principle, one may solve (in some approximate manner) \cref{eq:WaveEq}
+simultaneously for both the electronic and nuclear degrees of freedom
+explicitly. This approach is, however, intractable for quantum systems exceeding
+more than a few particles. To simplify the solutions of \cref{eq:WaveEq}, one
+may formally decompose $\ket{\Psi (t)}$ into a product of nuclear and electronic
+wave functions,
 \begin{equation} 
 \ket{\Psi (t)} = \ket{\Phi(\vc{R}(t),t)}\otimes\ket{\Theta(t)} 
 \quad .  
@@ -115,15 +114,15 @@ the nuclear position operator, $\vc{R}(t) =
 separation of the total molecular wave function in \cref{eq:exactSepElecNuc} is
 formally exact\cite{Gross10_PRL123002, Cederbaum08_JCP124101} without loss of
 generality in the non-relativistic treatment of quantum mechanics. Even so, the
-equations of motion for the time dependence of \cref{eq:exactSepElecNuc} are
+equations of motion for the time evolution of \cref{eq:exactSepElecNuc} are
 wildly complicated\cite{Ghosh15_MP1} and would only be practical for molecules
 consisting of a few atoms.  Nevertheless, this explicitly exact treatment allows
-one to, in principle, bifurcate the treatment of quantum molecular dynamics into
-explicit treatment of the electronic and nuclear time dependence separately.
-Thus, in order to theoretically treat molecular dynamics accurately, one must be
-able to treat both the electronic and nuclear degrees of freedom to some level
-of accuracy.  This separation will be the underlying principle of the future
-directions that I propose in this work.
+one to, at least in in principle, bifurcate the treatment of quantum molecular
+dynamics into explicit treatment of the electronic and nuclear time dependence
+separately.  Thus, in order to theoretically treat molecular dynamics
+accurately, one must be able to treat both the electronic and nuclear degrees of
+freedom to some level of accuracy.  This separation will be the underlying
+principle of the future directions that I propose in this work.
 
 Over the years, perhaps the most successful \emph{ab initio} treatment of the
 electronic degrees of freedom of the total wave function has been in the
@@ -131,39 +130,39 @@ configuration interaction (CI) expansion of the electronic wave function. In the
 CI expansion, the exact electronic wave function is written as a linear
 combination of Slater determinants,
 \begin{equation}
-\ket{\Phi (\vc{R}(t),t)} = \sum_i  \ket{\psi_i (\vc{R}(t),t)} c_i(t)
+\ket{\Phi (\vc{R}(t),t)} = \sum_{\alpha \in \{\phi_p \}}  
+  \ket{\psi_\alpha (\vc{R}(t),t)} c_\alpha(t)
 \quad ,
 \label{eq:CIExp}
 \end{equation}
-where $\left\lbrace\ket{\psi_i}\right\rbrace$ is a set of Slater determinantal
-electronic wave functions and $\left\lbrace c_i \right\rbrace$ is a set of
-expansion coefficients.  In principle, the above expansion is exact given that
-all possible electronic configurations are included. Given that each of the
-Slater determinants is written as a linear combination of single particle Fock
-states, $\left\lbrace \phi_p \right\rbrace$, hereafter referred to as
-\emph{molecular orbitals}, there are a total of $\mathcal{C}(N,K)$ possible
-determinants that would need to be included in the expansion, where $N$ and $K$
-are the total number of electrons and the number of molecular orbitals in
-$\left\lbrace \phi_p \right\rbrace$, respectively. Such an exhaustive expansion
-is called \emph{full configuration interaction} (FCI) and is rendered
-impractical for the majority of systems due to the rapid growth of the total
-number of required Slater determinants.
+where $\left\lbrace\ket{\psi_\alpha}\right\rbrace$ is a set of Slater
+determinantal electronic wave functions, $\left\lbrace c_\alpha \right\rbrace$
+is a set of expansion coefficients, and $\left\lbrace \phi_p \right\rbrace$ is a
+set of single--particle Fock states, hereafter referred to as \emph{molecular
+orbitals} (MO).  In principle, the above expansion is exact given that all
+possible electronic configurations are included. Given that each of the Slater
+determinants is written as a linear combination of MOs, there are a total of
+$\mathcal{C}(N,K)$ possible determinants that would need to be included in the
+expansion, where $N$ and $K$ are the total number of electrons and the
+cardinaliy of $\left\lbrace \phi_p \right\rbrace$, respectively. Such an
+exhaustive expansion is called \emph{full configuration interaction} (FCI) and
+is rendered impractical for the majority of systems due to the rapid growth of
+$\mathcal{C}(N,K)$.
 
 In practice, we  must restrict which Slater determinants we include in
 \cref{eq:CIExp}. As a result, a vast proportion of research in the field of
 electronic structure theory has been centered on the proper way to restrict the
 expansion in such a way that all of the relevant physics is maintained while
 extraneous information may be discarded. Such methods as complete active space
-(CAS), coupled cluster (CC), multireference configuration interaction (MRCI),
-density matrix renormalization group (DMRG), particle--particle propagator
-methods , and truncated CI methods may all be described, at their core, as
-algorithms to provide such a filtering of the physically relevant determinants
-of the CI expansion. While each of these methods have their faults and
-accolades, whether it be accuracy or computational burden, the future
-directions proposed in this work will primarily focus on CAS and MRCI methods,
-which will be explained further in \cref{sec:Future}, though the
-particle--particle propagator methods will be discussed to some extent in
-\cref{sec:pp-X2C,sec:pp-TSH}.
+(CAS), multireference configuration interaction (MRCI), density matrix
+renormalization group (DMRG), particle--particle propagator methods , and
+truncated CI methods may all be described, at their core, as algorithms to
+provide such a filtering of the physically relevant determinants of the CI
+expansion. While each of these methods have their faults and accolades, whether
+it be accuracy or computational burden, the future directions proposed in this
+work will primarily focus on CAS and MRCI methods, which will be explained
+further in \cref{sec:Future}, though the particle--particle propagator methods
+will be discussed to some extent in \cref{sec:pp-X2C,sec:pp-TSH}.
 
 To properly treat the nuclear degrees of freedom, there exist a vast plethora
 of computational methods to treat the nuclear dynamics to varying degrees of
@@ -245,37 +244,198 @@ Spin-spin and spin-orbit interactions can affect the electronic spin dynamics
 even in light atoms, and a direct consequence of these couplings on excited
 states is the loss of degeneracies of spin-eigenstates, giving rise to fine
 structure splittings (FSS) in atoms and molecules with symmetry-induced
-degeneracies. While much work has gone into the relativistic treatment of the
-mean--field description of ground state electronic structure, far less has been
-applied to the treatement of excited states.  In the proposed work, I plan to
-further my previous extension of perturbatively correlated excited state
-methods to two--component relativistic Hamiltonians\cite{DBWY16_Accepted1} to
-the far more accurate methods of CAS and MRCI.
+degeneracies. This degeneracy breaking allows for eigenstates of
+\cref{eq:EnergyEig} with differing spin symmetry to couple in ways that are
+inaccessible though non--relativisitc treatments.
+%While much work has gone into the relativistic treatment of the
+%mean--field description of ground state electronic structure, far less has been
+%applied to the treatement of excited states.
+\textbf{In this work, I will outline my proposed research to accurately simulate
+\emph{ab initio} relativistic molecular dynamics using correlated
+multi--configurational wave functions}.  
+A brief review of the necessary theory for the two--component relativisitc
+Hamiltonian that I will later apply to CAS and MRCI wave functions will be given
+in \cref{sec:X2C}. I believe this be the the natural progression from my previous
+extension of perturbatively correlated excited state methods to two--component
+relativistic Hamiltonians\cite{DBWY16_Accepted1} (\cref{sec:pp-X2C}), as well as
+my work in the field of TSH\cite{DBWY16_Submitted1} (\cref{sec:pp-TSH}). 
 
 
-%This work is organized into four sections.
-This work is organized into three subsequent sections.
-%\cref{sec:Chebyshev} details the work I've contributed to accelerating
-%electronic dynamics through the Chebyshev expansion of the quantum propagator
-%in real-time density functional theory.
-\cref{sec:pp-X2C} focuses on my recent work of the extension of the
-particle-particle Tamm-Dancoff approximation to relativistic Hamiltonians.
-\cite{DBWY16_Accepted1}
-\cref{sec:pp-TSH} describes my contribution to semi-classical non-adiabatic
-molecular dynamics through the application of the particle-particle Tamm-Dancoff
-approximation to the trajectory surface hopping method.\cite{DBWY16_Submitted1},  
-Finally,
-\cref{sec:Future} outlines my plan for future development in the field of
-electronic structure and dynamics in the relativistic treatment of adiabatic and
-non-adiabatic phenomena in molecular systems.
+%This work is organized into four subsequent sections.
+%\Cref{sec:X2C} will breifly review the necessary theory for the two--component
+%relativistic Hamiltonian that I will later apply to CAS and MRCI wave functions.
+%\Cref{sec:pp-X2C} focuses on my recent work of the extension of the
+%particle-particle Tamm-Dancoff approximation to relativistic Hamiltonians.
+%\cite{DBWY16_Accepted1}
+%\Cref{sec:pp-TSH} describes my contribution to semi-classical non-adiabatic
+%molecular dynamics through the application of the particle-particle Tamm-Dancoff
+%approximation to the trajectory surface hopping method.
+%Finally,
+%\Cref{sec:Future} outlines my plan for future development in the field of
+%electronic structure and dynamics in the relativistic treatment of adiabatic and
+%non-adiabatic phenomena in molecular systems.
+In the following  I will use indices $i,j,\dots$ to refer to occupied MOs,
+$a,b,\dots$ to refer to virtual MOs, and $p,q,\dots$ to refer to any orbital
+regardless of occupancy.  All MOs are expanded in terms of real atomic-orbitals
+(AO).
 
 %\section{The Chebyshev Expansion of the Quantum Propagator}
 %\label{sec:Chebyshev}
 
+\section{The Exact Two-Component Method}
+\label{sec:X2C}
+In the relativistic treatment of quantum molecular systems, the Hamiltonian
+of interest is that of the Dirac Hamiltonian,
+\begin{equation}
+\mathscr{H}_D = 
+\begin{pmatrix}
+  V \otimes \vc{I}_2 && c \text { } p^k \otimes \vc{\sigma}_k \\
+  c \text { } p^k \otimes \vc{\sigma}_k && (V - 2mc^2) \otimes \vc{I}_2
+\end{pmatrix} \quad ,
+\label{eq:DiracHam}
+\end{equation}
+which describes the relativistic behaviour of a single electron (fermion) in the
+presence of a scalar potential $V$. Here, $V$ collects all scalar potential
+terms, $\vec{p}$ is the momentum operator (acting as an internal vector
+potential), $\vec{\vc{\sigma}}$ is a vector whose elements are the Pauli
+matricies, and $\vc{I}_2$ is the 2x2 identity matrix. The implicit parametric
+depencence on time has been dropped for brevity. The fact that this is a single
+particle operator is quite concequential in the relativistic treatment of
+molecules in that $\mathscr{H}_D$ describes the mean-field quantum nature of a
+single electron in the presence of the $N-1$ other electrons and the nuclei
+(encapsulated in $V$). This is due to the fact that, in general, a Lorentz
+invariant many--body Dirac equation does not exist if the Coulomb interaction is
+taken to be the interaction potential between charges particles. In this work I
+will not be explicitly taking into account relativistic retardation effects,
+hence this treatment is not completely relativistic. This treatment does,
+however, contain the chemically relevant relativistic effects such as
+spin--orbit and spin--spin coupling as well as scalar relativistic effects.
+
+From the matrix representation of $\mathscr{H}_D$, it is clear to see that it
+acts upon a four--dimensional Hilbert space known as a bispinor field ,
+$\ket{\Phi^{4c}}$, whos components are themselves two--dimensional,
+\begin{equation}
+\ket{\Phi^{4c}} = \begin{pmatrix}
+ \ket{\Phi_L} \\ \ket{\Phi_S}
+\end{pmatrix} \quad.
+\end{equation}
+Here, $\ket{\Phi_L}$ and $\ket{\Phi_S}$ are the so--called large and small
+components of the bispinor respectively, and are both two--dimensional in the
+spin manifold (i.e. spinors).
+
+Although it is possible, in principle, to obtain the eigenstates of 
+\cref{eq:DiracHam} directly, it as often advantageous from a practical as well
+as aesthetic perspective to transfrom the full four component relativistic
+equations into a decoupled two component form. This is often convientient as the
+resulting expressions closely resemble those found in standard electronic
+structure theory and therefore allow the employment of standard electronic
+structure methods with only minor modifications. In general, such a
+transformation takes the form of a unitary operator, $\mathscr{U}$, such that
+\begin{equation}
+\mathscr{U}: 
+\mathscr{H}_D \mapsto \begin{pmatrix}
+\mathscr{H}_+ && \vc{0}_2 \\ \vc{0}_2 && \mathscr{H}_- 
+\end{pmatrix} \quad \text{ and } \quad
+\ket{\Phi^{4c}} \mapsto \begin{pmatrix}
+ \ket{\Phi^{2c}} \\ \vc{0}_2
+\end{pmatrix} \quad.
+\end{equation}
+Thus making the transformed $\ket{\Phi^{2c}}$ an eigenstate of $\mathscr{H}_+$.
+The transformation under $\mathscr{U}$, in effect, folds the contributions from
+the small component of the wavefuction into the large components. In principle,
+such a transformation is exact if a proper $U$ may be found. It is the case
+that such an exact transformation is not practical to obtain due to the
+effective many--body $V$, thus approximate decoupling schemes must be developed.
+Several decoupling schemes have been explored in recent years, but in this work
+I will only emply the use of the ``exact" two--component (X2C) method, for which
+the exact details may be found elsewhere.
+
+Using the X2C transformation method, we are able to obtain a total effecting
+two--component Hamiltonian, which may be written in second quantized form,
+\begin{equation}
+\mathscr{H}_\mathrm{X2C} = h_{pq}^\mathrm{X2C}c_p^\dagger c_q + 
+  \frac{1}{2} \inner{pq}{rs} c_p^\dagger c_r^\dagger c_s c_q + V_\mathrm{NN}
+  \label{eq:X2CHam}
+\end{equation}
+where $c_p$ and $c_p^\dagger$ are single spinor particle annihilation and
+creation operators respectively. $\vc{h}^\mathrm{X2C}$ is the effective
+relativistic core--Hamiltonian which includes both spin--orbit and scalar
+relativistic effects, $\inner{\cdot}{\cdot}$, is the Coulomb operator expressed
+in the basis of spinor MOs and $V_\mathrm{NN}$ is the nuclear--nuclear repulsion
+energy. Expressing \cref{eq:X2CHam} in basis of a single Slater determinant and
+expanding each spinor MO in the AO basis ($\lbrace \chi_\mu \rbrace$),
+\begin{equation}
+\phi_p ( \vc{r} ) = \sum_\mu \chi_\mu(\vc{r}) C_{\mu p}
+\qquad
+C_{\mu p} = \begin{pmatrix}
+C_{\mu p}^\alpha \\ C_{\mu p}^\beta
+\end{pmatrix}
+\quad , \label{eq:AO2MO}
+\end{equation}
+we arrive at a relativisitc two--component analouge of the Roothaan--Hall
+equations familiar to traditional mean--field electronic structore theory,
+\begin{align}
+&\frac{1}{2}\left(
+  F^S_{\mu\nu} \cdot \vc{I}_2 + F^k_{\mu\nu} \cdot \vc{\sigma_k}
+\right) C_{\nu p} = (S_{\mu\nu}\cdot \vc{I}_2) C_{\nu p}
+\epsilon_p\label{eq:Roothaan}\\
+\nonumber \\
+&F^S_{\mu\nu} = \left(
+  2\left( \mu\nu \vert \kappa\lambda \right) - 
+  \left(  \mu\lambda \vert \kappa\nu \right) 
+\right) P^S_{\lambda \kappa} \nonumber \\
+&F^k_{\mu\nu} = -\left(  \mu\lambda \vert \kappa\nu \right) P^k_{\lambda \kappa}\\
+\nonumber \\
+&\vc{P}^S = \frac{1}{2}\mathrm{Tr}_\sigma (\vc{P}\vc{I}_2) \nonumber \\
+&\vc{P}^k = \frac{1}{2}\mathrm{Tr}_\sigma (\vc{P}\vc{\sigma}_k)
+\label{eq:traceRel}\\
+&P_{\mu\nu} = C_{\mu i} C_{\nu i}^\dagger \nonumber
+\end{align}
+Here, $\vc{S}$ is the AO overlap matrix, and $(\cdot \vert \cdot)$ is the
+Coulomb operator in the AO basis. $\{\epsilon_p\}$ is the set of MO
+eigenenergies. $\vc{F}^S$,$\vc{F}^k$ and $\vc{P}^S,\vc{P}^k$ are the scalar and
+vector parts of the spinor Fock and density matricies in the AO basis
+respectively, and are related to the full spinor operators in terms of the spin
+trace, $\mathrm{Tr}_\sigma$, relations of \cref{eq:traceRel}. Is important to
+note that $C_{\mu p} \in \mathbb{C}^2$ (where the $\alpha$ and $\beta$ incidies
+represent inseperable spin-up and spin-down components of $C_{\mu p}$), thus the
+total spinor density (and thus the spinor Fock) are 2x2 complex matricies.
+\Cref{eq:Roothaan} may be solved self--consistantly to obtain the lowest energy
+(single) Slater determinantal description of the many--body system.
 % Relativistic pp-TDA
 \section{The Relativistic Particle-Particle Tamm-Dancoff Approximation}
 \label{sec:pp-X2C}
 
+The ability to accurately predict and characterize the electronically excited
+states of molecular systems is paramount to a complete understanding of many
+chemical phenomena. As such, excited states are the central focus of many
+fields of physical chemistry, most prominent being that of spectroscopy. Due to
+this centralized importance and the need to efficiently and accurately predict
+excited states properties, much  effort has been devoted over the years towards
+the modeling of excitation energies and oscillator strengths.
+
+Recently, the particle-particle random phase approximation (pp-RPA) and
+Tamm-Dancoff approximation (pp-TDA), which have been standard trade tools of
+the nuclear physics community in the treatment of the many--body correlation
+energy for low matter density systems\cite{SchuckBook_04}, have been extended
+to the treatment the correlation energy and excitation energies of quantum
+molecular systems within a finite basis set.\cite{Yang13_224105,Yang13_18A522,
+Yang13_174110,Yang13_104112,Yang13_030501,Yang09_066403,Bulik13_104113}.
+Although this introduction into the quantum chemistry community in relatively
+recent, a wealth of effort has been afforded to the rigorous investigation of
+these methods in a variety of different contexts, involving the evaluation of
+excitation energies\cite{Yang13_224105,Yang13_18A522,Yang13_174110}, excited
+state properties and geometry optimizations\cite{Yang15_1025}, and the
+treatment of non-adiabatic phenomena such as non-adiabatic
+dynamics\cite{DBWY16_Submitted1,Liu14_244105}  and the description of conical
+intersections\cite{Yang16_2407}.
+
+I have recently extended the pp-TDA to relativistic and non--relativistic
+two--component Hamiltonians\cite{DBWY16_Accepted1} to accurately compute the
+FSS of a variety of atomic and molecular systems. In this work, I will briefly
+review the two--component tranformation for that I will later apply to CAS and
+MRCI wavefunctions and further present the FSS results obtained in my previous
+work.  
 
 % TSH with pp-TDA
 \section{Trajectory Surface Hopping within the Particle-Particle Tamm-Dancoff Approximation}
@@ -286,5 +446,5 @@ Test\cite{DBWY16_JCTC935,DBWY16_Accepted1,DBWY16_Submitted1,DBWY16_Submitted2}
 \section{Future Directions: Relativistic Electronic Dynamics with Multi-Configurational Wave Functions}
 \label{sec:Future}
 
-\bibliography{Journal_Short_Name,ppSH,Li_Group_References,GE,DBWY}
+\bibliography{Journal_Short_Name,ppSH,Li_Group_References,GE,DBWY,Egidi_References}
 \end{document}
