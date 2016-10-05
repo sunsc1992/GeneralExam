@@ -10,7 +10,9 @@
 \usepackage{setspace}            % for 1.5 and double spacing
 \usepackage{graphicx}            % main graphics package
 \usepackage{wrapfig}             % allow text wrapping around figures
-\doublespacing
+\usepackage{subcaption}
+%\doublespacing
+\linespread{1.5}
 
 \usepackage{appendix}
 
@@ -25,6 +27,10 @@
 \Crefname{section}{Section}{Sections}
 \crefname{appsec}{appendix}{appendices}
 \Crefname{appsec}{Appendix}{Appendixes}
+
+%\usepackage{titlesec}
+%\titleformat*{\section}{\Large\bfseries}
+%\titleformat*{\subsection}{\large\bfseries}
 
 % Mathematical Shortcuts
 \newcommand{\pfrac}[2]{\frac{\partial #1}{\partial #2}}   % partial derivative
@@ -79,7 +85,7 @@ necessary to completely understand the problem at hand. As such, this task
 constitutes a primary focus of modern \emph{ab initio} quantum molecular theory.
 {\bf
 Although much work has gone into the field of \emph{ab initio} molecular
-dyanmics, the scope of inquiry has been primarily limited to a non--relativistic
+dynamics, the scope of inquiry has been primarily limited to a non--relativistic
 regime.
 }
 
@@ -97,9 +103,9 @@ intersystem crossing (ISC) and internal conversion. Although some approaches
 have been purposed to account for SOC in the electronic manifold
 perturbatively\cite{Thiel14_JCP124101}, these approximation will break down
 whenever SOC is non--negligible. Hence a variational approach much be adopted to
-accrount for these interactions in the general case.  Thus to accurately treat
-these inheriently relativistic and dynamical phenomena theoretically, one must
-provide an \emph{ab initio} description of the relativistic effects thoughout
+account for these interactions in the general case.  Thus to accurately treat
+these inherently relativistic and dynamical phenomena theoretically, one must
+provide an \emph{ab initio} description of the relativistic effects throughout
 the time--evolution of the quantum system.  
 {\bf 
 In this work, I will outline my proposed research to accurately simulate
@@ -154,10 +160,10 @@ principle of the future directions that I propose in this work.
 
 I believe that this proposed work is the natural progression from my previous
 works in the field the relativistic electronic structure
-theory\cite{DBWY16_Accepted1} and nonrelativistic non--adiabatic semiclassical
+theory\cite{DBWY16_Accepted1} and non-relativistic non--adiabatic semi-classical
 molecular dynamics.\cite{DBWY16_JCTC935,DBWY16_Submitted1} In the following, I
-will present a brief overeview of the necessary theory for treatment of
-non--adiabatic semiclassical dynamics (\cref{sec:TSH}) and the relativistic
+will present a brief overview of the necessary theory for treatment of
+non--adiabatic semi-classical dynamics (\cref{sec:TSH}) and the relativistic
 Hamiltonian (\cref{sec:X2C}) which will be used throughout this work.
 In \cref{sec:pp-X2C,sec:pp-TSH}, I will briefly recall my advances in relevant
 fields and how they interconnect to my proposed research.  Finally,
@@ -181,20 +187,22 @@ often advantageous to work in so called adiabatic basis (the eigenstates of
 \label{eq:EigSpec}
 \end{equation}
 where $\ket{\Psi_I}$ and $E_I$ represent the $I$-th adiabatic wave function and
-eigenenergie, respoectively. For the purposes of the current discussion, we will
+eigenenergie, respectively. For the purposes of the current discussion, we will
 be assuming a discrete eigenspectrum of the Hamiltonian that is smooth over $t$.
 Taking the separating of the total wave function in \cref{eq:exactSepElecNuc},
-we may rewrite the total wave function as a linear combitnation of adiabatic
+we may rewrite the total wave function as a linear combination of adiabatic
 states,
 \begin{equation}
 \ket{\Psi (t)} = c_I \ket{\Phi_I (\vc{R}(t),t)} \otimes \ket{\Theta_I (t)}
 \quad ,
 \label{eq:AdiaExp}
 \end{equation}
-where $\{ c_I \}$ is a set of expansion coefficients.  Given the entire
-eigenspectrum of \cref{eq:EigSpec}, the expansion in \cref{eq:AdiaExp} is
-formally exact, thus the problem now becomes how to properly obtain the adiabtic
-electronic and nuclear wave functions.
+where $\{ c_I \}$ is a set of expansion coefficients, and $\{\ket{\Phi_I}\}$ and
+$\{\ket{\Theta_I}\}$ are the sets of electronic and nuclear adiabatic wave
+functions, respectively.. Given the entire eigenspectrum of \cref{eq:EigSpec},
+the expansion in \cref{eq:AdiaExp} is formally exact, thus the problem now
+becomes how to properly obtain the adiabatic electronic and nuclear wave
+functions.
 
 There exist a vast plethora of computational methods to treat the nuclear
 dynamics to varying degrees of accuracy. In the proposed work, I will restrict
@@ -205,9 +213,9 @@ maintaining a quantum description of the electronic degrees of freedom. That is
 to say that we may write the nuclear wave function as a product of delta
 functions centered at the classical nuclear positions,
 \begin{equation}
-\inner{\vc{R}}{\Theta (t)} = 
+\inner{\vc{R}}{\Theta_I (t)} = 
   \prod_{A = 0}^{N_\mathrm{atoms}} \delta^3(\vc{R} - \vc{R}_A(t))
-  \quad,
+  \quad \forall I,
   \label{eq:ClassicalNuclei}
 \end{equation}
 where $N_\mathrm{atoms}$ is the number of nuclei in the molecule.  This is
@@ -242,15 +250,63 @@ not couple though the time-derivative operator,
   \label{eq:AdiabaticNAC}
 \end{equation}
 \Cref{eq:AdiabaticNAC} may be interpreted as an inability to transport
-information between energy eigenstates within the adiabatic approximation and
-thus the inability to leave said eigenstate throughout the time--evolution.  It
-follows that non--adiabatic time evolution encompasses those methods which are
-able to transport information though the adiabatic manifold through terms such
-as \cref{eq:AdiabaticNAC}. By construction, adiabatic time evolution cannot
-capture phenomena such as ISC or internal conversion as they are inheriently
-dependant on the ability to trasport information through the adiabatic manifold.
-Thus, in this work, I will only consider methods which are both semiclassical
-and non--adiabatic.
+information between energy eigenstates through the so--called non--adiabatic
+coupling (NAC) matrix elements within the adiabatic approximation and thus the
+inability to leave said eigenstate throughout the time--evolution.  It follows
+that non--adiabatic time evolution encompasses those methods which are able to
+transport information though the adiabatic manifold through terms such as
+\cref{eq:AdiabaticNAC}. By construction, adiabatic time evolution cannot capture
+phenomena such as ISC or internal conversion as they are inherently dependent
+on the ability to transport information through the adiabatic manifold.  Thus, in
+this work, I will only consider a method which is both semi-classical and
+non--adiabatic.
+
+
+Trajectory surface-hopping (TSH) is one of the most widely applied methods for
+simulating electronically non-adiabatic dynamics of molecular and
+condensed-phase systems.\cite{Barbatti11_1759, Tavernelli14_62, Tully12_22A301,
+Tully98_407, Hynes14_97} At its core, TSH is a stochastic algorithm that
+controls which electronic state dictates the forces on the nuclei during a
+semi-classical molecular dynamics simulation.\cite{Preston71_562} As described in
+the seminal works on the method\cite{Tully98_407, Tully90_1061}, via insertion
+of \cref{eq:AdiaExp} into \cref{eq:WaveEq}, one may derive an approximate
+equation of motion for an electronic superposition state evolving along a
+classical nuclear trajectory,
+\begin{align}
+  &i  \dot{c}_K(t) = H_{KJ}(t) c_J(t) \label{eq:EOMCs} \\
+  &H_{KJ}(t) = \delta_{KJ}E_J(\vc{R}(t)) - i d_{KJ}^\xi (t) \dot{R}_{\xi}(t) \label{eq:HamiltonianElec} \\
+  &d_{KJ}^\xi = \innerop{\Phi_K(\vc{R}(t),t)}{\nabla^\xi}{\Phi_J(\vc{R}(t),t)} \label{eq:NAC}
+  \quad .
+\end{align}
+Here, $\vc{H}$ is the Hamiltonian expressed in the basis of electronic adiabatic
+states. The nuclear position time evolution is governed by Newtonian mechanics,
+\begin{equation}
+  -\nabla E_c(t) = \vc{m}\ddot{\vc{R}}(t) \label{eq:Newton}
+  \quad.
+\end{equation}
+While $E_J$ in \cref{eq:HamiltonianElec} represents an arbitrary energy
+eigenvalue of adiabat $J$, $E_c(t)$ ($c$ indicating ``current") from
+\cref{eq:Newton} is the electronic eigenenergy designated by the TSH algorithm
+to drive the nuclear evolution at time $t$.  $\vc{m}$ collects the masses for
+each nucleus, and $d_{IJ}^\xi$ is the rank-3 NAC tensor that provides an affine
+topological connection on the electronic manifold through the nuclear momentum
+operator. $\xi$ is an arbitrary nuclear coordinate.
+
+The representation of the separated equations of motion for the electronic and
+nuclear degrees of freedom in
+\cref{eq:EOMCs,eq:HamiltonianElec,eq:NAC,eq:Newton} are completely general to
+any method used to obtain the electronic adiabatic states. There have been many
+extensions of this methods to a vast number of different electronic structure
+methods. Recently, I have extended this method for use within the
+particle--particle Tamm--Dancoff approximation for the description of the
+electronic states\cite{DBWY16_Submitted1}, of which results are presented in
+\cref{sec:pp-TSH}. Although TSH has been applied to study ISC using perturbative
+approaches of accounting for SOC effects, I argue that this treatment is
+inherently flawed as the SOC that is argued to be so negligible as to be
+treated perturbatively is exactly the term that gives rise to the physical
+phenomena that they observe. To properly treat SOC in TSH, one must account for
+the SOC in a non--perturbative manner through an \emph{ab initio} treatment of
+some relativistic Hamiltonian.
 
 \section{The Exact Two-Component Method}
 \label{sec:X2C}
@@ -265,13 +321,13 @@ of interest is that of the Dirac Hamiltonian,
 \end{pmatrix} \quad ,
 \label{eq:DiracHam}
 \end{equation}
-which describes the relativistic behaviour of a single electron (fermion) in the
+which describes the relativistic behavior of a single electron (fermion) in the
 presence of a scalar potential $V$. Here, $V$ collects all scalar potential
 terms, $\vec{p}$ is the momentum operator (acting as an internal vector
 potential), $\vec{\vc{\sigma}}$ is a vector whose elements are the Pauli
-matricies, and $\vc{I}_2$ is the 2x2 identity matrix. The implicit parametric
-depencence on time has been dropped for brevity. The fact that this is a single
-particle operator is quite concequential in the relativistic treatment of
+matrices, and $\vc{I}_2$ is the 2x2 identity matrix. The implicit parametric
+dependence on time has been dropped for brevity. The fact that this is a single
+particle operator is quite consequential in the relativistic treatment of
 molecules in that $\op{H}_D$ describes the mean-field quantum nature of a
 single electron in the presence of the $N-1$ other electrons and the nuclei
 (encapsulated in $V$). This is due to the fact that, in general, a Lorentz
@@ -283,7 +339,7 @@ however, contain the chemically relevant relativistic effects such as
 SOC and  scalar relativistic effects.
 From the matrix representation of $\op{H}_D$, it is clear to see that it
 acts upon a four--dimensional Hilbert space known as a bispinor field ,
-$\ket{\Phi^{4c}}$, whos components are themselves two--dimensional,
+$\ket{\Phi^{4c}}$, whose components are themselves two--dimensional,
 \begin{equation}
 \ket{\Phi^{4c}} = \begin{pmatrix}
  \ket{\Phi_L} \\ \ket{\Phi_S}
@@ -295,8 +351,8 @@ spin manifold (i.e. spinors).
 
 Although it is possible, in principle, to obtain the eigenstates of
 \cref{eq:DiracHam} directly, it as often advantageous from a practical as well
-as aesthetic perspective to transfrom the full four component relativistic
-equations into a decoupled two component form. This is often convientient as the
+as aesthetic perspective to transform the full four component relativistic
+equations into a decoupled two component form. This is often convenient as the
 resulting expressions closely resemble those found in non--relativistic
 electronic structure theory and therefore allow the employment of standard
 electronic structure methods with only minor modifications. In general, such a
@@ -312,12 +368,12 @@ transformation takes the form of a unitary operator, $\op{U}$, such that
 \end{equation}
 Thus making the transformed $\ket{\Phi^{2c}}$ an eigenstate of $\op{H}_+$.
 The transformation under $\op{U}$, in effect, folds the contributions from
-the small component of the wavefuction into the large components. In principle,
+the small component of the wave function into the large components. In principle,
 such a transformation is exact if a proper $U$ may be found. It is the case
 that such an exact transformation is not practical to obtain due to the
 effective many--body $V$, thus approximate decoupling schemes must be developed.
 Several decoupling schemes have been explored in recent years, but in this work
-I will only emply the use of the ``exact" two--component (X2C) method, for which
+I will only employ the use of the ``exact" two--component (X2C) method, for which
 the exact details may be found elsewhere.
 
 Using the X2C transformation method, we are able to obtain a total effecting
@@ -342,43 +398,187 @@ C_{\mu p}^\alpha \\ C_{\mu p}^\beta
 \end{pmatrix}
 \quad , \label{eq:AO2MO}
 \end{equation}
-we arrive at a relativisitc two--component analouge of the Roothaan--Hall
-equations familiar to traditional mean--field electronic structore theory,
+we arrive at a relativistic two--component analogue of the Roothaan--Hall
+equations familiar to traditional mean--field electronic structure theory,
 \begin{align}
 &\frac{1}{2}\left(
   F^S_{\mu\nu} \cdot \vc{I}_2 + F^k_{\mu\nu} \cdot \vc{\sigma_k}
 \right) C_{\nu p} = (S_{\mu\nu}\cdot \vc{I}_2) C_{\nu p}
-\epsilon_p\label{eq:Roothaan}\\
-\nonumber \\
-&F^S_{\mu\nu} = \left(
-  2\left( \mu\nu \vert \kappa\lambda \right) - 
-  \left(  \mu\lambda \vert \kappa\nu \right) 
-\right) P^S_{\lambda \kappa} \nonumber \\
-&F^k_{\mu\nu} = -\left(  \mu\lambda \vert \kappa\nu \right) P^k_{\lambda \kappa}\\
-\nonumber \\
-&\vc{P}^S = \frac{1}{2}\mathrm{Tr}_\sigma (\vc{P}\vc{I}_2) \nonumber \\
-&\vc{P}^k = \frac{1}{2}\mathrm{Tr}_\sigma (\vc{P}\vc{\sigma}_k)
-\label{eq:traceRel}\\
-&P_{\mu\nu} = C_{\mu i} C_{\nu i}^\dagger \nonumber
+\epsilon_p\label{eq:Roothaan}
+%\\
+%\nonumber \\
+%&F^S_{\mu\nu} = \left(
+%  2\left( \mu\nu \vert \kappa\lambda \right) - 
+%  \left(  \mu\lambda \vert \kappa\nu \right) 
+%\right) P^S_{\lambda \kappa} \nonumber \\
+%&F^k_{\mu\nu} = -\left(  \mu\lambda \vert \kappa\nu \right) P^k_{\lambda \kappa}\\
+%\nonumber \\
+%&\vc{P}^S = \frac{1}{2}\mathrm{Tr}_\sigma (\vc{P}\vc{I}_2) \nonumber \\
+%&\vc{P}^k = \frac{1}{2}\mathrm{Tr}_\sigma (\vc{P}\vc{\sigma}_k)
+%\label{eq:traceRel}\\
+%&P_{\mu\nu} = C_{\mu i} C_{\nu i}^\dagger \nonumber
 \end{align}
-Here, $\vc{S}$ is the AO overlap matrix, and $(\cdot \vert \cdot)$ is the
-Coulomb operator in the AO basis. $\{\epsilon_p\}$ is the set of MO
+Here, $\vc{S}$ is the AO overlap matrix, 
+%and $(\cdot \vert \cdot)$ is the
+%Coulomb operator in the AO basis.
+and $\{\epsilon_p\}$ is the set of MO
 eigenenergies. $\vc{F}^S$,$\vc{F}^k$ and $\vc{P}^S,\vc{P}^k$ are the scalar and
-vector parts of the spinor Fock and density matricies in the AO basis
-respectively, and are related to the full spinor operators in terms of the spin
-trace, $\mathrm{Tr}_\sigma$, relations of \cref{eq:traceRel}. Is important to
-note that $C_{\mu p} \in \mathbb{C}^2$ (where the $\alpha$ and $\beta$ incidies
-represent inseperable spin-up and spin-down components of $C_{\mu p}$), thus the
-total spinor density (and thus the spinor Fock) are 2x2 complex matricies.
-\Cref{eq:Roothaan} may be solved self--consistantly to obtain the lowest energy
-(single) Slater determinantal description of the many--body system.
+vector parts of the spinor Fock and density matrices in the AO basis
+respectively, 
+%and are related to the full spinor operators in terms of the spin
+%trace, $\mathrm{Tr}_\sigma$, relations of \cref{eq:traceRel}. 
+Is important to note that $C_{\mu p} \in \mathbb{C}^2$ (where the $\alpha$ and
+$\beta$ indicies represent inseparable spin-up and spin-down components of
+$C_{\mu p}$), thus elements of the total spinor density (and thus the spinor
+Fock) are 2x2 complex matrices.  \Cref{eq:Roothaan} may be solved
+self--consistently to obtain the lowest energy (single) Slater determinantal
+description of the many--body system.
+
+The fact that one may write the X2C Hamiltonian in second quantized form makes it
+suitable for application to post--self consistent field descriptions of
+electronic correlation. Recently, I have extended the particle--particle
+Tamm--Dancoff approximation to X2C optimized wave functions to study the fine
+structure splittings in atomic and molecular systems, of which results are
+presented in \cref{sec:pp-X2C}.
 
 
+\linespread{1.0}
 \section{The Relativistic Particle-Particle Tamm-Dancoff Approximation}
+\linespread{1.5}
 \label{sec:pp-X2C}
+\linespread{1.0}
 \section{Trajectory Surface Hopping within the Particle-Particle Tamm-Dancoff Approximation}
+\linespread{1.5}
 \label{sec:pp-TSH}
+
+While TSH has seen much use since its inception, it is only tractable, if the
+electronic structure theory calculations required at each step in the numerical
+integration of the molecular equations of motion  can be reasonably afforded.  In an
+effort to enable simulation of larger systems, there has been a push recently to
+utilize low-scaling, single reference electronic structure methods in TSH
+dynamics studies.\cite{Lan15_1360,Rothlisberger07_023001,Li16_935} While TSH
+with single reference  methods is well-suited for describing non-radiative
+relaxation within the excited state
+manifold\cite{Subotnik14_4253,Barbatti14_1395}, most single reference  methods
+give a fundamentally flawed description of non-radiative processes that
+terminate via internal conversion to the ground electronic state.  Specifically,
+methods which represent the ground state by a single Slater determinant and the
+excited states as linear combinations of determinants give an incorrect topology
+for the ground and excited electronic energy surfaces in regions of the nuclear
+configuration space where they approach degeneracy.\cite{Massimo14_3074,
+Martinez06_1039} Symmetry-mandated intersections in the ground and excited
+states' potential energy surfaces (PES's) can be absent with single reference
+methods, so qualitatively incorrect timescales and mechanisms for ground state
+recovery processes  can be predicted.  My recent extension of TSH to the pp-TDA
+\cite{DBWY16_Submitted1} has shown that a proper treatment of the PES in the
+region of a conical intersection leads to qualitatively different results in
+the case of excited to ground state inter-conversion over single reference
+methods.
+
+\begin{figure}[h!]
+  \centering
+  \vspace{-0.5cm}
+  \begin{subfigure}[b]{0.40\textwidth}
+  \includegraphics[width=\textwidth]{gs_es_dercp} 
+  \caption{ }
+  \label{fig:gs_es_dercp}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.40\textwidth}
+  \includegraphics[width=\textwidth]{stacked_hops} 
+  \caption{ }
+  \label{fig:hops}
+  \end{subfigure}
+  \caption{\footnotesize (a) Potential energy surfaces for ground and excited
+  states, and the coupling strength between the two states with respect to the
+  dihedral angle in the vicinity of the minimum energy crossing point between
+  S$_0$ and S$_1$ from the pp-TDA (top frame) and CIS (bottom frame) approaches.
+  (b) Color maps showing the distribution of configurations at which hops from
+  S$_1$ to S$_0$ occur for the different initial velocities resolved at the
+  pp-TDA (top frame) and CIS (bottom frame) levels of theory (area in red box
+  magnified, after normalization, 1000$\times$ for visibility.)}
+\end{figure}
+
+To demonstrate the performance of the pp-TDA within TSH over single reference
+methods such as configuration interaction singles (CIS), we simulated the ground
+state recovery dynamics for a small iminium ion, H$_2$C=NH$_2^+$, known to
+readily photo-isomerize via a conical-intersection-mediated, non-radiative decay
+from S$_1$ to the ground state, S$_0$, using both the CIS and pp-TDA description
+of the adiabats. The important difference between the two methods is in an
+asymmetric treatment of electron correlation in the ground and excited states in
+the CIS, while the pp-TDA treats all of the states on the same footing. To
+ensure that our dynamics simulation transversed the conical intersection, we
+restricted the nuclear trajectories to the well--established isomerization
+coordinate of the dihedral rotation.  Potential energy surfaces and coupling
+strengths along the reaction coordinate are collected in \cref{fig:gs_es_dercp}. 
+There are several conditions for determining the presence of a conical
+intersection of PESs. A necessary and sufficient condition is the presence of a
+degeneracy as well as a spike in the NAC magnitude in the neighborhood of the
+proposed conical intersection (technically the NAC becomes undefined at the
+conical intersection which exists at exactly one point on the PES).
+It is clear to see that, via these conditions, the conical intersection along
+the isomerization coordinate is not captured in the CIS PES, while the pp-TDA
+exhibits the correct behavior.
+
+10$^6$ TSH trajectories for a series of 6 initial velocities were considered for
+each of the two electronic structure methods.  In all cases the electronic
+superposition was initialized as a pure (S$_1$) state, and the dihedral angle
+was chosen to be 87.5 degrees so that the dynamics are started in the upper
+state near to the region of strongest coupling. Relation profiles for the S$_1$
+to S$_0$ inter-conversion are given in the form of a heat plot in
+\cref{fig:hops}. There are two characteristics of dynamics in the neighborhood
+of conical intersections and are of interest in the relaxation
+profiles\cite{Hynes14_97}. First of which is, if the conical intersection is
+properly described, internal conversion from S$_1$ $\rightarrow$ S$_0$ should be
+localized near the conical intersection. This feature is clearly captured by
+the pp-TDA, while CIS suffers a broad relaxation profile that is qualitatively
+incorrect. This incorrect profile is due to the artificially early onset of the
+NAC along the isomerization coordinate which is a result of improper description
+of the conical intersection. The second feature that is important to point out
+is that, if the conical intersection is properly described, all of the classical
+nuclear trajectories should interconvert before the conical intersection. This
+feature is captured in the pp-TDA, even in the initial velocity limit. In the
+CIS simulation, a small portion of the trajectories hop at configuration past
+the conical intersection at the low initial velocity limit. This means that
+those trajectories transversed the conical intersection throughout the
+simulation. This qualitatively incorrect behavior would lead to
+uncharacteristically long relaxation rates over the pp-TDA.
+
+
+
+
+%Recently, the particle-particle random phase approximation (pp-RPA), a formalism
+%for many body correlation energy utilized in the development of modern nuclear
+%structure theories\cite{SchuckBook_04}, has been applied to molecular
+%systems.\cite{Yang13_030501,Yang13_arXiv1306}  The pp-RPA has also been
+%developed to describe the electronic excitation energies using the ground state
+%of $N$--2 systems as references.\cite{Yang15_1025} The pp-RPA based methods have
+%recently been shown to properly resolve the conical intersection seam between
+%the ground and first excited state of H$_3$ along the equilateral
+%configurations; a feat not matched by the analogous ph-RPA
+%methods.\cite{Yang16_2407} The fact that the pp-RPA methods are able to properly
+%predict the proper topology in regions of deneracy, they are well suited for
+%application to non--adiabatic dynamics.
+
+
+%To probe the effects of the mismatched treatment of the ground and excited
+%states provided by SR methods on the resulting mixed quantum/classical dynamics,
+%we simulated the  ground state recovery dynamics for a small iminium ion,
+%H$_2$C=NH$_2^+$, known to readily photo-isomerize via a
+%conical-intersection-mediated, non-radiative decay from S$_1$ to the ground
+%state, S$_0$, using both a ph-TDA(CIS) and pp-TDA description of the adiabats.
+%This is an ideal test case to demonstrate the advantage of the pp-TDA
+%description over the analogous ph-TDA.  Since the photoisomerization mechanism
+%for this species is well-established, a one-dimensional model potential along
+%the isomerization coordinate was chosen to reduce the dimensionality of the
+%problem and enforce that the nuclei traverse the conical intersection (or the
+%region where the  conical intersection should exist for the ph-TDA).
+
+
+
+
+\linespread{1.0}
 \section{Future Directions: Relativistic Electronic Dynamics with Multi-Configurational Wave Functions}
+\linespread{1.5}
 \label{sec:Future}
 
 \bibliography{Journal_Short_Name,ppSH,Li_Group_References,GE,DBWY,Egidi_References}
