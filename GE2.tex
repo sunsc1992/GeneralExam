@@ -545,38 +545,25 @@ those trajectories transversed the conical intersection throughout the
 simulation. This qualitatively incorrect behavior would lead to
 uncharacteristically long relaxation rates over the pp-TDA.
 
-
-
-
-%Recently, the particle-particle random phase approximation (pp-RPA), a formalism
-%for many body correlation energy utilized in the development of modern nuclear
-%structure theories\cite{SchuckBook_04}, has been applied to molecular
-%systems.\cite{Yang13_030501,Yang13_arXiv1306}  The pp-RPA has also been
-%developed to describe the electronic excitation energies using the ground state
-%of $N$--2 systems as references.\cite{Yang15_1025} The pp-RPA based methods have
-%recently been shown to properly resolve the conical intersection seam between
-%the ground and first excited state of H$_3$ along the equilateral
-%configurations; a feat not matched by the analogous ph-RPA
-%methods.\cite{Yang16_2407} The fact that the pp-RPA methods are able to properly
-%predict the proper topology in regions of deneracy, they are well suited for
-%application to non--adiabatic dynamics.
-
-
-%To probe the effects of the mismatched treatment of the ground and excited
-%states provided by SR methods on the resulting mixed quantum/classical dynamics,
-%we simulated the  ground state recovery dynamics for a small iminium ion,
-%H$_2$C=NH$_2^+$, known to readily photo-isomerize via a
-%conical-intersection-mediated, non-radiative decay from S$_1$ to the ground
-%state, S$_0$, using both a ph-TDA(CIS) and pp-TDA description of the adiabats.
-%This is an ideal test case to demonstrate the advantage of the pp-TDA
-%description over the analogous ph-TDA.  Since the photoisomerization mechanism
-%for this species is well-established, a one-dimensional model potential along
-%the isomerization coordinate was chosen to reduce the dimensionality of the
-%problem and enforce that the nuclei traverse the conical intersection (or the
-%region where the  conical intersection should exist for the ph-TDA).
-
-
-
+Although the pp-TDA has been shown to perform quite well in the proper treatment
+of excited to ground state interconversion, its use as a general tool is quite
+limited due to the presence of instabilities in the underlying reference
+determinent throughout the dynamics simulation. The reason for this is the fact
+that the reference determinant one that is optimized with respect to the ($N-2$)
+cation of the molecular system. In the case of the iminum ion, the ground state
+geometry is planar, while the conical intersection is located at the point where
+diheral of the two functional groups is at 90 degrees. In the case of the
+$N$-electron system, the ground state HF wave function is perfectly stable at
+the ground state, while there exists a triplet instability in the singlet HF
+wave function at the conical intersection. Interestingly, the exact opposite
+problem occurs in the ($N-2$) electron system. This indicates a fundamental
+problem in the single Slater determinantal wave function description of
+molecular systems. One of the base assumptions of post SCF methods in electronic
+strucutre is that the underlying reference determinant is stable at a given
+molecular geometry. If that assumption is no longer valid, the behaviour of
+these methods often become ill defined. Thus it is important to utilize methods
+that will ensure variational stability throughout the entire nuclear
+configuration space.
 
 \linespread{1.0}
 \section{Future Directions: Relativistic Electronic Dynamics with Multi-Configurational Wave Functions}
