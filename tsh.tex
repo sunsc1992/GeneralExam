@@ -1,0 +1,45 @@
+\section{Trajectory Sufrace Hopping}
+\label{sec:TSH}
+
+As described in the seminal works on TSH\cite{Tully98_407, Tully90_1061}, via
+insertion of \cref{eq:AdiaExp} into \cref{eq:WaveEq}, one may derive an
+approximate equation of motion for an electronic superposition state evolving
+along a classical nuclear trajectory,
+\begin{align}
+  &i  \partial_t c_K(t) = H_{KJ}(t) c_J(t) \label{eq:EOMCs} \\
+  &H_{KJ}(t) = \delta_{KJ}E_J(t) - i d_{KJ}^\xi (t) \partial_t R_{\xi}(t) \label{eq:HamiltonianElec} \\
+  &d_{KJ}^\xi (t) = \innerop{\Phi_K(\vc{R}(t),t)}{\nabla^\xi}{\Phi_J(\vc{R}(t),t)} \label{eq:NAC}
+  \quad .
+\end{align}
+The nuclear position time evolution is governed by Newtonian mechanics,
+\begin{equation}
+  -\nabla E_c(t) = \vc{m}\cdot \partial_t^2\vc{R}(t) \label{eq:Newton}
+  \quad.
+\end{equation}
+Here, $\vc{m}$ collects the masses for each nucleus, and $d_{IJ}^\xi$ is the
+rank-3 non--adiabatic coupling (NAC) tensor that provides an affine topological
+connection on the electronic manifold through the nuclear momentum operator.
+$\xi$ is an arbitrary nuclear coordinate.  While $E_J$ in
+\cref{eq:HamiltonianElec} represents an arbitrary energy eigenvalue of adiabat
+$J$, $E_c(t)$ ($c$ indicating ``current") from \cref{eq:Newton} is the
+electronic eigenenergy designated by the TSH algorithm to drive the nuclear
+evolution at time $t$.  
+
+%Talk about algorithm to switch the state throughout the dynamics
+
+The representation of the separated equations of motion for the electronic and
+nuclear degrees of freedom in
+\cref{eq:EOMCs,eq:HamiltonianElec,eq:NAC,eq:Newton} are completely general to
+any method used to obtain the electronic adiabatic states. There have been many
+extensions of this methods to a vast number of different electronic structure
+methods. Recently, I have extended this method for use within the
+particle--particle Tamm--Dancoff approximation for the description of the
+electronic states\cite{DBWY16_Submitted1}, of which results are presented in
+\cref{sec:pp-TSH}. Although TSH has been applied to study ISC using perturbative
+approaches of accounting for SOC effects, I argue that this treatment is
+inherently flawed as the SOC that is argued to be so negligible as to be
+treated perturbatively is exactly the term that gives rise to the physical
+phenomena that they observe. To properly treat SOC in TSH, one must account for
+the SOC in a non--perturbative manner through an \emph{ab initio} treatment of
+some relativistic Hamiltonian.
+
