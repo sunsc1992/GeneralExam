@@ -88,9 +88,12 @@ time--scales at which they occur are far too long to compete with transitions
 between states of the same spin multiplicity. However, recent studies have
 shown that this is not necessarily the case, and that ISC can indeed be
 competitive even at short time--scales.  ISC is an inherently relativistic, and
-time--dependent excited--state process. Thus to accurately treat these phenomena
+non--adiabatic time--dependent process. Thus to accurately treat these phenomena
 theoretically, one must provide an \emph{ab initio} description of the
-relativistic effects throughout the time--evolution of the quantum system.  
+relativistic effects throughout the non--adiabatic time--evolution of the
+quantum system.  {\bf While much effort has been directed at the accurate
+treatment of non--adiabatic molecular dynamics, the scope of inquiry has been
+primary limited to non--ralativistic regime.}
 
 Relativistic effects, while often neglected in most standard treatments of
 quantum mechanics, can have profound consequences in chemical
@@ -106,7 +109,11 @@ ISC. Although some approaches have been purposed to account for SOC in the
 treatment of the electronic manifold perturbatively\cite{Thiel14_JCP124101},
 these approximations will break down whenever SOC is non--negligible. Hence a
 variational, and well balanced approach much be adopted to account for these
-interactions for the general case.  
+interactions for the general case. There exist several \emph{ab initio} methods
+to approximately treat relativisic effects, however, in this work the discussion
+will be limited to two--component relativistic Hamiltonians, specificailly the
+``exact two--component" (X2C) Hamiltonian. A breif overview of the X2C method
+may be found in \cref{sec:X2C}.
 
 In the quantum mechanical description of molecular systems, neglecting explicit
 coupling to a quantized photon field, time evolution of the total molecular wave
@@ -168,15 +175,96 @@ becomes how to properly obtain the adiabatic electronic and nuclear wave
 functions.
 
 There exist a vast plethora of computational methods to treat molecular dynamics
-based on the separation in \cref{eq:exactSepElecNuc}. For the purposes of this
-work, the discussion will be restricted to that of the trajectory surface
-hopping (TSH) method.  TSH is one of the most widely applied methods for
-simulating electronically non-adiabatic dynamics of molecular and
+based on the separation in \cref{eq:exactSepElecNuc,eq:AdiaExp}. For the
+purposes of this work, the discussion will be restricted to that of the
+trajectory surface hopping (TSH) method.  TSH is one of the most widely applied
+methods for simulating electronically non-adiabatic dynamics of molecular and
 condensed-phase systems.\cite{Barbatti11_1759, Tavernelli14_62, Tully12_22A301,
 Tully98_407, Hynes14_97} At its core, TSH is a stochastic algorithm that
-controls which electronic state dictates the forces on the nuclei during a
-semi-classical molecular dynamics simulation.\cite{Preston71_562} As described
-in the seminal works on the method\cite{Tully98_407, Tully90_1061}, via
+controls which electronic adiabat dictates the forces on the nuclei during a
+classical nuclear trajecory.\cite{Preston71_562} As a semi-classical method, the
+time--evolution of the electronic degrees of freedom are treated as quantum
+mechanical while the time evolution of the nuclear positions are treated as
+classical through Newton's equations of motion. In essence, this classical
+treatment may be thought of as the nuclear wave function begin written as a
+product of delta functions centered at the classical nuclear positions
+\begin{equation}
+\inner{\vc{R}}{\Theta_I (t)} = 
+  \prod_{A = 0}^{N_\mathrm{atoms}} \delta^3(\vc{R} - \vc{R}_A(t))
+  \quad \forall I,
+  \label{eq:ClassicalNuclei}
+\end{equation}
+where $N_\mathrm{atoms}$ is the number of nuclei in the molecule.  This is often
+a valid approach, as the nuclei of molecules are orders of magnitude heavier
+than the electrons, and thus move much slower. TSH provides a somewhat ideal
+altorithm for the simulation and interpretation of many non--adiabatic
+processes, such as ISC, as it is somewhat blind to the underlying method used to
+obtain the electronic adiabats. Thus it is general to cases where the coupling
+between electronic adiabats is large or small, all while allowing smooth
+transition between the two. A brief overview of the TSH algorithm may be found
+in \cref{sec:TSH}. While some attempts have been made to study ISC using TSH via
+a perturbative inclusion of SOC in the electronic adiabats
+\cite{Thiel14_JCP124101}, no attempts have been made to provide an explcitly
+relativistic treatment of these effects within TSH. These perturbative
+approaches are valid only in the limit of negligible SOC, which seems to
+contradict the premise as it is in the SOC that ISC is made possible. Hence this
+lack of relativisitic treatment of SOC in TSH is an inherient flaw in current
+methodologies to model ISC and indicates a need for the development of new
+theoretical methods to model the electronic adiabatic states realtivistically.
+
+The quality of TSH simulations is heavily dependent on the quality of the
+treatment of the electronic adibatic states.  Over the years, perhaps the most
+successful \emph{ab initio} treatment of the adiabatic electronic wave function
+has been in the configuration interaction (CI) expansion of the electronic wave
+function. In the CI expansion, the exact electronic wave function of $N$
+electrons may be written as a linear combination of Slater determinants,
+\begin{align}
+&\ket{\Phi (\vc{R}(t),t)} = \sum_{\alpha \in \mathcal{K}}  
+  \ket{\psi_\alpha (\vc{R}(t),t)} d_\alpha(t)
+\label{eq:CIExp} \\
+& \mathcal{K} = \left\lbrace \{ \phi_p \} \suchthat \{ \phi_p \} \subset
+\mathcal{R}_0 \text{ and } \mathrm{card}(\{ \phi_p \}) = N \right\rbrace
+\quad ,
+\end{align}
+where $\left\lbrace\ket{\psi_\alpha}\right\rbrace$ is a set of Slater
+determinants, and $\left\lbrace d_\alpha \right\rbrace$ is a set of normalized
+expansion coefficients. $\mathcal{K}$ is a set of electronic configurations,
+upon which each of the indexed Slater determinants is based. The elements of
+$\mathcal{K}$ are sets (configurations) of \emph{molecular orbitals} (MO),
+$\phi_p$, taken from a reference set of MOs, $\mathcal{R}_0$.  In principle, the
+above expansion is exact given that all possible electronic configurations are
+included.  Given that that the cardinality of $\mathcal{R}_0$ is $K$, there are
+a total of $\mathcal{C}(K,N)$ (read ``K choose N") possible determinants that
+would need to be included in the expansion. Such an exhaustive expansion is
+called \emph{full configuration interaction} (FCI) and is rendered impractical
+for the majority of systems due to the rapid growth of $\mathcal{C}(K,N)$.
+In practice, we  must restrict which Slater determinants we include in
+\cref{eq:CIExp}. As a result, a vast proportion of research in the field of
+electronic structure theory has been centered on the proper way to restrict the
+expansion in such a way that all of the relevant physics is maintained while
+extraneous information may be discarded. Such methods as complete active space
+(CAS), multireference configuration interaction (MRCI), density matrix
+renormalization group (DMRG), particle--particle propagator methods , and
+truncated CI methods may all be described, at their core, as algorithms to
+provide such a filtering of the physically relevant determinants of the CI
+expansion. 
+
+Application of CI varients to TSH is well established in the literature.
+Recently, I have extended TSH for use within the particle--particle
+Tamm--Dancoff approximation (pp-TDA) for the description of the electronic
+states\cite{DBWY16_Submitted1}, of which results are presented in
+\cref{sec:pp-TSH}. Although TSH has been applied to study ISC using perturbative
+approaches of accounting for SOC effects, I argue that this treatment is
+inherently flawed as the SOC that is argued to be so negligible as to be treated
+perturbatively is exactly the term that gives rise to the physical phenomena
+that they observe. To properly treat SOC in TSH, one must account for the SOC in
+a non--perturbative manner through an \emph{ab initio} treatment of some
+relativistic Hamiltonian.
+
+\section{Trajectory Sufrace Hopping}
+\label{sec:TSH}
+
+As described in the seminal works on TSH\cite{Tully98_407, Tully90_1061}, via
 insertion of \cref{eq:AdiaExp} into \cref{eq:WaveEq}, one may derive an
 approximate equation of motion for an electronic superposition state evolving
 along a classical nuclear trajectory,
@@ -202,71 +290,141 @@ evolution at time $t$.
 
 %Talk about algorithm to switch the state throughout the dynamics
 
-The representation of the separated equations of motion in
-\cref{eq:EOMCs,eq:HamiltonianElec,eq:NAC,eq:Newton} are completely general to
-any method used to obtain the electronic adiabatic states.  Over the years,
-perhaps the most successful \emph{ab initio} treatment of the adiabatic
-electronic wave function has been in the configuration interaction (CI)
-expansion of the electronic wave function. In the CI expansion, the exact
-electronic wave function of $N$ electrons may be written as a linear combination
-of Slater determinants,
+
+\section{The Exact Two-Component Method}
+\label{sec:X2C}
+
+In the relativistic treatment of quantum molecular systems, the Hamiltonian
+of interest is that of the Dirac Hamiltonian,
+\begin{equation}
+\op{H}_D = 
+\begin{pmatrix}
+  V \otimes \vc{I}_2 && c \text { } p^k \otimes \vc{\sigma}_k \\
+  c \text { } p^k \otimes \vc{\sigma}_k && (V - 2mc^2) \otimes \vc{I}_2
+\end{pmatrix} \quad ,
+\label{eq:DiracHam}
+\end{equation}
+which describes the relativistic behavior of a single electron (fermion) in the
+presence of a scalar potential $V$. Here, $V$ collects all scalar potential
+terms, $\vec{p}$ is the momentum operator (acting as an internal vector
+potential), $\vec{\vc{\sigma}}$ is a vector whose elements are the Pauli
+matrices, and $\vc{I}_2$ is the 2x2 identity matrix. The implicit parametric
+dependence on time has been dropped for brevity. The fact that this is a single
+particle operator is quite consequential in the relativistic treatment of
+molecules in that $\op{H}_D$ describes the mean-field quantum nature of a
+single electron in the presence of the $N-1$ other electrons and the nuclei
+(encapsulated in $V$). This is due to the fact that, in general, a Lorentz
+invariant many--body Dirac equation does not exist if the Coulomb interaction is
+taken to be the interaction potential between charges particles. In this work I
+will not be explicitly taking into account relativistic retardation effects,
+hence this treatment is not completely relativistic. This treatment does,
+however, contain the chemically relevant relativistic effects such as
+SOC and  scalar relativistic effects.
+From the matrix representation of $\op{H}_D$, it is clear to see that it
+acts upon a four--dimensional Hilbert space known as a bispinor field ,
+$\ket{\Phi^{4c}}$, whose components are themselves two--dimensional,
+\begin{equation}
+\ket{\Phi^{4c}} = \begin{pmatrix}
+ \ket{\Phi_L} \\ \ket{\Phi_S}
+\end{pmatrix} \quad.
+\end{equation}
+Here, $\ket{\Phi_L}$ and $\ket{\Phi_S}$ are the so--called large and small
+components of the bispinor respectively, and are both two--dimensional in the
+spin manifold (i.e. spinors).
+
+Although it is possible, in principle, to obtain the eigenstates of
+\cref{eq:DiracHam} directly, it as often advantageous from a practical as well
+as aesthetic perspective to transform the full four component relativistic
+equations into a decoupled two component form. This is often convenient as the
+resulting expressions closely resemble those found in non--relativistic
+electronic structure theory and therefore allow the employment of standard
+electronic structure methods with only minor modifications. In general, such a
+transformation takes the form of a unitary operator, $\op{U}$, such that
+\begin{equation}
+\op{U}: 
+\op{H}_D \mapsto \begin{pmatrix}
+\op{H}_+ && \vc{0}_2 \\ \vc{0}_2 && \op{H}_- 
+\end{pmatrix} \quad \text{ and } \quad
+\ket{\Phi^{4c}} \mapsto \begin{pmatrix}
+ \ket{\Phi^{2c}} \\ \vc{0}_2
+\end{pmatrix} \quad.
+\end{equation}
+Thus making the transformed $\ket{\Phi^{2c}}$ an eigenstate of $\op{H}_+$.
+The transformation under $\op{U}$, in effect, folds the contributions from
+the small component of the wave function into the large components. In principle,
+such a transformation is exact if a proper $U$ may be found. It is the case
+that such an exact transformation is not practical to obtain due to the
+effective many--body $V$, thus approximate decoupling schemes must be developed.
+Several decoupling schemes have been explored in recent years, but in this work
+I will only employ the use of the ``exact" two--component (X2C) method, for which
+the exact details may be found elsewhere.
+
+Using the X2C transformation method, we are able to obtain a total effecting
+two--component Hamiltonian, which may be written in second quantized form,
+\begin{equation}
+\op{H}_\mathrm{X2C} = h_{pq}^\mathrm{X2C}c_p^\dagger c_q + 
+  \frac{1}{2} \inner{pq}{rs} c_p^\dagger c_r^\dagger c_s c_q + V_\mathrm{NN}
+  \label{eq:X2CHam}
+\end{equation}
+where $c_p$ and $c_p^\dagger$ are single spinor particle annihilation and
+creation operators respectively. $\vc{h}^\mathrm{X2C}$ is the effective
+relativistic core--Hamiltonian which includes both spin--orbit and scalar
+relativistic effects, $\inner{\cdot}{\cdot}$, is the Coulomb operator expressed
+in the basis of spinor MOs and $V_\mathrm{NN}$ is the nuclear--nuclear repulsion
+energy. Expressing \cref{eq:X2CHam} in basis of a single Slater determinant and
+expanding each spinor MO in the AO basis ($\lbrace \chi_\mu \rbrace$),
+\begin{equation}
+\phi_p ( \vc{r} ) = \sum_\mu \chi_\mu(\vc{r}) C_{\mu p}
+\qquad
+C_{\mu p} = \begin{pmatrix}
+C_{\mu p}^\alpha \\ C_{\mu p}^\beta
+\end{pmatrix}
+\quad , \label{eq:AO2MO}
+\end{equation}
+we arrive at a relativistic two--component analogue of the Roothaan--Hall
+equations familiar to traditional mean--field electronic structure theory,
 \begin{align}
-&\ket{\Phi (\vc{R}(t),t)} = \sum_{\alpha \in \mathcal{K}}  
-  \ket{\psi_\alpha (\vc{R}(t),t)} d_\alpha(t)
-\label{eq:CIExp} \\
-& \mathcal{K} = \left\lbrace \{ \phi_p \} \suchthat \{ \phi_p \} \subset
-\mathcal{R}_0 \text{ and } \mathrm{card}(\{ \phi_p \}) = N \right\rbrace
-\quad ,
+&\frac{1}{2}\left(
+  F^S_{\mu\nu} \cdot \vc{I}_2 + F^k_{\mu\nu} \cdot \vc{\sigma_k}
+\right) C_{\nu p} = (S_{\mu\nu}\cdot \vc{I}_2) C_{\nu p}
+\epsilon_p\label{eq:Roothaan}
+%\\
+%\nonumber \\
+%&F^S_{\mu\nu} = \left(
+%  2\left( \mu\nu \vert \kappa\lambda \right) - 
+%  \left(  \mu\lambda \vert \kappa\nu \right) 
+%\right) P^S_{\lambda \kappa} \nonumber \\
+%&F^k_{\mu\nu} = -\left(  \mu\lambda \vert \kappa\nu \right) P^k_{\lambda \kappa}\\
+%\nonumber \\
+%&\vc{P}^S = \frac{1}{2}\mathrm{Tr}_\sigma (\vc{P}\vc{I}_2) \nonumber \\
+%&\vc{P}^k = \frac{1}{2}\mathrm{Tr}_\sigma (\vc{P}\vc{\sigma}_k)
+%\label{eq:traceRel}\\
+%&P_{\mu\nu} = C_{\mu i} C_{\nu i}^\dagger \nonumber
 \end{align}
-where $\left\lbrace\ket{\psi_\alpha}\right\rbrace$ is a set of Slater
-determinants, and $\left\lbrace d_\alpha \right\rbrace$ is a set of normalized
-expansion coefficients. $\mathcal{K}$ is a set of electronic configurations,
-upon which each of the indexed Slater determinants is based. The elements of
-$\mathcal{K}$ are sets (configurations) of \emph{molecular orbitals} (MO),
-$\phi_p$, taken from a reference set of MOs, $\mathcal{R}_0$.  In principle, the
-above expansion is exact given that all possible electronic configurations are
-included.  Given that that the cardinality of $\mathcal{R}_0$ is $K$, there are
-a total of $\mathcal{C}(K,N)$ (read ``K choose N") possible determinants that
-would need to be included in the expansion. Such an exhaustive expansion is
-called \emph{full configuration interaction} (FCI) and is rendered impractical
-for the majority of systems due to the rapid growth of $\mathcal{C}(K,N)$.
+Here, $\vc{S}$ is the AO overlap matrix, 
+%and $(\cdot \vert \cdot)$ is the
+%Coulomb operator in the AO basis.
+and $\{\epsilon_p\}$ is the set of MO
+eigenenergies. $\vc{F}^S$,$\vc{F}^k$ and $\vc{P}^S,\vc{P}^k$ are the scalar and
+vector parts of the spinor Fock and density matrices in the AO basis
+respectively, 
+%and are related to the full spinor operators in terms of the spin
+%trace, $\mathrm{Tr}_\sigma$, relations of \cref{eq:traceRel}. 
+Is important to note that $C_{\mu p} \in \mathbb{C}^2$ (where the $\alpha$ and
+$\beta$ indicies represent inseparable spin-up and spin-down components of
+$C_{\mu p}$), thus elements of the total spinor density (and thus the spinor
+Fock) are 2x2 complex matrices.  \Cref{eq:Roothaan} may be solved
+self--consistently to obtain the lowest energy (single) Slater determinantal
+description of the many--body system.
 
-%where $\left\lbrace\ket{\psi_\alpha}\right\rbrace$ is a set of Slater
-%determinantal electronic wave functions, $\left\lbrace d_\alpha \right\rbrace$
-%is a set of expansion coefficients, and $\left\lbrace \phi_p \right\rbrace$ is a
-%set (configuration) of single--particle Fock states, hereafter referred to as
-%\emph{molecular orbitals} (MO).  
-
-In practice, we  must restrict which Slater determinants we include in
-\cref{eq:CIExp}. As a result, a vast proportion of research in the field of
-electronic structure theory has been centered on the proper way to restrict the
-expansion in such a way that all of the relevant physics is maintained while
-extraneous information may be discarded. Such methods as complete active space
-(CAS), multireference configuration interaction (MRCI), density matrix
-renormalization group (DMRG), particle--particle propagator methods , and
-truncated CI methods may all be described, at their core, as algorithms to
-provide such a filtering of the physically relevant determinants of the CI
-expansion. While each of these methods have their faults and accolades, whether
-it be accuracy or computational burden, the future directions proposed in this
-work will primarily focus on CAS and MRCI methods, which will be explained
-further in \cref{sec:Future}, though the particle--particle propagator methods
-will be discussed to some extent in \cref{sec:pp-X2C,sec:pp-TSH}.
+The fact that one may write the X2C Hamiltonian in second quantized form makes it
+suitable for application to post--self consistent field descriptions of
+electronic correlation. Recently, I have extended the particle--particle
+Tamm--Dancoff approximation to X2C optimized wave functions to study the fine
+structure splittings in atomic and molecular systems, of which results are
+presented in \cref{sec:pp-X2C}.
 
 
-
-
-Recently, I have extended this method for use within the
-particle--particle Tamm--Dancoff approximation for the description of the
-electronic states\cite{DBWY16_Submitted1}, of which results are presented in
-\cref{sec:pp-TSH}. Although TSH has been applied to study ISC using perturbative
-approaches of accounting for SOC effects, I argue that this treatment is
-inherently flawed as the SOC that is argued to be so negligible as to be treated
-perturbatively is exactly the term that gives rise to the physical phenomena
-that they observe. To properly treat SOC in TSH, one must account for the SOC in
-a non--perturbative manner through an \emph{ab initio} treatment of some
-relativistic Hamiltonian.
-
-test\cite{DBWY16_JCTC935}
 \linespread{1.0}
 \bibliography{Journal_Short_Name,ppSH,Li_Group_References,GE,DBWY,Egidi_References}
 \end{document}
