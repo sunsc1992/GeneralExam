@@ -76,19 +76,147 @@
 \newpage
 \section{Introduction}
 
-Formally spin--forbidden processes, such as intersystem crossing (ISC),  play an
-important role in photochemistry. ISC is a transition beteen quantum states of
-differing spin multiplicity which manifests either radiatively or
+Formally spin--forbidden processes, such as intersystem crossing (ISC),  play
+an important role in photochemistry. ISC is a transition beteen quantum states
+of differing spin multiplicity which manifests either radiatively or
 non-radiatively.  The functionality of many modern technologies depend heavily
 on finely tuned ISC to control the rate of population and depopulation of
 triplet intermediate states from singlet states upon photoexcitation. The fact
 that the non--relativisitc treatment of molecular quantum mechanics predicts
 phenomena such as ISC as formally forbidden, it has been long thought that the
 time--scales at which they occur are far too long to compete with transitions
-between states of the same spin multiplicity. Recent studies have shown that
-this is not necessarily the case, and that ISC can indeed be competitive even at
-short time--scales.
+between states of the same spin multiplicity. However, recent studies have
+shown that this is not necessarily the case, and that ISC can indeed be
+competitive even at short time--scales.  ISC is an inheriently relativistic, and
+time--dependant excited--state process. Thus to accurately treat these phenomena
+theoretically, one must provide an \emph{ab initio} description of the
+relativistic effects throughout the time--evolution of the quantum system.  
 
+Relativistic effects, while often neglected in most standard treatments of
+quantum mechanics, can have profound consequences in chemical
+systems.\cite{Pyykko12_45} Scalar relativistic effects cause the contraction of
+the core electron shells of heavy atoms, but perhaps of even more consequence is
+the introduction of spin couplings in the Hamiltonian.  Spin-spin (SSC) and
+spin-orbit (SOC) coupling can affect the electronic spin dynamics even in light
+atoms. A direct consequence of these couplings on the electronic manifold is the
+breaking of spin--symmetry as the Hamiltonian no longer commutes with the spin
+operator, $\op{S}$. This breaking of spin--symmetry is what allows, at an
+operator level, for formally spin--forbidden processes to occur, namely
+ISC. Although some approaches have been purposed to account for SOC in the
+treatment of the electronic manifold perturbatively\cite{Thiel14_JCP124101},
+these approximations will break down whenever SOC is non--negligible. Hence a
+variational, and well balanced approach much be adopted to account for these
+interactions for the general case.  
+
+In the quantum mechanical description of molecular systems, neglecting explicit
+coupling to a quantized photon field, time evolution of the total molecular wave
+function, $\ket{\Psi (t)}$ is governed by the Hamiltonian wave equation 
+(in atomic units),
+\begin{equation}
+\op{H}(t) \ket{\Psi (t)} = i\partial_t \ket{\Psi(t)} \quad,
+\label{eq:WaveEq}
+\end{equation}
+where $\op{H}(t)$ is the time--dependent Hamiltonian, $\partial_t$ is a partial
+derivative with respect to time, and $t$ is a time parameter.  The moieties
+enclosed in parentheses are taken to be parameters, i.e. the wave function is
+parameterized by time.  In principle, one may solve (in some approximate manner)
+\cref{eq:WaveEq} simultaneously for both the electronic and nuclear degrees of
+freedom explicitly. This approach is, however, intractable for quantum systems
+exceeding more than a few particles. To simplify the solutions of
+\cref{eq:WaveEq}, one may formally decompose $\ket{\Psi (t)}$ into a product of
+nuclear and electronic wave functions,
+\begin{equation} 
+\ket{\Psi (t)} = \ket{\Phi(\vc{R}(t),t)}\otimes\ket{\Theta(t)} 
+\quad .  
+\label{eq:exactSepElecNuc}
+\end{equation} 
+Here, $\ket{\Phi(\vc{R}(t),t)}$ and $\ket{\Theta (t)}$ are the electronic and
+nuclear wave functions respectively and $\vc{R}(t)$ is the expectation value of
+the nuclear position operator, $\vc{R}(t) =
+\innerop{\Theta(t)}{\hat{\vc{R}}}{\Theta(t)}$.  
+This formally exact treatment\cite{Gross10_PRL123002, Cederbaum08_JCP124101,
+Ghosh15_MP1} allows one to, at least in in principle, bifurcate the treatment of
+quantum molecular dynamics into explicit treatment of the electronic and nuclear
+time dependence separately.  Thus, in order to theoretically treat molecular
+dynamics accurately, one must be able to treat both the electronic and nuclear
+degrees of freedom to some level of accuracy.
+
+When obtaining the time evolution of the total molecular wave function, it is
+often advantageous to work in so called adiabatic basis (the eigenstates of
+\cref{eq:WaveEq}) of quantum states,
+\begin{equation}
+\op{H}(t) \ket{\Psi_I (t)} = E_I(t) \ket{\Psi_I (t)}
+\quad \forall t, I \in \mathbb{N},
+\label{eq:EigSpec}
+\end{equation}
+where $\ket{\Psi_I}$ and $E_I$ represent the $I$-th adiabatic wave function and
+eigenenergie, respectively. For the purposes of the current discussion, we will
+be assuming a discrete eigenspectrum of the Hamiltonian that is smooth over $t$.
+Taking the separation of the total wave function in \cref{eq:exactSepElecNuc},
+we may rewrite the total wave function as a linear combination of adiabatic
+states,
+\begin{equation}
+\ket{\Psi (t)} = c_I \ket{\Phi_I (\vc{R}(t),t)} \otimes \ket{\Theta_I (t)}
+\quad ,
+\label{eq:AdiaExp}
+\end{equation}
+where $\{ c_I \}$ is a set of expansion coefficients, and $\{\ket{\Phi_I}\}$ and
+$\{\ket{\Theta_I}\}$ are the sets of electronic and nuclear adiabatic wave
+functions, respectively.. Given the entire eigenspectrum of \cref{eq:EigSpec},
+the expansion in \cref{eq:AdiaExp} is formally exact, thus the problem now
+becomes how to properly obtain the adiabatic electronic and nuclear wave
+functions.
+
+There exsit a vast plethora of computational methods to treat molecular dynamics
+based on the separation in \cref{eq:exactSepElecNuc}. For the purposes of this
+work, the discussion will be restricted to taht of trajectory surface hopping
+(TSH).  TSH is one of the most widely applied methods for simulating
+electronically non-adiabatic dynamics of molecular and condensed-phase
+systems.\cite{Barbatti11_1759, Tavernelli14_62, Tully12_22A301, Tully98_407,
+Hynes14_97} At its core, TSH is a stochastic algorithm that controls which
+electronic state dictates the forces on the nuclei during a semi-classical
+molecular dynamics simulation.\cite{Preston71_562} As described in the seminal
+works on the method\cite{Tully98_407, Tully90_1061}, via insertion of
+\cref{eq:AdiaExp} into \cref{eq:WaveEq}, one may derive an approximate equation
+of motion for an electronic superposition state evolving along a classical
+nuclear trajectory,
+\begin{align}
+  &i  \partial_t c_K(t) = H_{KJ}(t) c_J(t) \label{eq:EOMCs} \\
+  &H_{KJ}(t) = \delta_{KJ}E_J(\vc{R}(t)) - i d_{KJ}^\xi (t) \partial_t R_{\xi}(t) \label{eq:HamiltonianElec} \\
+  &d_{KJ}^\xi (t) = \innerop{\Phi_K(\vc{R}(t),t)}{\nabla^\xi}{\Phi_J(\vc{R}(t),t)} \label{eq:NAC}
+  \quad .
+\end{align}
+The nuclear position time evolution is governed by Newtonian mechanics,
+\begin{equation}
+  -\nabla E_c(t) = \vc{m}\ddot{\vc{R}}(t) \label{eq:Newton}
+  \quad.
+\end{equation}
+While $E_J$ in \cref{eq:HamiltonianElec} represents an arbitrary energy
+eigenvalue of adiabat $J$, $E_c(t)$ ($c$ indicating ``current") from
+\cref{eq:Newton} is the electronic eigenenergy designated by the TSH algorithm
+to drive the nuclear evolution at time $t$.  $\vc{m}$ collects the masses for
+each nucleus, and $d_{IJ}^\xi$ is the rank-3 non--adiabatic coupling (NAC)
+tensor that provides an affine topological connection on the electronic manifold
+through the nuclear momentum operator. $\xi$ is an arbitrary nuclear coordinate.
+
+%Talk about algorithm to switch the state throughout the dynamics
+
+The representation of the separated equations of motion
+in \cref{eq:EOMCs,eq:HamiltonianElec,eq:NAC,eq:Newton} are completely general to
+any method used to obtain the electronic adiabatic states. There have been many
+extensions of this methods to a vast number of different electronic structure
+methods. Recently, I have extended this method for use within the
+particle--particle Tamm--Dancoff approximation for the description of the
+electronic states\cite{DBWY16_Submitted1}, of which results are presented in
+\cref{sec:pp-TSH}. Although TSH has been applied to study ISC using perturbative
+approaches of accounting for SOC effects, I argue that this treatment is
+inherently flawed as the SOC that is argued to be so negligible as to be treated
+perturbatively is exactly the term that gives rise to the physical phenomena
+that they observe. To properly treat SOC in TSH, one must account for the SOC in
+a non--perturbative manner through an \emph{ab initio} treatment of some
+relativistic Hamiltonian.
+
+test\cite{DBWY16_JCTC935}
 \linespread{1.0}
 \bibliography{Journal_Short_Name,ppSH,Li_Group_References,GE,DBWY,Egidi_References}
 \end{document}
