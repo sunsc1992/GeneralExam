@@ -77,18 +77,18 @@
 \section{Introduction}
 
 Formally spin--forbidden processes, such as intersystem crossing (ISC),  play
-an important role in photochemistry. ISC is a transition beteen quantum states
+an crucial role in photochemistry. ISC is a transition between quantum states
 of differing spin multiplicity which manifests either radiatively or
 non-radiatively.  The functionality of many modern technologies depend heavily
 on finely tuned ISC to control the rate of population and depopulation of
 triplet intermediate states from singlet states upon photoexcitation. The fact
-that the non--relativisitc treatment of molecular quantum mechanics predicts
+that the non--relativistic treatment of molecular quantum mechanics predicts
 phenomena such as ISC as formally forbidden, it has been long thought that the
 time--scales at which they occur are far too long to compete with transitions
 between states of the same spin multiplicity. However, recent studies have
 shown that this is not necessarily the case, and that ISC can indeed be
-competitive even at short time--scales.  ISC is an inheriently relativistic, and
-time--dependant excited--state process. Thus to accurately treat these phenomena
+competitive even at short time--scales.  ISC is an inherently relativistic, and
+time--dependent excited--state process. Thus to accurately treat these phenomena
 theoretically, one must provide an \emph{ab initio} description of the
 relativistic effects throughout the time--evolution of the quantum system.  
 
@@ -162,50 +162,100 @@ states,
 \end{equation}
 where $\{ c_I \}$ is a set of expansion coefficients, and $\{\ket{\Phi_I}\}$ and
 $\{\ket{\Theta_I}\}$ are the sets of electronic and nuclear adiabatic wave
-functions, respectively.. Given the entire eigenspectrum of \cref{eq:EigSpec},
+functions, respectively. Given a complete eigenspectrum of \cref{eq:EigSpec},
 the expansion in \cref{eq:AdiaExp} is formally exact, thus the problem now
 becomes how to properly obtain the adiabatic electronic and nuclear wave
 functions.
 
-There exsit a vast plethora of computational methods to treat molecular dynamics
+There exist a vast plethora of computational methods to treat molecular dynamics
 based on the separation in \cref{eq:exactSepElecNuc}. For the purposes of this
-work, the discussion will be restricted to taht of trajectory surface hopping
-(TSH).  TSH is one of the most widely applied methods for simulating
-electronically non-adiabatic dynamics of molecular and condensed-phase
-systems.\cite{Barbatti11_1759, Tavernelli14_62, Tully12_22A301, Tully98_407,
-Hynes14_97} At its core, TSH is a stochastic algorithm that controls which
-electronic state dictates the forces on the nuclei during a semi-classical
-molecular dynamics simulation.\cite{Preston71_562} As described in the seminal
-works on the method\cite{Tully98_407, Tully90_1061}, via insertion of
-\cref{eq:AdiaExp} into \cref{eq:WaveEq}, one may derive an approximate equation
-of motion for an electronic superposition state evolving along a classical
-nuclear trajectory,
+work, the discussion will be restricted to that of the trajectory surface
+hopping (TSH) method.  TSH is one of the most widely applied methods for
+simulating electronically non-adiabatic dynamics of molecular and
+condensed-phase systems.\cite{Barbatti11_1759, Tavernelli14_62, Tully12_22A301,
+Tully98_407, Hynes14_97} At its core, TSH is a stochastic algorithm that
+controls which electronic state dictates the forces on the nuclei during a
+semi-classical molecular dynamics simulation.\cite{Preston71_562} As described
+in the seminal works on the method\cite{Tully98_407, Tully90_1061}, via
+insertion of \cref{eq:AdiaExp} into \cref{eq:WaveEq}, one may derive an
+approximate equation of motion for an electronic superposition state evolving
+along a classical nuclear trajectory,
 \begin{align}
   &i  \partial_t c_K(t) = H_{KJ}(t) c_J(t) \label{eq:EOMCs} \\
-  &H_{KJ}(t) = \delta_{KJ}E_J(\vc{R}(t)) - i d_{KJ}^\xi (t) \partial_t R_{\xi}(t) \label{eq:HamiltonianElec} \\
+  &H_{KJ}(t) = \delta_{KJ}E_J(t) - i d_{KJ}^\xi (t) \partial_t R_{\xi}(t) \label{eq:HamiltonianElec} \\
   &d_{KJ}^\xi (t) = \innerop{\Phi_K(\vc{R}(t),t)}{\nabla^\xi}{\Phi_J(\vc{R}(t),t)} \label{eq:NAC}
   \quad .
 \end{align}
 The nuclear position time evolution is governed by Newtonian mechanics,
 \begin{equation}
-  -\nabla E_c(t) = \vc{m}\ddot{\vc{R}}(t) \label{eq:Newton}
+  -\nabla E_c(t) = \vc{m}\cdot \partial_t^2\vc{R}(t) \label{eq:Newton}
   \quad.
 \end{equation}
-While $E_J$ in \cref{eq:HamiltonianElec} represents an arbitrary energy
-eigenvalue of adiabat $J$, $E_c(t)$ ($c$ indicating ``current") from
-\cref{eq:Newton} is the electronic eigenenergy designated by the TSH algorithm
-to drive the nuclear evolution at time $t$.  $\vc{m}$ collects the masses for
-each nucleus, and $d_{IJ}^\xi$ is the rank-3 non--adiabatic coupling (NAC)
-tensor that provides an affine topological connection on the electronic manifold
-through the nuclear momentum operator. $\xi$ is an arbitrary nuclear coordinate.
+Here, $\vc{m}$ collects the masses for each nucleus, and $d_{IJ}^\xi$ is the
+rank-3 non--adiabatic coupling (NAC) tensor that provides an affine topological
+connection on the electronic manifold through the nuclear momentum operator.
+$\xi$ is an arbitrary nuclear coordinate.  While $E_J$ in
+\cref{eq:HamiltonianElec} represents an arbitrary energy eigenvalue of adiabat
+$J$, $E_c(t)$ ($c$ indicating ``current") from \cref{eq:Newton} is the
+electronic eigenenergy designated by the TSH algorithm to drive the nuclear
+evolution at time $t$.  
 
 %Talk about algorithm to switch the state throughout the dynamics
 
-The representation of the separated equations of motion
-in \cref{eq:EOMCs,eq:HamiltonianElec,eq:NAC,eq:Newton} are completely general to
-any method used to obtain the electronic adiabatic states. There have been many
-extensions of this methods to a vast number of different electronic structure
-methods. Recently, I have extended this method for use within the
+The representation of the separated equations of motion in
+\cref{eq:EOMCs,eq:HamiltonianElec,eq:NAC,eq:Newton} are completely general to
+any method used to obtain the electronic adiabatic states.  Over the years,
+perhaps the most successful \emph{ab initio} treatment of the adiabatic
+electronic wave function has been in the configuration interaction (CI)
+expansion of the electronic wave function. In the CI expansion, the exact
+electronic wave function of $N$ electrons may be written as a linear combination
+of Slater determinants,
+\begin{align}
+&\ket{\Phi (\vc{R}(t),t)} = \sum_{\alpha \in \mathcal{K}}  
+  \ket{\psi_\alpha (\vc{R}(t),t)} d_\alpha(t)
+\label{eq:CIExp} \\
+& \mathcal{K} = \left\lbrace \{ \phi_p \} \suchthat \{ \phi_p \} \subset
+\mathcal{R}_0 \text{ and } \mathrm{card}(\{ \phi_p \}) = N \right\rbrace
+\quad ,
+\end{align}
+where $\left\lbrace\ket{\psi_\alpha}\right\rbrace$ is a set of Slater
+determinants, and $\left\lbrace d_\alpha \right\rbrace$ is a set of normalized
+expansion coefficients. $\mathcal{K}$ is a set of electronic configurations,
+upon which each of the indexed Slater determinants is based. The elements of
+$\mathcal{K}$ are sets (configurations) of \emph{molecular orbitals} (MO),
+$\phi_p$, taken from a reference set of MOs, $\mathcal{R}_0$.  In principle, the
+above expansion is exact given that all possible electronic configurations are
+included.  Given that that the cardinality of $\mathcal{R}_0$ is $K$, there are
+a total of $\mathcal{C}(K,N)$ (read ``K choose N") possible determinants that
+would need to be included in the expansion. Such an exhaustive expansion is
+called \emph{full configuration interaction} (FCI) and is rendered impractical
+for the majority of systems due to the rapid growth of $\mathcal{C}(K,N)$.
+
+%where $\left\lbrace\ket{\psi_\alpha}\right\rbrace$ is a set of Slater
+%determinantal electronic wave functions, $\left\lbrace d_\alpha \right\rbrace$
+%is a set of expansion coefficients, and $\left\lbrace \phi_p \right\rbrace$ is a
+%set (configuration) of single--particle Fock states, hereafter referred to as
+%\emph{molecular orbitals} (MO).  
+
+In practice, we  must restrict which Slater determinants we include in
+\cref{eq:CIExp}. As a result, a vast proportion of research in the field of
+electronic structure theory has been centered on the proper way to restrict the
+expansion in such a way that all of the relevant physics is maintained while
+extraneous information may be discarded. Such methods as complete active space
+(CAS), multireference configuration interaction (MRCI), density matrix
+renormalization group (DMRG), particle--particle propagator methods , and
+truncated CI methods may all be described, at their core, as algorithms to
+provide such a filtering of the physically relevant determinants of the CI
+expansion. While each of these methods have their faults and accolades, whether
+it be accuracy or computational burden, the future directions proposed in this
+work will primarily focus on CAS and MRCI methods, which will be explained
+further in \cref{sec:Future}, though the particle--particle propagator methods
+will be discussed to some extent in \cref{sec:pp-X2C,sec:pp-TSH}.
+
+
+
+
+Recently, I have extended this method for use within the
 particle--particle Tamm--Dancoff approximation for the description of the
 electronic states\cite{DBWY16_Submitted1}, of which results are presented in
 \cref{sec:pp-TSH}. Although TSH has been applied to study ISC using perturbative
