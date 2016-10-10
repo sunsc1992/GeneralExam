@@ -104,106 +104,67 @@ functions.
 
 Over the years, perhaps the most successful \emph{ab initio} treatment of the
 adiabatic electronic wave function has been in the configuration interaction
-(CI) expansion of the electronic wave function. In the CI expansion, the exact
-electronic wave function of $N$ electrons may be written as a linear combination
-of Slater determinants,
-\begin{align}
-&\ket{\Phi_I (\vc{R}(t),t)} = \sum_{\alpha \in \mathcal{K}}  
-  \ket{\psi_\alpha (\vc{R}(t),t)} d^I_\alpha(t)
-\label{eq:CIExp} \\
-& \mathcal{K} = \left\lbrace \{ \phi_p \} \suchthat \{ \phi_p \} \subset
-\mathcal{R}_0 \text{ and } \mathrm{card}(\{ \phi_p \}) = N \right\rbrace
-\quad ,
-\end{align}
-where $\left\lbrace\ket{\psi_\alpha}\right\rbrace$ is a set of Slater
-determinants, and $\left\lbrace d^I_\alpha \right\rbrace$ is a set of normalized
-expansion coefficients for a particular electronic adiabat. $\mathcal{K}$ is a
-set of electronic configurations, upon which each of the indexed Slater
-determinants is based. The elements of $\mathcal{K}$ are sets (configurations)
-of \emph{molecular orbitals} (MO), $\phi_p$, taken from a reference set of MOs,
-$\mathcal{R}_0$.  In principle, the above expansion is exact given that all
-possible electronic configurations are included.  Given that that the
-cardinality of $\mathcal{R}_0$ is $K$, there are a total of $\mathcal{C}(K,N)$
-(read ``K choose N") possible determinants that would need to be included in the
-expansion. Such an exhaustive expansion is called \emph{full configuration
-interaction} (FCI) and is rendered impractical for the majority of systems due
-to the rapid growth of $\mathcal{C}(K,N)$.  In practice, we  must restrict which
-Slater determinants we include in \cref{eq:CIExp}. As a result, a vast
-proportion of research in the field of electronic structure theory has been
-centered on the proper way to restrict the expansion in such a way that all of
-the relevant physics is maintained while extraneous information may be
-discarded. Such methods as complete active space (CAS), multi-reference
-configuration interaction (MRCI), density matrix renormalization group (DMRG),
-particle--particle propagator methods , and truncated CI methods may all be
-described, at their core, as algorithms to provide such a filtering of the
-physically relevant determinants of the CI expansion.  Once a restriction of
-\cref{eq:CIExp} has been made, one need only diagonalize the Hamiltonian in the
-basis of these different Slater determinants,
-\begin{align}
-&H_{\alpha\beta}(t) d_\beta^I(t) = d_\alpha^I(t) \mathcal{E}_I(t)\\
-&H_{\alpha\beta}(t) =
-\innerop{\phi_\alpha(\vc{R}(t),t)}{\mathcal{H}_{el}(t)}{\phi_\beta(\vc{R}(t),t)}
-\quad,
-\end{align}
-where $\mathcal{H}_{el}(t)$ is the electronic component of the total
-time--depenendant Hamiltonian and $\mathcal{E}_I(t)$ is the $I$-th electronic
-eigenenergie. 
-Of these methods, only two: CAS and the particle-particle polarization
-propagator methods, will be discussed in detail. 
+(CI) expansion of the electronic wave function. A brief overview of the CI
+method may br found in \cref{sec:ci}.  Many successful attempts have been made
+to extend CI variants to relativistic Hamiltonians\cite{Neese13_JCP104113,
+Olsen97_TCA125, Jensen96_JCP4083}, including my recent work on the extension of
+the particle--particle Tamm-Dancoff approximation (pp-TDA) to the X2C method
+\cite{DBWY16_Accepted1} of which results are presented in \cref{sec:pp-X2C}. The
+CI method is simplest method, in formalism, for the addition of explicit
+many--body interaction back into mean--field description of the ground state
+electronic wave function such as Hartree--Fock. In addition to correcting the
+uncorrelated behaviour of mean--field ground states, the CI method is also able
+to treat excited electronic states in a correlated manner, making it a suitable
+method for use in non--adiabtic molecular dynamics.
 
-Many successful attempts have been made to extend CI variants to
-relativistic Hamiltonians\cite{Neese13_JCP104113, Olsen97_TCA125, 
-Jensen96_JCP4083}, including my recent work on the extension of the
-particle--particle Tamm-Dancoff approximation (pp-TDA) to the X2C method
-\cite{DBWY16_Accepted1} of which results are presented in \cref{sec:pp-X2C}
-
-There exist a vast plethora of computational methods to treat molecular dynamics
-based on the separation in \cref{eq:exactSepElecNuc,eq:AdiaExp}. For the
-purposes of this work, the discussion will be restricted to that of the
-trajectory surface hopping (TSH) method.  TSH is one of the most widely applied
-methods for simulating electronically non-adiabatic dynamics of molecular and
-condensed-phase systems.\cite{Barbatti11_1759, Tavernelli14_62, Tully12_22A301,
-Tully98_407, Hynes14_97} At its core, TSH is a stochastic algorithm that
-controls which electronic adiabat dictates the forces on the nuclei during a
-classical nuclear trajectory.\cite{Preston71_562} As a semi-classical method, the
-time--evolution of the electronic degrees of freedom are treated as quantum
-mechanical while the time evolution of the nuclear positions are treated as
-classical through Newton's equations of motion. In essence, this classical
-treatment may be thought of as the nuclear wave function begin written as a
-product of delta functions centered at the classical nuclear positions
-\begin{equation}
-\inner{\vc{R}}{\Theta_I (t)} = 
-  \prod_{A = 0}^{N_\mathrm{atoms}} \delta^3(\vc{R} - \vc{R}_A(t))
-  \quad \forall I,
-  \label{eq:ClassicalNuclei}
-\end{equation}
-where $N_\mathrm{atoms}$ is the number of nuclei in the molecule.  This is often
-a valid approach, as the nuclei of molecules are orders of magnitude heavier
-than the electrons, and thus move much slower. TSH provides a somewhat ideal
-algorithm for the simulation and interpretation of many non--adiabatic
-processes, such as ISC, as it is somewhat blind to the underlying method used to
-obtain the electronic adiabats. Thus it is general to cases where the coupling
-between electronic adiabats is large or small, all while allowing smooth
-transition between the two. A brief overview of the TSH algorithm may be found
-in \cref{sec:TSH}. 
+There exist a vast plethora of computational methods to treat non--adiabatic
+molecular dynamics based on the separation in
+\cref{eq:exactSepElecNuc,eq:AdiaExp}. For the purposes of this work, the
+discussion will be restricted to that of the trajectory surface hopping (TSH)
+method.  TSH is one of the most widely applied methods for simulating
+electronically non-adiabatic dynamics of molecular and condensed-phase
+systems.\cite{Barbatti11_1759, Tavernelli14_62, Tully12_22A301, Tully98_407,
+Hynes14_97} At its core, TSH is a stochastic algorithm that controls which
+electronic adiabat dictates the forces on the nuclei during a classical nuclear
+trajectory.\cite{Preston71_562} As a semi-classical method, the time--evolution
+of the electronic degrees of freedom are treated as quantum mechanical while the
+time evolution of the nuclear positions are treated as classical through
+Newton's equations of motion. 
+%In essence, this classical treatment may be
+%thought of as the nuclear wave function begin written as a product of delta
+%functions centered at the classical nuclear positions
+%\begin{equation}
+%\inner{\vc{R}}{\Theta_I (t)} = 
+%  \prod_{A = 0}^{N_\mathrm{atoms}} \delta^3(\vc{R} - \vc{R}_A(t))
+%  \quad \forall I,
+%  \label{eq:ClassicalNuclei}
+%\end{equation}
+%where $N_\mathrm{atoms}$ is the number of nuclei in the molecule.  
+This is often a valid approach, as the nuclei of molecules are orders of
+magnitude heavier than the electrons, and thus move much slower. TSH provides a
+somewhat ideal algorithm for the simulation and interpretation of many
+non--adiabatic processes, such as ISC, as it is somewhat blind to the underlying
+method used to obtain the electronic adiabats. Thus it is general to cases where
+the coupling between electronic adiabats is large or small, all while allowing
+smooth transition between the two. A brief overview of the TSH algorithm may be
+found in \cref{sec:TSH}. 
 
 
 The quality of a TSH simulation is heavily dependant on the quality of the
 underlying descriptiong of the electronic potential energy surface.
 Traditionally, CI variants have been the most often applied basis for TSH
-implementaion and their use is well documented in the literature
-Recently, I have extended TSH for use within the (pp-TDA) for the description of
-the electronic states\cite{DBWY16_Submitted1}, of which results are presented in
-\cref{sec:pp-TSH}.
+implementaions and their use is well documented in the literature.  Recently, I
+have extended TSH for use within the pp-TDA \cite{DBWY16_Submitted1}, of which
+results are presented in \cref{sec:pp-TSH}.
 While some attempts have been made to study ISC using TSH via
 a perturbative inclusion of SOC in the CAS description of electronic adiabats 
 \cite{Thiel14_JCP124101}, no attempts have been made to provide an explicitly
 relativistic treatment of these effects within TSH. These perturbative
 approaches are valid only in the limit of negligible SOC, which seems to
-contradict the premise as it is in the SOC that ISC is made possible. Hence this
+contradict the premise as it is in the SOC that ISC is made possible. This
 lack of relativistic treatment of SOC in TSH is an inherent flaw in current
-methodologies to model ISC and indicates a need for the development of new
-theoretical methods to model the electronic adiabatic states relativistic.
+methods to model ISC and indicates a need for the development of new
+theoretical methods to model the electronic adiabatic states relativistically.
 {\bf 
 In this work, I will outline my proposed research to accurately simulate
 \emph{ab initio} relativistic molecular dynamics using trajectory surface

@@ -1,0 +1,48 @@
+\section{The Configuration Interaction Method}
+\label{sec:ci}
+
+In the CI expansion, the exact electronic wave function of $N$ electrons may be
+written as a linear combination of Slater determinants,
+\begin{align}
+&\ket{\Phi_I (\vc{R}(t),t)} = \sum_{\alpha \in \mathcal{K}}  
+  \ket{\psi_\alpha (\vc{R}(t),t)} d^I_\alpha(t)
+\label{eq:CIExp} \\
+& \mathcal{K} = \left\lbrace \{ \phi_p \} \suchthat \{ \phi_p \} \subset
+\mathcal{R}_0 \text{ and } \mathrm{card}(\{ \phi_p \}) = N \right\rbrace
+\quad ,
+\end{align}
+where $\left\lbrace\ket{\psi_\alpha}\right\rbrace$ is a set of Slater
+determinants, and $\left\lbrace d^I_\alpha \right\rbrace$ is a set of normalized
+expansion coefficients for a particular electronic adiabat. $\mathcal{K}$ is a
+set of electronic configurations, upon which each of the indexed Slater
+determinants is based. The elements of $\mathcal{K}$ are sets (configurations)
+of \emph{molecular orbitals} (MO), $\phi_p$, taken from a reference set of MOs,
+$\mathcal{R}_0$.  In principle, the above expansion is exact given that all
+possible electronic configurations are included.  Given that that the
+cardinality of $\mathcal{R}_0$ is $K$, there are a total of $\mathcal{C}(K,N)$
+(read ``K choose N") possible determinants that would need to be included in the
+expansion. Such an exhaustive expansion is called \emph{full configuration
+interaction} (FCI) and is rendered impractical for the majority of systems due
+to the rapid growth of $\mathcal{C}(K,N)$.  In practice, we  must restrict which
+Slater determinants we include in \cref{eq:CIExp}. As a result, a vast
+proportion of research in the field of electronic structure theory has been
+centered on the proper way to restrict the expansion in such a way that all of
+the relevant physics is maintained while extraneous information may be
+discarded. Such methods as complete active space (CAS), multi-reference
+configuration interaction (MRCI), density matrix renormalization group (DMRG),
+particle--particle propagator methods , and truncated CI methods may all be
+described, at their core, as algorithms to provide such a filtering of the
+physically relevant determinants of the CI expansion.  Once a restriction of
+\cref{eq:CIExp} has been made, one need only diagonalize the Hamiltonian in the
+basis of these different Slater determinants,
+\begin{align}
+&H_{\alpha\beta}(t) d_\beta^I(t) = d_\alpha^I(t) \mathcal{E}_I(t)\\
+&H_{\alpha\beta}(t) =
+\innerop{\phi_\alpha(\vc{R}(t),t)}{\mathcal{H}_{el}(t)}{\phi_\beta(\vc{R}(t),t)}
+\quad,
+\end{align}
+where $\mathcal{H}_{el}(t)$ is the electronic component of the total
+time--depenendant Hamiltonian and $\mathcal{E}_I(t)$ is the $I$-th electronic
+eigenenergie. 
+Of these methods, only two: CAS and the particle-particle polarization
+propagator methods, will be discussed in detail. 
