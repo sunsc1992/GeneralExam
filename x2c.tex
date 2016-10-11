@@ -16,17 +16,18 @@ presence of a scalar potential $V$. Here, $V$ collects all scalar potential
 terms, $\vec{p}$ is the momentum operator (acting as an internal vector
 potential), $\vec{\vc{\sigma}}$ is a vector whose elements are the Pauli
 matrices, and $\vc{I}_2$ is the 2x2 identity matrix. The implicit parametric
-dependence on time has been dropped for brevity. The fact that this is a single
-particle operator is quite consequential in the relativistic treatment of
-molecules in that $\op{H}_D$ describes the mean-field quantum nature of a
-single electron in the presence of the $N-1$ other electrons and the nuclei
-(encapsulated in $V$). This is due to the fact that, in general, a Lorentz
-invariant many--body Dirac equation does not exist if the Coulomb interaction is
-taken to be the interaction potential between charges particles. In this work I
-will not be explicitly taking into account relativistic retardation effects,
-hence this treatment is not completely relativistic. This treatment does,
-however, contain the chemically relevant relativistic effects such as
-SOC and  scalar relativistic effects.
+dependence on time has been dropped for brevity. 
+%The fact that this is a single
+%particle operator is quite consequential in the relativistic treatment of
+%molecules in that $\op{H}_D$ describes the mean-field quantum nature of a
+%single electron in the presence of the $N-1$ other electrons and the nuclei
+%(encapsulated in $V$). This is due to the fact that, in general, a Lorentz
+%invariant many--body Dirac equation does not exist if the Coulomb interaction is
+%taken to be the interaction potential between charges particles. In this work I
+%will not be explicitly taking into account relativistic retardation effects,
+%hence this treatment is not completely relativistic. This treatment does,
+%however, contain the chemically relevant relativistic effects such as
+%SOC and  scalar relativistic effects.
 From the matrix representation of $\op{H}_D$, it is clear to see that it
 acts upon a four--dimensional Hilbert space known as a bispinor field ,
 $\ket{\Phi^{4c}}$, whose components are themselves two--dimensional,
@@ -78,51 +79,52 @@ creation operators respectively. $\vc{h}^\mathrm{X2C}$ is the effective
 relativistic core--Hamiltonian which includes both spin--orbit and scalar
 relativistic effects, $\inner{\cdot}{\cdot}$, is the Coulomb operator expressed
 in the basis of spinor MOs and $V_\mathrm{NN}$ is the nuclear--nuclear repulsion
-energy. Expressing \cref{eq:X2CHam} in basis of a single Slater determinant and
-expanding each spinor MO in the AO basis ($\lbrace \chi_\mu \rbrace$),
-\begin{equation}
-\phi_p ( \vc{r} ) = \sum_\mu \chi_\mu(\vc{r}) C_{\mu p}
-\qquad
-C_{\mu p} = \begin{pmatrix}
-C_{\mu p}^\alpha \\ C_{\mu p}^\beta
-\end{pmatrix}
-\quad , \label{eq:AO2MO}
-\end{equation}
-we arrive at a relativistic two--component analogue of the Roothaan--Hall
-equations familiar to traditional mean--field electronic structure theory,
-\begin{align}
-&\frac{1}{2}\left(
-  F^S_{\mu\nu} \cdot \vc{I}_2 + F^k_{\mu\nu} \cdot \vc{\sigma_k}
-\right) C_{\nu p} = (S_{\mu\nu}\cdot \vc{I}_2) C_{\nu p}
-\epsilon_p\label{eq:Roothaan}
-%\\
-%\nonumber \\
-%&F^S_{\mu\nu} = \left(
-%  2\left( \mu\nu \vert \kappa\lambda \right) - 
-%  \left(  \mu\lambda \vert \kappa\nu \right) 
-%\right) P^S_{\lambda \kappa} \nonumber \\
-%&F^k_{\mu\nu} = -\left(  \mu\lambda \vert \kappa\nu \right) P^k_{\lambda \kappa}\\
-%\nonumber \\
-%&\vc{P}^S = \frac{1}{2}\mathrm{Tr}_\sigma (\vc{P}\vc{I}_2) \nonumber \\
-%&\vc{P}^k = \frac{1}{2}\mathrm{Tr}_\sigma (\vc{P}\vc{\sigma}_k)
-%\label{eq:traceRel}\\
-%&P_{\mu\nu} = C_{\mu i} C_{\nu i}^\dagger \nonumber
-\end{align}
-Here, $\vc{S}$ is the AO overlap matrix, 
-%and $(\cdot \vert \cdot)$ is the
-%Coulomb operator in the AO basis.
-and $\{\epsilon_p\}$ is the set of MO
-eigenenergies. $\vc{F}^S$,$\vc{F}^k$ and $\vc{P}^S,\vc{P}^k$ are the scalar and
-vector parts of the spinor Fock and density matrices in the AO basis
-respectively, 
-%and are related to the full spinor operators in terms of the spin
-%trace, $\mathrm{Tr}_\sigma$, relations of \cref{eq:traceRel}. 
-Is important to note that $C_{\mu p} \in \mathbb{C}^2$ (where the $\alpha$ and
-$\beta$ indicies represent inseparable spin-up and spin-down components of
-$C_{\mu p}$), thus elements of the total spinor density (and thus the spinor
-Fock) are 2x2 complex matrices.  \Cref{eq:Roothaan} may be solved
-self--consistently to obtain the lowest energy (single) Slater determinantal
-description of the many--body system.
+energy. 
+%Expressing \cref{eq:X2CHam} in basis of a single Slater determinant and
+%expanding each spinor MO in the AO basis ($\lbrace \chi_\mu \rbrace$),
+%\begin{equation}
+%\phi_p ( \vc{r} ) = \sum_\mu \chi_\mu(\vc{r}) C_{\mu p}
+%\qquad
+%C_{\mu p} = \begin{pmatrix}
+%C_{\mu p}^\alpha \\ C_{\mu p}^\beta
+%\end{pmatrix}
+%\quad , \label{eq:AO2MO}
+%\end{equation}
+%we arrive at a relativistic two--component analogue of the Roothaan--Hall
+%equations familiar to traditional mean--field electronic structure theory,
+%\begin{align}
+%&\frac{1}{2}\left(
+%  F^S_{\mu\nu} \cdot \vc{I}_2 + F^k_{\mu\nu} \cdot \vc{\sigma_k}
+%\right) C_{\nu p} = (S_{\mu\nu}\cdot \vc{I}_2) C_{\nu p}
+%\epsilon_p\label{eq:Roothaan}
+%%\\
+%%\nonumber \\
+%%&F^S_{\mu\nu} = \left(
+%%  2\left( \mu\nu \vert \kappa\lambda \right) - 
+%%  \left(  \mu\lambda \vert \kappa\nu \right) 
+%%\right) P^S_{\lambda \kappa} \nonumber \\
+%%&F^k_{\mu\nu} = -\left(  \mu\lambda \vert \kappa\nu \right) P^k_{\lambda \kappa}\\
+%%\nonumber \\
+%%&\vc{P}^S = \frac{1}{2}\mathrm{Tr}_\sigma (\vc{P}\vc{I}_2) \nonumber \\
+%%&\vc{P}^k = \frac{1}{2}\mathrm{Tr}_\sigma (\vc{P}\vc{\sigma}_k)
+%%\label{eq:traceRel}\\
+%%&P_{\mu\nu} = C_{\mu i} C_{\nu i}^\dagger \nonumber
+%\end{align}
+%Here, $\vc{S}$ is the AO overlap matrix, 
+%%and $(\cdot \vert \cdot)$ is the
+%%Coulomb operator in the AO basis.
+%and $\{\epsilon_p\}$ is the set of MO
+%eigenenergies. $\vc{F}^S$,$\vc{F}^k$ and $\vc{P}^S,\vc{P}^k$ are the scalar and
+%vector parts of the spinor Fock and density matrices in the AO basis
+%respectively, 
+%%and are related to the full spinor operators in terms of the spin
+%%trace, $\mathrm{Tr}_\sigma$, relations of \cref{eq:traceRel}. 
+%Is important to note that $C_{\mu p} \in \mathbb{C}^2$ (where the $\alpha$ and
+%$\beta$ indicies represent inseparable spin-up and spin-down components of
+%$C_{\mu p}$), thus elements of the total spinor density (and thus the spinor
+%Fock) are 2x2 complex matrices.  \Cref{eq:Roothaan} may be solved
+%self--consistently to obtain the lowest energy (single) Slater determinantal
+%description of the many--body system.
 
 The fact that one may write the X2C Hamiltonian in second quantized form makes it
 suitable for application to post--self consistent field descriptions of

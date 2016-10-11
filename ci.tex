@@ -13,8 +13,8 @@ written as a linear combination of Slater determinants,
 \end{align}
 where $\left\lbrace\ket{\psi_\alpha}\right\rbrace$ is a set of Slater
 determinants, and $\left\lbrace d^I_\alpha \right\rbrace$ is a set of normalized
-expansion coefficients for a particular electronic adiabat. $\mathcal{K}$ is a
-set of electronic configurations, upon which each of the indexed Slater
+expansion coefficients for a particular electronic adiabat $I$. $\mathcal{K}$ is
+a set of electronic configurations, upon which each of the indexed Slater
 determinants is based. The elements of $\mathcal{K}$ are sets (configurations)
 of \emph{molecular orbitals} (MO), $\phi_p$, taken from a reference set of MOs,
 $\mathcal{R}_0$.  In principle, the above expansion is exact given that all
@@ -23,20 +23,22 @@ cardinality of $\mathcal{R}_0$ is $K$, there are a total of $\mathcal{C}(K,N)$
 (read ``K choose N") possible determinants that would need to be included in the
 expansion. Such an exhaustive expansion is called \emph{full configuration
 interaction} (FCI) and is rendered impractical for the majority of systems due
-to the rapid growth of $\mathcal{C}(K,N)$.  In practice, we  must restrict which
-Slater determinants we include in \cref{eq:CIExp}. As a result, a vast
-proportion of research in the field of electronic structure theory has been
-centered on the proper way to restrict the expansion in such a way that all of
-the relevant physics is maintained while extraneous information may be
-discarded. Such methods as complete active space (CAS), multi-reference
-configuration interaction (MRCI), density matrix renormalization group (DMRG),
-particle--particle propagator methods , and truncated CI methods may all be
-described, at their core, as algorithms to provide such a filtering of the
-physically relevant determinants of the CI expansion.  Once a restriction of
-\cref{eq:CIExp} has been made, one need only diagonalize the Hamiltonian in the
-basis of these different Slater determinants,
+to the rapid growth of $\mathcal{C}(K,N)$.  
+
+In practice, we  must restrict which Slater determinants we include in
+\cref{eq:CIExp}. As a result, a vast proportion of research in the field of
+electronic structure theory has been centered on the proper way to restrict the
+expansion in such a way that all of the relevant physics is maintained while
+extraneous information may be discarded. Such methods as complete active space
+(CAS), multi-reference configuration interaction (MRCI), density matrix
+renormalization group (DMRG), particle--particle propagator methods , and
+truncated CI methods may all be described, at their core, as algorithms to
+provide such a filtering of the physically relevant determinants of the CI
+expansion.  Once a restriction of \cref{eq:CIExp} has been made, one need only
+diagonalize the Hamiltonian in the basis of these different Slater determinants,
 \begin{align}
-&H_{\alpha\beta}(t) d_\beta^I(t) = d_\alpha^I(t) \mathcal{E}_I(t)\\
+&H_{\alpha\beta}(t) d_\beta^I(t) = d_\alpha^I(t) \mathcal{E}_I(t)
+\label{eq:CIEig}\\
 &H_{\alpha\beta}(t) =
 \innerop{\phi_\alpha(\vc{R}(t),t)}{\mathcal{H}_{el}(t)}{\phi_\beta(\vc{R}(t),t)}
 \quad,
@@ -46,3 +48,47 @@ time--depenendant Hamiltonian and $\mathcal{E}_I(t)$ is the $I$-th electronic
 eigenenergie. 
 Of these methods, only two: CAS and the particle-particle polarization
 propagator methods, will be discussed in detail. 
+
+Since its inception, CAS has been regarded as the industry standard for accurate
+\emph{ab initio} descriptions of molecular systems. This is perhaps due to the
+fact that it is the CI method that most closely resembles FCI while still
+maintaining computation efficiency. In CAS methods, one performs FCI on a
+restricted set of electronic configurations specified by an active space. The
+reference orbitals of $\mathcal{R}_0$ are split into three sections: core 
+($\mathcal{I}$), active ($\mathcal{A}$) and virtual ($\mathcal{V}$) orbitals.
+The core orbitals are taken to always be occupied, the virtual always
+unoccupied, and the active orbitals are given the freedom of varying occupancy.
+Thus, the restricted collection of configurations, $\mathcal{K}_\mathrm{CAS}$,
+may be written as
+\begin{equation}
+\mathcal{K}_\mathrm{CAS} = 
+\left\lbrace \{ \phi_p \} \suchthat 
+\{ \phi_p \} \subset \mathcal{R}_0 \setminus \mathcal{V} \text{ and } 
+\mathcal{I} \subset \{ \phi_p \} \text{ and }
+\mathrm{card}(\{ \phi_p \}) = N \right\rbrace
+\quad.
+\end{equation}
+In fact, CAS reduces to FCI in the case that 
+$\mathcal{I},\mathcal{V} = \varnothing$ and $\mathcal{A} = \mathcal{R}_0$.
+%While diagonalization of \cref{eq:CIEig} ensures that the solutions are
+%stationary with respect to the expansion coefficients, it does not ensure that
+%the solution is stationary with respect to the choice of $\mathcal{R}_0$. One
+%way to remedy this in the case that more than the ground state is desires from
+%\cref{eq:CIEig} is to introduce the state--averaged CAS self--consistent field
+%(SA-CASSCF) method which ensures this condition.
+%The practical implementation of the SA-CASSCF method are outside of
+The practical implementation of the CAS method are outside of the scope of the
+proposed work, and may be found in the seminal works on the method.
+
+
+Recently, the particle-particle Tamm-Dancoff approximation (pp-TDA), which has
+been a standard trade tool of the nuclear physics community in the treatment of
+the many--body correlation energy for low matter density
+systems\cite{SchuckBook_04}, have been extended to the treatment the correlation
+energy and excitation energies of quantum molecular systems within a finite
+basis set.\cite{Yang13_224105,Yang13_18A522,
+Yang13_174110,Yang13_104112,Yang13_030501,Yang09_066403,Bulik13_104113}.
+Although this introduction into the quantum chemistry community in relatively
+recent, a wealth of effort has been afforded to the rigorous investigation of
+these methods in a variety of different contexts, involving the evaluation of
+excitation energies\cite{Yang13_224105,Yang13_18A522,Yang13_174110}.
