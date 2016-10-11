@@ -6,13 +6,126 @@
 With the recent introduction of the particle-particle random phase and
 Tamm-Dancoff approximations to \emph{ab initio} theory, routine queries of
 traditionally difficult systems, such as diradicals and doubly excited states,
-have been made possible. However, although a wealth of inquiry has been directed
-to investigating these methods, the current formulations have been restricted to
-spin-collinear systems, leaving the methods incapable of treating
-non-collinearity and spin-orbit relativistic effects in excited states.  My
-recent extension of the pp-TDA to two--component relativistic
-Hamiltonians\cite{DBWY16_Accepted1} has helped to fill that void in the
-literature.
+have been made possible. However, although a wealth of 
+\begin{wraptable}{r}{0.45\textwidth}
+  \vspace{-0.5cm}
+  \caption{\footnotesize Calculated and reference\cite{NIST_ASD} excited-state fine structure
+  splittings (in meV) of some atomic systems. The presence of a superscript
+  ``$\circ$" in the term symbol denotes an odd state with respect to space
+  inversion.}
+ \vspace{-0.3cm}
+ \label{tb:SingleEx}
+ \centering
+ \begin{tabular}{llll}
+ System                    & Level                              & pp-TDA & Ref\\
+ \hline
+ \multirow{4}{*}{Mg}        & $^3$P$^\circ_{1}-^3$P$^\circ_{0}$  & 2.77  & 2.49 \\
+                            & $^3$P$^\circ_{2}-^3$P$^\circ_{1}$  & 5.55  & 5.05 \\
+                            & $^3$P$^\circ_{1}-^3$P$^\circ_{0}$  & 0.42  & 0.41 \\
+                            & $^3$P$^\circ_{2}-^3$P$^\circ_{1}$  & 0.84  & 0.84 \\
+ \hline
+ \multirow{4}{*}{Al$^+$}    & $^3$P$^\circ_{1}-^3$P$^\circ_{0}$  & 9.13   & 7.55  \\
+                            & $^3$P$^\circ_{2}-^3$P$^\circ_{1}$  & 18.40  & 15.36 \\
+                            & $^3$P$^\circ_{1}-^3$P$^\circ_{0}$  & 2.17   & 1.73  \\
+                            & $^3$P$^\circ_{2}-^3$P$^\circ_{1}$  & 4.50   & 3.65  \\
+ \hline
+ \multirow{4}{*}{Si$^{2+}$} & $^3$P$^\circ_{1}-^3$P$^\circ_{0}$  & 18.97  & 15.94 \\
+                            & $^3$P$^\circ_{2}-^3$P$^\circ_{1}$  & 38.40  & 32.45 \\
+                            & $^3$P$^\circ_{1}-^3$P$^\circ_{0}$  & 5.08   & 4.10  \\
+                            & $^3$P$^\circ_{2}-^3$P$^\circ_{1}$  & 11.04  & 9.07  \\
+ \hline
+ \end{tabular}
+ \vspace{-0.5cm}
+\end{wraptable}
+inquiry has been directed to investigating these methods, the previous
+formulations have been restricted to spin-collinear systems, leaving the methods
+incapable of treating non-collinearity and spin-orbit relativistic effects in
+excited states.  My recent extension of the pp-TDA to two--component
+relativistic Hamiltonians\cite{DBWY16_Accepted1} to study fine structure
+splittings (FSS) has helped to fill that void in the literature.
+
 
 The extension of the pp-TDA to the X2C Hamiltonian is more of a technical hurdle
-than one of formalism. As
+than one of formalism. As \cref{eq:X2CHam} is second quantized, solution of
+\cref{eq:ppTDAEig} only requires knowledge of a collection of MOs optimized in
+the presence of relativsic effects,
+$\mathcal{R}_0^{(N-2)}$. This may be achieved via the X2C-HF procedure to obtain
+a mean-field single Slater determinant description of the $(N-2)$-electron wave
+function.
+
+The presence of spin-orbit couplings causes the total spin, $\vec{\op{S}}$, and
+orbital, $\vec{\op{L}}$, angular momentum operators to no longer commute with
+the Hamiltonian, therefore they no longer generate good quantum numbers for the
+system.  Instead, the total angular momentum
+$\vec{\op{J}}=\vec{\op{L}}+\vec{\op{S}}$ is the fundamental quantity that should
+be considered when classifying the electronic states of the system.  A direct
+consequence of spin-orbit couplings on the spectra of atoms is the lifting of
+some of the degeneracies that would be expected in the ground or excited
+electronic states.  In my previous work, we calculated the electronic adaibats
+\begin{wraptable}{hr}{0.45\textwidth}
+ \vspace{-0.5cm}
+  \caption{\footnotesize Excited-state fine structure splittings (in meV).}
+ \label{tb:DoubleEx}
+ \centering
+ \begin{tabular}{llll}
+ System                    & Level & pp-TDA & Ref\cite{NIST_ASD,Krupenie72_423}\\
+ \hline
+  O$_2$ & $^3\Delta_3-{^3\Delta_2}$ & 20.58 & 18.09 \\ \hline
+  \multirow{2}{*}{Al$^+$} & $^3$P$_1-^3$P$_0$ & 9.20 & 7.75 \\ 
+  & $^3$P$_2-^3$P$_1$ & 17.93 & 15.03 \\  \hline
+  \multirow{2}{*}{Si$^{2+}$} & $^3$P$_1-^3$P$_0$ & 19.46 & 16.55 \\ 
+  & $^3$P$_2-^3$P$_1$ & 37.88 & 32.06 \\    \hline
+ \end{tabular}
+ \vspace{-0.5cm}
+\end{wraptable}
+using our developed X2C-pp-TDA method of selected atomic systems and compared he
+obtained FSS with experimental reference values\cite{NIST_ASD} to asses the
+accuracy of the method. The excitation energies within any varient of the pp-TDA
+method may be written as
+\begin{equation}
+\omega_I = \omega'_I - \omega'_0 = \mathcal{E}_I^{N} - \mathcal{E}_0^N 
+\quad I > 0.
+\end{equation}
+In this work, I only present the comparison of the X2C-pp-TDA method to
+experimental reference for brevity. A full comparison to the analogous method of
+X2C-CIS and X2C-TDHF may be found in the published work\cite{DBWY16_Accepted1}.
+
+\Cref{tb:SingleEx} summarizes the FSS results for a series single excitations
+for atomic systems. It is clear to see that the X2C-pp-TDA method performs quite
+well with respect to the experimental data. A general trend may be observed in
+that the X2C-pp-TDA consistently overestimates the splittings as the atomic
+charge of the underlying nucleus increases. This effect is magnified in the low
+energy transitions while it is less apparent in the higher energy transitions.
+This is due to the fact that the frontier orbitals of the ($N-2$)-reference
+being used become sub-optimal in the proper description of the $N$-electron
+system due to a contraction in the presence of higher nuclear charge. This leads
+to an unphysically small energetic separation between the frontier orbitals of
+the $N$-electron system which causes increasing errors due to an unphysical
+increase in mixing. This problem is less obvious in higher energy excitation
+because the higher lying orbitals are not as affected.
+
+\Cref{tb:DoubleEx} summarized the FSS results for a series of excitations that
+are traditionally inaccesible though single--reference methods: double
+excitations.  As the pp-TDA treats the excited states as double electron
+additions, it has complete access to all double excitations out of the valence
+orbitals. In addition, for the case of molecular oxygen, we are able to recover
+the triplet ground and excited states with minimal spin--contamination. It is a
+well known problem with relatvistic methods that the breaking of spin--symmetry
+leads to considerable spin--contamination for states of non--singlet
+multiplicity . This can lead to considerable noise in the predicted excitation
+energies. As the FSS are on the order of meV, even a small amount of noise can
+lead to difficulty in identifing the lifting of deneracies. in the pp-TDA, the
+$(N-2)$ reference is a singlet, which allows us to recover the $N$ electron
+electronic states with only minimal spin--contamination which enables simple
+identification of the degeneracy lifted states. The FSS results for these
+excitations are, again, in excellent agreement with experiment.
+
+Overall, the X2C--pp-TDA method performs quite will in the evaluation of FSS in
+molecular systems. However, becuase of the extreme restriction of the involved
+configurations in $\mathcal{K}_\mathrm{pp-TDA}^N$, only select number of
+chemically relevant states are accessable, namely only those excitations out of
+the valence orbitals. While a considerable able of chemistry does occur in the
+valence orbitals, many interesting transition metal phenomena in i.e. transition
+metal complex, such as metal--ligand charge transfer involve contributions from
+orbitals well below the Fermi level. As such, the pp-TDA is flawed in treating
+such phenomena, while a general CAS treatment is able to capure them.
