@@ -4,22 +4,22 @@
 In the CI expansion, the exact electronic wave function of $N$ electrons may be
 written as a linear combination of Slater determinants,
 \begin{align}
-&\ket{\Phi_I (\vc{R}(t),t)} = \sum_{\alpha \in \mathcal{K}}  
+&\ket{\Phi^N_I (\vc{R}(t),t)} = \sum_{\alpha \in \mathcal{K}^N}  
   \ket{\psi_\alpha (\vc{R}(t),t)} d^I_\alpha(t)
 \label{eq:CIExp} \\
-& \mathcal{K} = \left\lbrace \{ \phi_p \} \suchthat \{ \phi_p \} \subset
-\mathcal{R}_0 \text{ and } \mathrm{card}(\{ \phi_p \}) = N \right\rbrace
+& \mathcal{K}^N = \left\lbrace \{ \phi_p \} \suchthat \{ \phi_p \} \subset
+\mathcal{R}_0^N \text{ and } \mathrm{card}(\{ \phi_p \}) = N \right\rbrace
 \quad ,
 \end{align}
 where $\left\lbrace\ket{\psi_\alpha}\right\rbrace$ is a set of Slater
 determinants, and $\left\lbrace d^I_\alpha \right\rbrace$ is a set of normalized
-expansion coefficients for a particular electronic adiabat $I$. $\mathcal{K}$ is
-a set of electronic configurations, upon which each of the indexed Slater
-determinants is based. The elements of $\mathcal{K}$ are sets (configurations)
-of \emph{molecular orbitals} (MO), $\phi_p$, taken from a reference set of MOs,
-$\mathcal{R}_0$.  In principle, the above expansion is exact given that all
+expansion coefficients for a particular electronic adiabat $I$. $\mathcal{K}^N$ is
+a set of $N$--electron configurations, upon which each of the indexed Slater
+determinants is based. The elements of $\mathcal{K}^N$ are sets (configurations)
+of $N$ \emph{molecular orbitals} (MO), $\phi_p$, taken from a reference set of MOs,
+$\mathcal{R}^N_0$.  In principle, the above expansion is exact given that all
 possible electronic configurations are included.  Given that that the
-cardinality of $\mathcal{R}_0$ is $K$, there are a total of $\mathcal{C}(K,N)$
+cardinality of $\mathcal{R}^N_0$ is $K$, there are a total of $\mathcal{C}(K,N)$
 (read ``K choose N") possible determinants that would need to be included in the
 expansion. Such an exhaustive expansion is called \emph{full configuration
 interaction} (FCI) and is rendered impractical for the majority of systems due
@@ -37,15 +37,15 @@ provide such a filtering of the physically relevant determinants of the CI
 expansion.  Once a restriction of \cref{eq:CIExp} has been made, one need only
 diagonalize the Hamiltonian in the basis of these different Slater determinants,
 \begin{align}
-&H_{\alpha\beta}(t) d_\beta^I(t) = d_\alpha^I(t) \mathcal{E}_I(t)
+&H_{\alpha\beta}(t) d_\beta^I(t) = d_\alpha^I(t) \mathcal{E}^N_I(t)
 \label{eq:CIEig}\\
 &H_{\alpha\beta}(t) =
-\innerop{\phi_\alpha(\vc{R}(t),t)}{\mathcal{H}_{el}(t)}{\phi_\beta(\vc{R}(t),t)}
+\innerop{\psi_\alpha(\vc{R}(t),t)}{\mathcal{H}_{el}(t)}{\psi_\beta(\vc{R}(t),t)}
 \quad,
 \end{align}
 where $\mathcal{H}_{el}(t)$ is the electronic component of the total
-time--depenendant Hamiltonian and $\mathcal{E}_I(t)$ is the $I$-th electronic
-eigenenergie. 
+time--depenendant Hamiltonian and $\mathcal{E}^N_I(t)$ is the $I$-th electronic
+eigenenergie for an $N$-electron adiabat. 
 Of these methods, only two: CAS and the particle-particle polarization
 propagator methods, will be discussed in detail. 
 
@@ -54,22 +54,22 @@ Since its inception, CAS has been regarded as the industry standard for accurate
 fact that it is the CI method that most closely resembles FCI while still
 maintaining computation efficiency. In CAS methods, one performs FCI on a
 restricted set of electronic configurations specified by an active space. The
-reference orbitals of $\mathcal{R}_0$ are split into three sections: core 
+reference orbitals of $\mathcal{R}^N_0$ are split into three disjoint sets: core 
 ($\mathcal{I}$), active ($\mathcal{A}$) and virtual ($\mathcal{V}$) orbitals.
 The core orbitals are taken to always be occupied, the virtual always
 unoccupied, and the active orbitals are given the freedom of varying occupancy.
 Thus, the restricted collection of configurations, $\mathcal{K}_\mathrm{CAS}$,
 may be written as
 \begin{equation}
-\mathcal{K}_\mathrm{CAS} = 
+\mathcal{K}^N_\mathrm{CAS} = 
 \left\lbrace \{ \phi_p \} \suchthat 
-\{ \phi_p \} \subset \mathcal{R}_0 \setminus \mathcal{V} \text{ and } 
+\{ \phi_p \} \subset \mathcal{R}^N_0 \setminus \mathcal{V} \text{ and } 
 \mathcal{I} \subset \{ \phi_p \} \text{ and }
 \mathrm{card}(\{ \phi_p \}) = N \right\rbrace
-\quad.
+\quad. \label{eq:CASAnsatz}
 \end{equation}
 In fact, CAS reduces to FCI in the case that 
-$\mathcal{I},\mathcal{V} = \varnothing$ and $\mathcal{A} = \mathcal{R}_0$.
+$\mathcal{I},\mathcal{V} = \varnothing$ and $\mathcal{A} = \mathcal{R}_0^N$.
 %While diagonalization of \cref{eq:CIEig} ensures that the solutions are
 %stationary with respect to the expansion coefficients, it does not ensure that
 %the solution is stationary with respect to the choice of $\mathcal{R}_0$. One
@@ -85,10 +85,58 @@ Recently, the particle-particle Tamm-Dancoff approximation (pp-TDA), which has
 been a standard trade tool of the nuclear physics community in the treatment of
 the many--body correlation energy for low matter density
 systems\cite{SchuckBook_04}, have been extended to the treatment the correlation
-energy and excitation energies of quantum molecular systems within a finite
+energy and excitation energies of quantum molecular systems within a gaussian 
 basis set.\cite{Yang13_224105,Yang13_18A522,
 Yang13_174110,Yang13_104112,Yang13_030501,Yang09_066403,Bulik13_104113}.
-Although this introduction into the quantum chemistry community in relatively
-recent, a wealth of effort has been afforded to the rigorous investigation of
-these methods in a variety of different contexts, involving the evaluation of
-excitation energies\cite{Yang13_224105,Yang13_18A522,Yang13_174110}.
+%Although this introduction into the quantum chemistry community in relatively
+%recent, a wealth of effort has been afforded to the rigorous investigation of
+%these methods in a variety of different contexts, involving the evaluation of
+%excitation energies\cite{Yang13_224105,Yang13_18A522,Yang13_174110}.
+Although it is not standard to do so, it is possible to formulate the pp-TDA as
+a special case of CAS with a very restricted active space.
+
+In the pp-TDA, the $N$-electron ground and excited states may be written as two
+particle additions to an $(N-2)$-electron reference determinant,
+\begin{equation}
+\ket{\Phi_I^N (\vc{R}(t),t)} = \sum_{a < b} X_{ab}^I(\vc{R}(t),t)
+a_a^\dagger(\vc{R}(t)) a_b^\dagger (\vc{R}(t))
+\ket{\psi_0^{(N-2)}(\vc{R}(t),t)} \quad, \label{eq:ppTDAState}
+\end{equation}
+where $a_a^\dagger$ is a single particle creation operator into the the $a$-th
+MO and $X_{ab}^I$ is an expansion coefficient corresponding to the addition of
+two electrons into the $(N-2)$--electron Slater determinant. Given that
+$\ket{\psi_0^{(N-2)}}$ is constructed with a particular electronic
+configuration, $\{ \phi_p \}^{(N-2)}_0 \subset \mathcal{R}^{(N-2)}_0$, we may recast
+\cref{eq:ppTDAState} as a linear combintation of electronic configurations that
+is exactly a specialization of \cref{eq:CASAnsatz} with
+$\mathcal{V} = \varnothing$ and $\mathcal{I} = \{ \phi_p \}^{(N-2)}_0$,
+\begin{equation}
+\mathcal{K}_\mathrm{pp-TDA}^N =
+\left\lbrace \{ \phi_p \}^{(N-2)}_0 \cup \{\phi_a,\phi_b \} \suchthat 
+\{ \phi_a,\phi_b \} \subset \mathcal{R}^{(N-2)}_0 \setminus \{\phi_p \}^{(N-2)}_0 
+\right\rbrace \quad.
+\end{equation}
+Using the Slater--Condon rules for the evaluation of matrix elements between
+Slater determinants\cite{Szabo}, we may write \cref{eq:CIEig} as an eigenproblem
+in terms of the expansion coefficients in \cref{eq:ppTDAState},
+\begin{align}
+&\sum_{c < d} A_{ab,cd} X_{cd}^I = \omega'_I X_{ab}^I \quad (a < b)\\
+&A_{ab,cd} = \delta_{ac}\delta_{bd}(\varepsilon_a + \varepsilon_b) + 
+  \innerop{ab}{}{cd} \\
+&\omega'_I = \mathcal{E}^{N}_I - \mathcal{E}^{(N-2)}_0
+\quad.
+\end{align}
+Here, $\{\varepsilon_p\}$ is the set of MO eigenenergies,
+$\innerop{\cdot}{}{\cdot}$ is an antisymmetrized electron repulsion integral,
+and $\mathcal{E}_0^{(N-2)}$ is the electronic energy of $\ket{\psi_0^{(N-2)}}$,
+\begin{equation}
+\mathcal{H}_{el}\ket{\psi_0^{(N-2)}} = \mathcal{E}_0^{(N-2)}\ket{\psi_0^{(N-2)}}
+\quad.
+\end{equation}
+
+The pp-TDA is the basis for much of my previous work which will be discussed in
+\cref{sec:pp-X2C,sec:pp-TSH}, as it provides a simpler route to the corrlelated
+treatment of electronic adiabatic states over a full CAS treatment. As will be
+discussed, it does have limitations which can be resolved by a general CAS
+treatment. As such, CAS will be the primary focus of my future work in this
+field (\cref{sec:Future}).
