@@ -27,12 +27,17 @@ majority of systems due to the rapid growth of $\mathcal{C}(K,N)$.
 In practice, we  must restrict which Slater determinants we include in
 \cref{eq:CIExp}.  One must restrict the expansion in such a way that all of the
 relevant physics is maintained while discarding extraneous information. Such
-methods as complete active space (CAS), multi-reference configuration
-interaction (MRCI), and particle--particle propagator methods may all be
-described as algorithms to provide such a filtering of the physically relevant
-determinants.  Once a restriction of \cref{eq:CIExp} has been made, one need
-only diagonalize the Hamiltonian in the basis of these different Slater
-determinants,
+methods as complete active space (CAS),
+\cite{Schlegel92_CPL524,Handy84_CPL315,Handy82_JCP1,Joergensen78_JCP3833}
+multi-reference configuration interaction (MRCI), 
+\cite{Knowles88_JCP1}
+and particle--particle propagator methods
+\cite{Yang13_224105,Yang13_18A522,
+Yang13_174110,Yang13_104112,Yang13_030501,Yang09_066403,Bulik13_104113}
+ may all be described as algorithms to provide such a filtering of the
+ physically relevant determinants.  Once a restriction of \cref{eq:CIExp} has
+ been made, one need only diagonalize the Hamiltonian in the basis of these
+ different Slater determinants,
 \begin{align}
 &H_{\alpha\beta}(t) d_\beta^I(t) = d_\alpha^I(t) \mathcal{E}^N_I(t)
 \label{eq:CIEig}\\
@@ -74,6 +79,7 @@ $\mathcal{I},\mathcal{V} = \varnothing$ and $\mathcal{A} = \mathcal{R}_0^N$.
 %The practical implementation of the SA-CASSCF method are outside of
 The practical implementation of the CAS method are outside of the scope of the
 proposed work, and may be found in the seminal works on the method.
+\cite{Schlegel92_CPL524,Handy84_CPL315,Handy82_JCP1,Joergensen78_JCP3833}
 
 
 Recently, the particle-particle Tamm-Dancoff approximation (pp-TDA), which has
