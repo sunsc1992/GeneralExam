@@ -1,23 +1,25 @@
 \section{Introduction}
 
 Formally spin--forbidden processes, such as intersystem crossing (ISC),  play
-an crucial role in photochemistry. ISC is a transition between quantum states
-of differing spin multiplicity which manifests either radiatively or
-non-radiatively.  The functionality of many modern technologies depend heavily
-on finely tuned ISC to control the rate of population and depopulation of
-triplet intermediate states from singlet states upon photoexcitation. The fact
-that the non--relativistic treatment of molecular quantum mechanics predicts
-phenomena such as ISC as formally forbidden, it has been long thought that the
-time--scales at which they occur are far too long to compete with transitions
-between states of the same spin multiplicity. However, recent studies have
-shown that this is not necessarily the case, and that ISC can indeed be
-competitive even at short time--scales.  ISC is an inherently relativistic, and
-non--adiabatic time--dependent process. Thus to accurately treat these phenomena
-theoretically, one must provide an \emph{ab initio} description of the
-relativistic effects throughout the non--adiabatic time--evolution of the
-quantum system.  {\bf While much effort has been directed at the accurate
-treatment of non--adiabatic molecular dynamics, the scope of inquiry has been
-primary limited to non--relativistic regime.}
+an crucial role in photochemistry.\cite{Marian_SOC,Scaiano_Photo,Steer93_CR67}
+ISC is a transition between quantum states of differing spin multiplicity which
+manifests either radiatively or non-radiatively.  The functionality of many
+modern technologies, such as phosphorescent organic light emitting diodes
+(PHOLEDs),depend heavily on finely tuned ISC to control the rate of population
+and depopulation of triplet intermediate states from singlet states upon
+photoexcitation\cite{Miyaguchi99_JAP1502}. The fact that the non--relativistic
+treatment of molecular quantum mechanics predicts phenomena such as ISC as
+formally forbidden, it has been long thought that the time--scales at which
+they occur are far too long to compete with transitions between states of the
+same spin multiplicity. However, recent studies have shown that this is not
+necessarily the case, and that ISC can indeed be competitive even at short
+time--scales.\cite{Marian_SOC,Li16_JA2}  ISC is an inherently relativistic, and
+non--adiabatic time--dependent process\cite{Dyall07_book,Reiher15_book}.  Thus
+to accurately treat these phenomena theoretically, one must provide an \emph{ab
+initio} description of the relativistic effects throughout the non--adiabatic
+time--evolution of the quantum system.  {\bf While much effort has been
+directed at the accurate treatment of non--adiabatic molecular dynamics, the
+scope of inquiry has been primary limited to non--relativistic regime.}
 
 Relativistic effects, while often neglected in most standard treatments of
 quantum mechanics, can have profound consequences in chemical
@@ -44,9 +46,10 @@ ISC.
 There exist several \emph{ab
 initio} methods to approximately treat these relativistic effects, however, in
 this work the discussion will be limited to two--component relativistic
-Hamiltonians, specifically the ``exact two--component" (X2C) Hamiltonian. This
-choice of two--component transformation is due to its simplicity and accuracy.
-A brief overview of the X2C method may be found in \cref{sec:X2C}.
+Hamiltonians, specifically the ``exact two--component" (X2C) Hamiltonian.
+\cite{Liu05_241102,Peng06_044102,Saue07_064102,Peng09_031104,Reiher13_184105,Cheng07_104106,Liu16_204}
+This choice of two--component transformation is due to its simplicity and
+accuracy.  A brief overview of the X2C method may be found in \cref{sec:X2C}.
 
 In the quantum mechanical description of molecular systems, time evolution of
 the total molecular wave function, $\ket{\Psi (t)}$ is governed by the
@@ -101,11 +104,14 @@ functions.
 
 Over the years, perhaps the most successful \emph{ab initio} treatment of the
 adiabatic electronic wave function has been in the configuration interaction
-(CI) expansion of the electronic wave function. A brief overview of the CI
-method may be found in \cref{sec:ci}.  Many successful attempts have been made
-to extend CI variants to relativistic Hamiltonians\cite{Neese13_JCP104113,
-Olsen97_TCA125, Jensen96_JCP4083}, including my recent work on the extension of
-the particle--particle Tamm-Dancoff approximation (pp-TDA) to the X2C method
+(CI) expansion of the electronic wave function.
+\cite{Meyer00_PR1,Knowles88_JCP1,Handy82_JCP1,Saalfrank04_JCP124102,
+Schlegel92_CPL524,Handy84_CPL315,Joergensen78_JCP3833,Fleig08_JCP014108}
+A brief overview of the CI method may be found in \cref{sec:ci}.  Many
+successful attempts have been made to extend CI variants to relativistic
+Hamiltonians\cite{Neese13_JCP104113, Olsen97_TCA125, Jensen96_JCP4083,
+Fleig08_JCP014108}, including my recent work on the extension of the
+particle--particle Tamm-Dancoff approximation (pp-TDA) to the X2C method
 \cite{DBWY16_Accepted1} of which results are presented in \cref{sec:pp-X2C}. The
 CI method is simplest method, in formalism, for the addition of explicit
 many--body interaction back into mean--field description of the ground state
@@ -116,17 +122,18 @@ method for use in non--adiabatic molecular dynamics.
 
 There exist a vast plethora of computational methods to treat non--adiabatic
 molecular dynamics based on the separation in
-\cref{eq:exactSepElecNuc,eq:AdiaExp}. For the purposes of this work, the
-discussion will be restricted to that of the trajectory surface hopping (TSH)
-method.  TSH is one of the most widely applied methods for simulating
-electronically non-adiabatic dynamics of molecular and condensed-phase
-systems.\cite{Barbatti11_1759, Tavernelli14_62, Tully12_22A301, Tully98_407,
-Hynes14_97} At its core, TSH is a stochastic algorithm that controls which
-electronic adiabat dictates the forces on the nuclei during a classical nuclear
-trajectory.\cite{Preston71_562} As a semi-classical method, the time--evolution
-of the electronic degrees of freedom are treated as quantum mechanical while the
-time evolution of the nuclear positions are treated as classical through
-Newton's equations of motion. 
+\cref{eq:exactSepElecNuc,eq:AdiaExp}.
+\cite{Meyer00_PR1,Li11_144102,Li05_084106,Preston71_562}
+For the purposes of this work, the discussion will be restricted to that of the
+trajectory surface hopping (TSH) method.  TSH is one of the most widely applied
+methods for simulating electronically non-adiabatic dynamics of molecular and
+condensed-phase systems.\cite{Barbatti11_1759, Tavernelli14_62, Tully12_22A301,
+Tully98_407, Hynes14_97} At its core, TSH is a stochastic algorithm that
+controls which electronic adiabat dictates the forces on the nuclei during a
+classical nuclear trajectory.\cite{Preston71_562} As a semi-classical method,
+the time--evolution of the electronic degrees of freedom are treated as quantum
+mechanical while the time evolution of the nuclear positions are treated as
+classical through Newton's equations of motion. 
 %In essence, this classical treatment may be
 %thought of as the nuclear wave function begin written as a product of delta
 %functions centered at the classical nuclear positions
@@ -148,18 +155,22 @@ found in \cref{sec:TSH}.
 The quality of a TSH simulation is heavily dependent on the quality of the
 underlying description of the electronic potential energy surface.
 Traditionally, CI variants have been the most often applied basis for TSH
-implementations and their use is well documented in the literature.  Recently, I
+implementations and their use is well documented in the literature.
+\cite{ Gonzalez11_JCTC1253, Thiel14_JCP124101, Lischka10_8778, Martinez14_1,
+Robb02_10494, Gonzalez14_JCP204302}
+Recently, I
 have extended TSH for use within the pp-TDA \cite{DBWY16_Submitted1}, of which
-results are presented in \cref{sec:pp-TSH}.
-While some attempts have been made to study ISC using TSH via
-a perturbative inclusion of SOC in the CAS description of electronic adiabats 
-\cite{Thiel14_JCP124101}, no attempts have been made to provide an explicitly
-relativistic treatment of these effects within TSH. These perturbative
-approaches are valid only in the limit of negligible SOC, which seems to
-contradict the premise as it is in the SOC that ISC is made possible. This
-lack of relativistic treatment of SOC in TSH is an inherent flaw in current
-methods to model ISC and indicates a need for the development of new
-theoretical methods to model the electronic adiabatic states relativistically.
+results are presented in \cref{sec:pp-TSH}.  While some attempts have been made
+to study ISC using TSH via a perturbative inclusion of SOC in the CAS
+description of electronic adiabats
+\cite{Thiel14_JCP124101,Gonzalez14_JCP204302,Gonzalez11_JCTC1253}, no attempts
+have been made to provide an explicitly relativistic treatment of these effects
+within TSH. These perturbative approaches are valid only in the limit of
+negligible SOC, which seems to contradict the premise as it is in the SOC that
+ISC is made possible. This lack of relativistic treatment of SOC in TSH is an
+inherent flaw in current methods to model ISC and indicates a need for the
+development of new theoretical methods to model the electronic adiabatic states
+relativistically.
 {\bf 
 In this work, I will outline my proposed research to accurately simulate
 \emph{ab initio} relativistic molecular dynamics using trajectory surface
