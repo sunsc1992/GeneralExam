@@ -17,29 +17,40 @@ The nuclear position time evolution is governed by Newtonian mechanics,
   \quad.
 \end{equation}
 Here, $\vc{m}$ collects the masses for each nucleus, and $d_{IJ}^\xi$ is the
-rank-3 non--adiabatic coupling (NAC) tensor that provides an affine topological
-connection on the electronic manifold through the nuclear momentum operator.
-$\xi$ is an arbitrary nuclear coordinate.  While $E_J$ in
+rank-3 non--adiabatic coupling (NAC) tensor that provides a connection on the
+electronic manifold.  $\xi$ is an arbitrary nuclear coordinate.  While $E_J$ in
 \cref{eq:HamiltonianElec} represents an arbitrary energy eigenvalue of adiabat
 $J$, $E_c(t)$ ($c$ indicating ``current") from \cref{eq:Newton} is the
 electronic eigenenergy designated by the TSH algorithm to drive the nuclear
 evolution at time $t$.  
 
-%Talk about algorithm to switch the state throughout the dynamics
+The probability of switching which adiabt is contributing the forces for the
+nuclear equation of motion throughout a nuclear time step, $\Delta t_N$, may be
+given by
+\begin{equation}
+g_{cK}(t + \Delta t_N) = -2 \int_t^{t + \Delta t_N} 
+  \frac{\mathrm{Re}(c_c(t') c^*_K(t'))d_{cK}^\xi (t') \partial_{t'}
+  R_{\xi}(t')}{c_c(t') c^*_K(t')}\mathrm{d}t'
+\end{equation}
+Throughout the TSH simulation, $g_{cK}$ is evaluated for all considerd $K$
+during each nuclear time--step. It is then compared to a nuiformly distributed
+random number $\eta \in (0,1)$. Given that $g_{cK} > \eta$ a transition is
+called for, otherwise the nuclear time evolution remanins dependant on the
+``current" adiabat. A more thorough review of the TSH algorithm may be found in
+my previous collaborations\cite{DBWY16_JCTC935}.
 
-The representation of the separated equations of motion for the electronic and
-nuclear degrees of freedom in
-\cref{eq:EOMCs,eq:HamiltonianElec,eq:NAC,eq:Newton} are completely general to
-any method used to obtain the electronic adiabatic states. There have been many
-extensions of this methods to a vast number of different electronic structure
-methods. Recently, I have extended this method for use within the
-particle--particle Tamm--Dancoff approximation for the description of the
-electronic states\cite{DBWY16_Submitted1}, of which results are presented in
+The representation of the equations of motion in
+\cref{eq:EOMCs,eq:HamiltonianElec,eq:NAC,eq:Newton} are general to any method
+used to obtain the electronic adiabatic states. There have been many extensions
+of this methods to a vast number of different electronic structure methods.
+Recently, I have extended this method for use within the particle--particle
+Tamm--Dancoff approximation for the description of the electronic
+states\cite{DBWY16_Submitted1}, of which results are presented in
 \cref{sec:pp-TSH}. Although TSH has been applied to study ISC using perturbative
 approaches of accounting for SOC effects, I argue that this treatment is
-inherently flawed as the SOC that is argued to be so negligible as to be
-treated perturbatively is exactly the term that gives rise to the physical
-phenomena that they observe. To properly treat SOC in TSH, one must account for
-the SOC in a non--perturbative manner through an \emph{ab initio} treatment of
-some relativistic Hamiltonian.
+inherently flawed as the SOC that is argued to be so negligible as to be treated
+perturbatively is exactly the term that gives rise to the physical phenomena
+that they observe. To properly treat SOC in TSH, one must account for the SOC in
+a non--perturbative manner through an \emph{ab initio} treatment of some
+relativistic Hamiltonian.
 

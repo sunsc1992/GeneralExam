@@ -1,12 +1,37 @@
 \linespread{1.0}
 \section{The Relativistic Particle--Particle Tamm--Dancoff Approximation}
-\linespread{1.5}
+\mylinesp
 \label{sec:pp-X2C}
 
 With the recent introduction of the particle-particle random phase and
 Tamm-Dancoff approximations to \emph{ab initio} theory, routine queries of
 traditionally difficult systems, such as diradicals and doubly excited states,
-have been made possible. However, although a wealth of 
+have been made possible. However, 
+the previous formulations have been restricted to spin-collinear systems,
+leaving the methods incapable of treating non-collinearity and spin-orbit
+relativistic effects in excited states.  My recent extension of the pp-TDA to
+two--component relativistic Hamiltonians\cite{DBWY16_Accepted1} to study fine
+structure splittings (FSS) has helped to fill that void in the literature.
+
+
+The extension of the pp-TDA to the X2C Hamiltonian is a technical hurdle
+than one of formalism. As \cref{eq:X2CHam} is second quantized, solution of
+\cref{eq:ppTDAEig} only requires knowledge of a collection of MOs optimized in
+the presence of relativistic effects,
+$\mathcal{R}_0^{(N-2)}$. This may be achieved via the X2C-HF procedure to obtain
+a mean-field single Slater determinant description of the $(N-2)$-electron wave
+function.
+
+The presence of spin-orbit couplings causes the total spin, $\vec{\op{S}}$, and
+orbital, $\vec{\op{L}}$, angular momentum operators to no longer commute with
+the Hamiltonian. The total angular momentum
+$\vec{\op{J}}=\vec{\op{L}}+\vec{\op{S}}$ is the fundamental quantity that should
+be considered when classifying the electronic states of the system.  A
+consequence of SOC on the spectra of atoms is the lifting of some of the
+degeneracies that would be expected in the electronic states.  In my previous
+work, we calculated the electronic states 
+of selected atomic systems using our developed X2C-pp-TDA method and compared the
+obtained FSS with experimental reference values\cite{NIST_ASD} to
 \begin{wraptable}{r}{0.45\textwidth}
   \vspace{-0.5cm}
   \caption{\footnotesize Calculated and reference\cite{NIST_ASD} excited-state fine structure
@@ -37,51 +62,8 @@ have been made possible. However, although a wealth of
  \end{tabular}
  \vspace{-0.5cm}
 \end{wraptable}
-inquiry has been directed to investigating these methods, the previous
-formulations have been restricted to spin-collinear systems, leaving the methods
-incapable of treating non-collinearity and spin-orbit relativistic effects in
-excited states.  My recent extension of the pp-TDA to two--component
-relativistic Hamiltonians\cite{DBWY16_Accepted1} to study fine structure
-splittings (FSS) has helped to fill that void in the literature.
-
-
-The extension of the pp-TDA to the X2C Hamiltonian is more of a technical hurdle
-than one of formalism. As \cref{eq:X2CHam} is second quantized, solution of
-\cref{eq:ppTDAEig} only requires knowledge of a collection of MOs optimized in
-the presence of relativistic effects,
-$\mathcal{R}_0^{(N-2)}$. This may be achieved via the X2C-HF procedure to obtain
-a mean-field single Slater determinant description of the $(N-2)$-electron wave
-function.
-
-The presence of spin-orbit couplings causes the total spin, $\vec{\op{S}}$, and
-orbital, $\vec{\op{L}}$, angular momentum operators to no longer commute with
-the Hamiltonian, therefore they no longer generate good quantum numbers for the
-system.  Instead, the total angular momentum
-$\vec{\op{J}}=\vec{\op{L}}+\vec{\op{S}}$ is the fundamental quantity that should
-be considered when classifying the electronic states of the system.  A direct
-consequence of spin-orbit couplings on the spectra of atoms is the lifting of
-some of the degeneracies that would be expected in the ground or excited
-electronic states.  In my previous work, we calculated the electronic adaibats
-\begin{wraptable}{hr}{0.45\textwidth}
- \vspace{-0.5cm}
-  \caption{\footnotesize Excited-state fine structure splittings (in meV).}
- \label{tb:DoubleEx}
- \centering
- \begin{tabular}{llll}
- System                    & Level & pp-TDA & Ref\cite{NIST_ASD,Krupenie72_423}\\
- \hline
-  O$_2$ & $^3\Delta_3-{^3\Delta_2}$ & 20.58 & 18.09 \\ \hline
-  \multirow{2}{*}{Al$^+$} & $^3$P$_1-^3$P$_0$ & 9.20 & 7.75 \\ 
-  & $^3$P$_2-^3$P$_1$ & 17.93 & 15.03 \\  \hline
-  \multirow{2}{*}{Si$^{2+}$} & $^3$P$_1-^3$P$_0$ & 19.46 & 16.55 \\ 
-  & $^3$P$_2-^3$P$_1$ & 37.88 & 32.06 \\    \hline
- \end{tabular}
- \vspace{-0.5cm}
-\end{wraptable}
-of selected atomic systems using our developed X2C-pp-TDA method and compared the
-obtained FSS with experimental reference values\cite{NIST_ASD} to asses the
-accuracy of the method. The excitation energies within any variant of the pp-TDA
-method may be written as
+asses the accuracy of the method. The excitation energies within any variant of
+the pp-TDA method may be written as
 \begin{equation}
 \omega_I = \omega'_I - \omega'_0 = \mathcal{E}_I^{N} - \mathcal{E}_0^N 
 \quad I > 0,
@@ -104,22 +86,40 @@ to an unphysically small energetic separation between the frontier orbitals of
 the $N$-electron system which causes increasing errors due to an unphysical
 increase in mixing. This problem is less obvious in higher energy excitations
 because the higher lying orbitals are not as affected.
+\begin{wraptable}{hr}{0.45\textwidth}
+ \vspace{-0.5cm}
+  \caption{\footnotesize Excited-state fine structure splittings (in meV).}
+ \label{tb:DoubleEx}
+ \centering
+ \begin{tabular}{llll}
+ System                    & Level & pp-TDA & Ref\cite{NIST_ASD,Krupenie72_423}\\
+ \hline
+  O$_2$ & $^3\Delta_3-{^3\Delta_2}$ & 20.58 & 18.09 \\ \hline
+  \multirow{2}{*}{Al$^+$} & $^3$P$_1-^3$P$_0$ & 9.20 & 7.75 \\ 
+  & $^3$P$_2-^3$P$_1$ & 17.93 & 15.03 \\  \hline
+  \multirow{2}{*}{Si$^{2+}$} & $^3$P$_1-^3$P$_0$ & 19.46 & 16.55 \\ 
+  & $^3$P$_2-^3$P$_1$ & 37.88 & 32.06 \\    \hline
+ \end{tabular}
+ \vspace{-0.5cm}
+\end{wraptable}
 
-\Cref{tb:DoubleEx} summarized the FSS results for a series of excitations that
+\Cref{tb:DoubleEx} summarizes the FSS results for a series of excitations that
 are traditionally inaccessible though single--reference methods: double
 excitations.  As the pp-TDA treats the excited states as double electron
 additions, it has complete access to all double excitations out of the valence
-orbitals. In addition, for the case of molecular oxygen, we are able to recover
-the triplet ground and excited states with minimal spin--contamination. It is a
-well known problem with relativistic methods that the breaking of spin--symmetry
-leads to considerable spin--contamination for states of non--singlet
-multiplicity . This can lead to considerable noise in the predicted excitation
-energies. As the FSS are on the order of meV, even a small amount of noise can
-lead to difficulty in identifying the lifting of degeneracies. in the pp-TDA, the
-$(N-2)$ reference is a singlet, which allows us to recover the $N$ electron
-electronic states with only minimal spin--contamination which enables simple
-identification of the degeneracy lifted states. The FSS results for these
-excitations are, again, in excellent agreement with experiment.
+orbitals. 
+%In addition, for the case of molecular oxygen, we are able to recover
+%the triplet ground and excited states with minimal spin--contamination. It is a
+%well known problem with relativistic methods that the breaking of spin--symmetry
+%leads to considerable spin--contamination for states of non--singlet
+%multiplicity . This can lead to considerable noise in the predicted excitation
+%energies. As the FSS are on the order of meV, even a small amount of noise can
+%lead to difficulty in identifying the lifting of degeneracies. in the pp-TDA, the
+%$(N-2)$ reference is a singlet, which allows us to recover the $N$ electron
+%electronic states with only minimal spin--contamination which enables simple
+%identification of the degeneracy lifted states. 
+The FSS results for these excitations are, again, in excellent agreement with
+experiment.
 
 Overall, the X2C--pp-TDA method performs quite well in the evaluation of FSS in
 molecular systems. However, because of the restriction of the involved

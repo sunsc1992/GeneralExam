@@ -17,25 +17,22 @@ expansion coefficients for a particular electronic adiabat $I$. $\mathcal{K}^N$ 
 a set of $N$--electron configurations, upon which each of the indexed Slater
 determinants is based. The elements of $\mathcal{K}^N$ are sets (configurations)
 of $N$ \emph{molecular orbitals} (MO), $\phi_p$, taken from a reference set of MOs,
-$\mathcal{R}^N_0$.  In principle, the above expansion is exact given that all
-possible electronic configurations are included.  Given that that the
-cardinality of $\mathcal{R}^N_0$ is $K$, there are a total of $\mathcal{C}(K,N)$
-(read ``K choose N") possible determinants that would need to be included in the
-expansion. Such an exhaustive expansion is called \emph{full configuration
-interaction} (FCI) and is rendered impractical for the majority of systems due
-to the rapid growth of $\mathcal{C}(K,N)$.  
+$\mathcal{R}^N_0$.  
+Given that that the cardinality of $\mathcal{R}^N_0$ is $K$, there are a total
+of $\mathcal{C}(K,N)$ (read ``K choose N") possible determinants that would need
+to be included in the exact expansion. Such an exhaustive expansion is called
+\emph{full configuration interaction} (FCI) and is rendered impractical for the
+majority of systems due to the rapid growth of $\mathcal{C}(K,N)$.  
 
 In practice, we  must restrict which Slater determinants we include in
-\cref{eq:CIExp}. As a result, a vast proportion of research in the field of
-electronic structure theory has been centered on the proper way to restrict the
-expansion in such a way that all of the relevant physics is maintained while
-extraneous information may be discarded. Such methods as complete active space
-(CAS), multi-reference configuration interaction (MRCI), density matrix
-renormalization group (DMRG), particle--particle propagator methods , and
-truncated CI methods may all be described, at their core, as algorithms to
-provide such a filtering of the physically relevant determinants of the CI
-expansion.  Once a restriction of \cref{eq:CIExp} has been made, one need only
-diagonalize the Hamiltonian in the basis of these different Slater determinants,
+\cref{eq:CIExp}.  One must restrict the expansion in such a way that all of the
+relevant physics is maintained while discarding extraneous information. Such
+methods as complete active space (CAS), multi-reference configuration
+interaction (MRCI), and particle--particle propagator methods may all be
+described as algorithms to provide such a filtering of the physically relevant
+determinants.  Once a restriction of \cref{eq:CIExp} has been made, one need
+only diagonalize the Hamiltonian in the basis of these different Slater
+determinants,
 \begin{align}
 &H_{\alpha\beta}(t) d_\beta^I(t) = d_\alpha^I(t) \mathcal{E}^N_I(t)
 \label{eq:CIEig}\\
@@ -50,16 +47,14 @@ Of these methods, only two: CAS and the particle-particle polarization
 propagator methods, will be discussed in detail. 
 
 Since its inception, CAS has been regarded as the industry standard for accurate
-\emph{ab initio} descriptions of molecular systems. This is perhaps due to the
-fact that it is the CI method that most closely resembles FCI while still
-maintaining computation efficiency. In CAS methods, one performs FCI on a
-restricted set of electronic configurations specified by an active space. The
-reference orbitals of $\mathcal{R}^N_0$ are split into three disjoint sets: core 
-($\mathcal{I}$), active ($\mathcal{A}$) and virtual ($\mathcal{V}$) orbitals.
-The core orbitals are taken to always be occupied, the virtual always
-unoccupied, and the active orbitals are given the freedom of varying occupancy.
-Thus, the restricted collection of configurations, $\mathcal{K}_\mathrm{CAS}$,
-may be written as
+\emph{ab initio} descriptions of molecular systems.  In CAS methods, one
+performs FCI on a restricted set of electronic configurations specified by an
+active space. The reference orbitals of $\mathcal{R}^N_0$ are split into three
+disjoint sets: core ($\mathcal{I}$), active ($\mathcal{A}$) and virtual
+($\mathcal{V}$) orbitals.  The core orbitals are taken to always be occupied,
+the virtual always unoccupied, and the active orbitals are given the freedom of
+varying occupancy.  Thus, the restricted collection of configurations,
+$\mathcal{K}_\mathrm{CAS}$, may be written as
 \begin{equation}
 \mathcal{K}^N_\mathrm{CAS} = 
 \left\lbrace \{ \phi_p \} \suchthat 
@@ -104,12 +99,12 @@ a_a^\dagger(\vc{R}(t)) a_b^\dagger (\vc{R}(t))
 \end{equation}
 where $a_a^\dagger$ is a single particle creation operator into the the $a$-th
 MO and $X_{ab}^I$ is an expansion coefficient corresponding to the addition of
-two electrons into the $(N-2)$--electron Slater determinant. Given that
-$\ket{\psi_0^{(N-2)}}$ is constructed with a particular electronic
-configuration, $\{ \phi_p \}^{(N-2)}_0 \subset \mathcal{R}^{(N-2)}_0$, we may recast
-\cref{eq:ppTDAState} as a linear combination of electronic configurations that
-is exactly a specialization of \cref{eq:CASAnsatz} with
-$\mathcal{V} = \varnothing$ and $\mathcal{I} = \{ \phi_p \}^{(N-2)}_0$,
+two electrons into the $\ket{\psi_0^{(N-2)}}$. $\ket{\psi_0^{(N-2)}}$ is
+constructed from a particular electronic configuration, $\{ \phi_p \}^{(N-2)}_0
+\subset \mathcal{R}^{(N-2)}_0$, we may recast \cref{eq:ppTDAState} as a linear
+combination of electronic configurations that is exactly a specialization of
+\cref{eq:CASAnsatz} with $\mathcal{V} = \varnothing$ and $\mathcal{I} = \{
+\phi_p \}^{(N-2)}_0$,
 \begin{equation}
 \mathcal{K}_\mathrm{pp-TDA}^N =
 \left\lbrace \{ \phi_p \}^{(N-2)}_0 \cup \{\phi_a,\phi_b \} \suchthat 
@@ -129,11 +124,7 @@ in terms of the expansion coefficients in \cref{eq:ppTDAState},
 \end{align}
 Here, $\{\varepsilon_p\}$ is the set of MO eigenenergies,
 $\innerop{\cdot}{}{\cdot}$ is an antisymmetrized electron repulsion integral,
-and $\mathcal{E}_0^{(N-2)}$ is the electronic energy of $\ket{\psi_0^{(N-2)}}$,
-\begin{equation}
-\mathcal{H}_{el}\ket{\psi_0^{(N-2)}} = \mathcal{E}_0^{(N-2)}\ket{\psi_0^{(N-2)}}
-\quad.
-\end{equation}
+and $\mathcal{E}_0^{(N-2)}$ is the electronic energy of $\ket{\psi_0^{(N-2)}}$
 
 The pp-TDA is the basis for much of my previous work which will be discussed in
 \cref{sec:pp-X2C,sec:pp-TSH}, as it provides a simpler route to the correlated

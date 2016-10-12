@@ -48,23 +48,20 @@ Hamiltonians, specifically the ``exact two--component" (X2C) Hamiltonian. This
 choice of two--component transformation is due to its simplicity and accuracy.
 A brief overview of the X2C method may be found in \cref{sec:X2C}.
 
-In the quantum mechanical description of molecular systems, neglecting explicit
-coupling to a quantized photon field, time evolution of the total molecular wave
-function, $\ket{\Psi (t)}$ is governed by the Hamiltonian wave equation 
-(in atomic units),
+In the quantum mechanical description of molecular systems, time evolution of
+the total molecular wave function, $\ket{\Psi (t)}$ is governed by the
+Hamiltonian wave equation (in atomic units),
 \begin{equation}
 \op{H}(t) \ket{\Psi (t)} = i\partial_t \ket{\Psi(t)} \quad,
 \label{eq:WaveEq}
 \end{equation}
 where $\op{H}(t)$ is the time--dependent Hamiltonian, $\partial_t$ is a partial
-derivative with respect to time, and $t$ is a time parameter.  The moieties
-enclosed in parentheses are taken to be parameters, i.e. the wave function is
-parameterized by time.  In principle, one may solve \cref{eq:WaveEq} (in some
-approximate manner) simultaneously for both the electronic and nuclear degrees
-of freedom explicitly. However, this approach is  intractable for quantum
-systems exceeding more than a few particles. To simplify the time integration
-of \cref{eq:WaveEq}, one may formally decompose $\ket{\Psi (t)}$ into a product
-of nuclear and electronic wave functions,
+derivative with respect to time, and $t$ is a time parameter.  In principle, one
+may solve \cref{eq:WaveEq} (in some approximate manner) simultaneously for both
+the electronic and nuclear degrees of freedom explicitly. However, this approach
+is  intractable for quantum systems exceeding more than a few particles. To
+simplify the time integration of \cref{eq:WaveEq}, one may formally decompose
+$\ket{\Psi (t)}$ into a product of nuclear and electronic wave functions,
 \begin{equation} 
 \ket{\Psi (t)} = \ket{\Phi(\vc{R}(t),t)}\otimes\ket{\Theta(t)} 
 \quad .  
@@ -77,9 +74,7 @@ the nuclear position operator, $\vc{R}(t) =
 This formally exact treatment\cite{Gross10_PRL123002, Cederbaum08_JCP124101,
 Ghosh15_MP1} allows one to, at least in in principle, bifurcate the treatment of
 quantum molecular dynamics into explicit treatment of the electronic and nuclear
-time dependence separately.  Thus, in order to theoretically treat molecular
-dynamics accurately, one must be able to treat both the electronic and nuclear
-degrees of freedom to some level of accuracy.
+time dependence separately.  
 
 When obtaining the time evolution of the total molecular wave function, it is
 often advantageous to work in so called adiabatic basis of quantum states,
@@ -89,11 +84,9 @@ often advantageous to work in so called adiabatic basis of quantum states,
 \label{eq:EigSpec}
 \end{equation}
 where $\ket{\Psi_I}$ and $E_I$ represent the $I$-th adiabatic wave function and
-eigenenergie, respectively. For the purposes of the current discussion, we will
-be assuming a discrete eigenspectrum of the Hamiltonian that is smooth over $t$.
-Taking the separation of the total wave function in \cref{eq:exactSepElecNuc},
-we may rewrite the total wave function as a linear combination of adiabatic
-states,
+eigenenergie, respectively.  Taking the separation of the total wave function in
+\cref{eq:exactSepElecNuc}, we may rewrite the total wave function as a linear
+combination of adiabatic states,
 \begin{equation}
 \ket{\Psi (t)} = c_I \ket{\Phi_I (\vc{R}(t),t)} \otimes \ket{\Theta_I (t)}
 \quad ,
@@ -144,13 +137,11 @@ Newton's equations of motion.
 %  \label{eq:ClassicalNuclei}
 %\end{equation}
 %where $N_\mathrm{atoms}$ is the number of nuclei in the molecule.  
-This is often a valid approach, as the nuclei of molecules are orders of
-magnitude heavier than the electrons, and thus move much slower. TSH provides a
-somewhat ideal algorithm for the simulation and interpretation of many
-non--adiabatic processes, such as ISC, as it is somewhat blind to the underlying
-method used to obtain the electronic adiabats. Thus it is general to cases where
-the coupling between electronic adiabats is large or small, all while allowing
-smooth transition between the two. A brief overview of the TSH algorithm may be
+TSH provides an ideal algorithm for the simulation and interpretation of many
+non--adiabatic processes, such as ISC, as it is blind to the underlying method
+used to obtain the electronic adiabats. Thus it is general to cases where the
+coupling between electronic adiabats is large or small, all while allowing
+smooth transitions between them. A brief overview of the TSH algorithm may be
 found in \cref{sec:TSH}. 
 
 
