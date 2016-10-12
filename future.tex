@@ -3,3 +3,105 @@
 \linespread{1.5}
 \label{sec:Future}
 
+Extension of existing methodologies using relativistic CI wave functions for use
+in non--adiabatic dynamics is a challenging endeavor. Existing relativistic
+treatments of CI wave function have been limited to single--point calculations,
+and many of the ingredients needed for use with molecular dynamics have not yet
+been developed.
+{\bf As most of the computational machinery required to extend trajectory
+surface hopping to relativistic CI wave functions, the majority of the proposed
+research will be focused on developing the methods required to facilitate the
+extension.}
+
+Examining \cref{eq:EOMCs,eq:HamiltonianElec,eq:NAC,eq:Newton}, it is clear to
+see that if one has access to geometric gradients ($\nabla E_c$) and NAC tensor
+elements, one can perform TSH using that method, neither of which are readily
+available for relativistic CI wave functions. As for the geometric gradients,
+some methods have been proposed for other, more complicated relativistic
+two--component methods\cite{Nakai16_JCTC2181,Cremer15_JCP214106} than the X2C
+Hamiltonian in the mean--field description of the wave function, but the current
+state of geometric gradients for the X2C is limited to scalar relativistic
+treatment which neglect SOC\cite{Gauss11_JCP084114}. No attempts have been made
+to evaluate geometric gradients in the two--component relativistic treatment of
+CI wave functions. Although gradients and NAC tensor elements for
+non--relativistic CI wave functions have existed for many years, extension to
+two--component relativistic methods is non--trivial as they both involve
+differentiation of the transformation operator, $\op{U}$.
+
+In the X2C treatment of CI wave functions, the expressions for the energy
+gradients and NAC tensor elements look nearly identical. The only differences
+between them are scaling of certain terms by energy differences, which are
+inconsequential to the difficulties of the X2C method. Here, I will only discuss
+the energy gradient, keeping in mind that a virtually identical procedure holds
+for the NAC tensor elements. The energy expression for the CI eave function is
+given by,
+\begin{align}
+&\mathcal{E}_I = h^\mathrm{X2C}_{pq}\gamma^I_{pq} + 
+ (pq|rs) \Gamma^I_{pqrs} \\
+&\gamma^I_{pq} = 
+  \sum_{\alpha,\beta \in \mathcal{K}} 
+  \innerop{\psi_\alpha}{a_p^\dagger a_q}{\psi_\beta} d_\alpha^{I*} d_\beta^I
+  \qquad
+  \Gamma^I_{pqrs} = \frac{1}{2} \sum_{\alpha,\beta\in\mathcal{K}}
+  \innerop{\psi_\alpha}{a_p^\dagger a_q a_r^\dagger a_s - \delta_{qr}a_p^\dagger
+  a_s}{\psi_\beta} d_\alpha^{I*} d_\beta^I
+\end{align}
+Here, the time and parameter dependence has been dropped for brevity. The term
+of consequence is in $\vc{h}^\mathrm{X2C}$, which is the large component part of
+the two--component transformed one--electron Dirac Hamiltonian in the MO basis.
+As the energy is variational with respect to the expansion coefficients, the
+energy gradient only involves derivatives of the Hamiltonian
+\begin{align}
+&\nabla_\xi \mathcal{E}_I = \left(\nabla_\xi h^\mathrm{X2C}_{pq}\right)
+  \gamma^I_{pq} + 
+ \left( \nabla_\xi (pq|rs) \right)\Gamma^I_{pqrs} \quad.
+\end{align}
+The derivative of the X2C core Hamiltonain may be written as
+\begin{equation}
+\nabla_\xi h^\mathrm{X2C}_{pq} = \nabla_\xi\int_{\mathbb{R}^3} \phi_p(\vc{r})
+  \mathcal{H}_+ \phi_q(\vc{r}) \text{
+ }\mathrm{d}^3\vc{r} \quad,
+\end{equation}
+which involves derivatives of $\mathcal{H}_+$. Recalling the form of the
+two--component transformation, the derivatives of $\mathcal{H}_+$ are dependant
+on derivatives of $\mathcal{U}$,
+\begin{equation}
+\begin{pmatrix} \nabla_\xi \mathcal{H}_+ && 0_2 \\ 0_2 && \nabla_\xi
+\mathcal{H}_- \end{pmatrix} =
+2\mathcal{U}^\dagger\mathcal{H}_D\left(\nabla_\xi\mathcal{U}\right) +
+\mathcal{U}^\dagger \bpar{\nabla_\xi\mathcal{H}_D} \mathcal{U}\quad.
+\end{equation}
+While the gradients of the Dirac Hamiltonian have been known for some time, the
+gradients of $\mathcal{U}$ are dependant on the two--componant transformation
+scheme. In general, the form of the derivative of $\mathcal{U}$ is non--trival
+due to the fact that it is typically obtained via an eigendecomposition. There
+exist schemes to perform these types of differentiations analytically, however
+they have now yet been extension to the X2C method with the inclusion of SOC.
+Once the deivatives of $\mathcal{U}$ are obtained, assembly of the geometric
+derivatives and NAC tensor elements is possible. {\bf Thus, one of the primary
+tasks in the proposed research is to facilitate the efficient evaluation 
+gradient and non--adiabatic coupling tensor elements for X2C CI wave functions.}
+
+Once TSH may be performed using X2C CI wave functions, there exist many possible
+test cases to validate the accuracy and usefulness of the method. Currently, my
+plan is to choose a relatively small, one-dimensional test case much analogous
+to the one presented in \cref{sec:pp-TSH}. This condition is nicely met with the
+photodissociation of HCo(CO)$_4$. It is well known that a key mehanistic point
+of the photodissociation of  HCo(CO)$_4$ involves a rapid ($<$50ps) ISC process
+from the first singlet to first triplet excited state. This system has already
+been studied using a perturbative treatment of SOC in CAS wave functions by
+Daniel \emph{et al.} In their study, they discovered that the ISC in this
+process may be modelled along a single one--dimension reaction coordinate. 
+{\bf To validate this method, I will attempt to recreate and improve upon
+existing studies of the photodissociation of HCo(CO)$_4$. Such a study will
+allow me to asses the accuracy and usefulness of trajectory surface hopping
+using relativistic CI wave functions.}
+
+I beleive that the \emph{ab initio} treatment of SOC throughout a TSH simulation
+will provide a marked improvement over the perturbative treatments that
+currently exist in the literature. Futher, as previous studies have been limited
+to model reaction coordinates, such a direct relativistic treatment of SOC will
+provide a much needed generalization to current methodologies. As my proposed
+treatment makes minimal assumptions about the underlything quantum mechanics of
+the molecular system, it may be used as a general tool to solve current and
+future problems in the field of realtivistic non--adiabatic dyanamics.

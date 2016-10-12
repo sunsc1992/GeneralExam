@@ -44,8 +44,9 @@ ISC.
 There exist several \emph{ab
 initio} methods to approximately treat these relativistic effects, however, in
 this work the discussion will be limited to two--component relativistic
-Hamiltonians, specifically the ``exact two--component" (X2C) Hamiltonian. A
-brief overview of the X2C method may be found in \cref{sec:X2C}.
+Hamiltonians, specifically the ``exact two--component" (X2C) Hamiltonian. This
+choice of two--component transformation is due to its simplicity and accuracy.
+A brief overview of the X2C method may be found in \cref{sec:X2C}.
 
 In the quantum mechanical description of molecular systems, neglecting explicit
 coupling to a quantized photon field, time evolution of the total molecular wave
@@ -108,7 +109,7 @@ functions.
 Over the years, perhaps the most successful \emph{ab initio} treatment of the
 adiabatic electronic wave function has been in the configuration interaction
 (CI) expansion of the electronic wave function. A brief overview of the CI
-method may br found in \cref{sec:ci}.  Many successful attempts have been made
+method may be found in \cref{sec:ci}.  Many successful attempts have been made
 to extend CI variants to relativistic Hamiltonians\cite{Neese13_JCP104113,
 Olsen97_TCA125, Jensen96_JCP4083}, including my recent work on the extension of
 the particle--particle Tamm-Dancoff approximation (pp-TDA) to the X2C method
@@ -116,9 +117,9 @@ the particle--particle Tamm-Dancoff approximation (pp-TDA) to the X2C method
 CI method is simplest method, in formalism, for the addition of explicit
 many--body interaction back into mean--field description of the ground state
 electronic wave function such as Hartree--Fock. In addition to correcting the
-uncorrelated behaviour of mean--field ground states, the CI method is also able
+uncorrelated behavior of mean--field ground states, the CI method is also able
 to treat excited electronic states in a correlated manner, making it a suitable
-method for use in non--adiabtic molecular dynamics.
+method for use in non--adiabatic molecular dynamics.
 
 There exist a vast plethora of computational methods to treat non--adiabatic
 molecular dynamics based on the separation in
@@ -153,10 +154,10 @@ smooth transition between the two. A brief overview of the TSH algorithm may be
 found in \cref{sec:TSH}. 
 
 
-The quality of a TSH simulation is heavily dependant on the quality of the
-underlying descriptiong of the electronic potential energy surface.
+The quality of a TSH simulation is heavily dependent on the quality of the
+underlying description of the electronic potential energy surface.
 Traditionally, CI variants have been the most often applied basis for TSH
-implementaions and their use is well documented in the literature.  Recently, I
+implementations and their use is well documented in the literature.  Recently, I
 have extended TSH for use within the pp-TDA \cite{DBWY16_Submitted1}, of which
 results are presented in \cref{sec:pp-TSH}.
 While some attempts have been made to study ISC using TSH via
