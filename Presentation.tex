@@ -266,7 +266,7 @@
       d_\alpha^{J*} d_\beta^J \nabla H_{\alpha\beta} +
       \mathcal{M}_E
   \end{align*}
-  \blfootnote{\tiny Yamaguchi, Y.; \emph{et. al.}; \emph{Analytic Derivative Methods in Molecular Electronic Structure Theory: A New Dimension to Quantum Chemistry and its Applications to Spectroscopy}}
+  \blfootnote{\tiny Yamaguchi, Y.; \emph{et. al.}; \emph{Analytic Derivative Methods in Molecular Electronic Structure Theory}}
 \end{frame}
 
 % Treatment of ISC within TSH (2) -- Yes to Correlation 
@@ -326,7 +326,7 @@
     \op{H}_{el}^\mathrm{DC} \ket{\Phi} \quad \rightarrow \quad 
     \ket{\Phi} = \begin{pmatrix} \ket{\Phi_L} \\ \ket{\Phi_S} \end{pmatrix}
   \end{equation*}
-  Of which each L/S component is itself a 2 dimension Hilbert space
+  Of which each L/S component is itself a 2 dimensional Hilbert space
   \begin{equation*}
     \ket{\Phi_{L/S}} =
       \begin{pmatrix} \vert\Phi_{L/S}^\alpha\rangle \\ \vert\Phi_{L/S}^\beta\rangle
@@ -397,6 +397,7 @@
   \begin{center}
   {\LARGE \bf SOC is the fundamental operator that gives rise to ISC}
   \end{center}
+  \blfootnote{\tiny Reiher, M.; \emph{et al}. \emph{Relativistic Quantum Chemistry}}
 \end{frame}
 
 \begin{frame}
@@ -752,11 +753,83 @@
   \blfootnote{\tiny DBWY, Lingerfelt, D.; Petrone, A.; Li, X.; \emph{JCP Comm.} \textbf{2016} Submitted.}
 \end{frame}
 
+
+\begin{frame}
+  \frametitle{Future Directions:}
+  \begin{itemize}
+    \item[\ding{228}] Perform RTSH using the X2C-pp-TDA on model systems
+  \end{itemize}
+  \vfill
+\end{frame}
+\begin{frame}
+  \frametitle{2D Model Problem: Photodissociation of HCo(CO)$_4$}
+  \begin{minipage}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{Photodiss}
+
+    ~\\~\\
+    HCo(CO)$_4$ is known to undergo ISC mediated photodissociation from the 
+    $^1$E state to either the $^3$E or the $^3$A$_1$ state which remove the
+    axial CO or H respectively.
+  \end{minipage}
+  \begin{minipage}{0.5\textwidth}
+    \includegraphics[width=\textwidth]{HCoCO4}
+  \end{minipage}
+
+  \blfootnote{\tiny Daniel, C.; \emph{et al.}; \emph{JCP} \textbf{1997} 106, 1421}
+\end{frame}
+\begin{frame}
+  \frametitle{Future Directions:}
+  \begin{itemize}
+    \item[\ding{228}] Perform RTSH using the X2C-pp-TDA on model systems
+    \begin{itemize}
+      \item[-] Implement gradients and NAC for X2C-pp-TDA
+    \end{itemize}
+  \end{itemize}
+  \vfill
+\end{frame}
 \begin{frame}
 \frametitle{}
-\pbox[c][20pt][b]{0.59\textwidth}{Instabilities in the $N-2$ particle reference yield an unphysical cusp in PES at planar geometry\\~\\~\\} 
+\pbox[c][20pt][b]{0.59\textwidth}{Instabilities in the $N-2$ particle reference yield an unphysical cusp in the PES at planar geometry\\~\\~\\} 
 \hfill  \includegraphics[width=0.4\textwidth]{GSGeom}
 
 \includegraphics[width=0.75\textwidth]{ppTDAPES} \hfill
+\end{frame}
+
+\begin{frame}
+  \frametitle{}
+  \begin{center}
+  \includegraphics[width=0.85\textwidth]{ISC} 
+  \end{center}
+  \vspace{-1cm}
+  \blfootnote{\tiny Wikipedia, Intersystem Crossing}
+\end{frame}
+\begin{frame}
+  \frametitle{Future Directions:}
+  \begin{itemize}
+    \item[\ding{228}] Perform RTSH using the X2C-pp-TDA on model systems
+    \begin{itemize}
+      \item[-] Implement gradients and NAC for X2C-pp-TDA
+    \end{itemize}
+    \item[\ding{228}] Extend CASSCF to an X2C reference and implement RTSH using an X2C-CASSCF reference
+  \end{itemize}
+  \vfill
+\end{frame}
+
+\begin{frame}
+  \frametitle{Acknowledgments}
+  \begin{itemize}
+    \item[\ding{228}] The Li Group
+    \begin{itemize}
+      \item[--] Prof. Xiaosong Li
+      \item[--] David Lingerfelt and Dr. Alessio Petrone
+    \end{itemize}
+    \item[\ding{228}] Doctoral Supervisory Committee
+    \begin{itemize}
+      \item[--] Prof. Xiaosong Li
+      \item[--] Prof. David Masiello
+      \item[--] Prof. Stefan Stoll
+      \item[--] Prof. Ulrich Hetmaniuk
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 \end{document}
