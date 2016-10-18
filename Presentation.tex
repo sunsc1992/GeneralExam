@@ -3,9 +3,13 @@
 \usepackage{amsmath}
 \usepackage{mathrsfs}
 \usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{mathtools}
 \usepackage{xcolor}
 \usepackage{multirow}
+\usepackage{pbox}
 \usepackage{subcaption}
+\captionsetup{compatibility=false}
 
 \usepackage{enumitem}
 \newlist{mylist}{itemize}{2}
@@ -361,7 +365,7 @@
   Expanding the transformed two--component Hamiltonian in the basis of single
   particle Fock states (\emph{molecular orbitals}), we obtain
   \begin{equation*}
-    \op{H}_{el} = \sum_{pq}h^\mathrm{2C}_{pq} c_p^\dagger c_q +
+    \op{H}^{2C}_{el} = \sum_{pq}h^\mathrm{2C}_{pq} c_p^\dagger c_q +
     \frac{1}{2}\sum_{pqrs} g_{pqsr}c_p^\dagger c_q^\dagger c_r c_s
   \end{equation*}
 
@@ -376,34 +380,149 @@
 
 \end{frame}
 
-% SOC in TSH currently
 \begin{frame}
-  \frametitle{Phenomenological Addition of Spin--Orbit Coupling (SOC) in
-  Trajectory Surface Hopping}
+  \frametitle{Relativistic Theory Primer: Spin--Orbit Coupling (SOC)}
 
-  Traditionally, SOC is added to nonrelativistic wave functions 
-  \emph{a posteriori} in TSH through the SO part of the Dirac--Coulomb
-  Hamiltonian
+  A direct consqeuence of the relativistic Hamiltonian is the introduction of SOC terms,
   \begin{equation*}
-    h_\mathrm{DC}^\mathrm{SO} (i) = \frac{1}{2c^2} \sum_{A=1}^{N_\mathrm{atoms}}
+    h^\mathrm{2C}_\mathrm{SO} (i) = \frac{1}{2c^2} \sum_{A=1}^{N_\mathrm{atoms}}
       \int_{\mathbb{R}^3}\mathrm{d}^3\vc{R}
       \frac{\Gamma_A(\vc{R})
         (( \vc{r}_i - \vc{R} ) \times \vc{p}_i)\cdot \vc{s}_i}
 	{\vert \vc{r}_i - \vc{R} \vert^3}
   \end{equation*}
 
-  This yields an extraneous coupling in the electronic equations of motion
+  ~\\
+  ~\\
+  \begin{center}
+  {\LARGE \bf SOC is the fundamental operator that gives rise to ISC}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\begin{center}
+{\LARGE
+  Nonrelativistic TSH $\xrightarrow{?}$ Intersystem Crossing
+}
+\end{center}
+\end{frame}
+
+
+% SOC in TSH currently (1)
+\begin{frame}
+  \frametitle{Phenomenological Addition of Spin--Orbit Coupling (SOC) in
+  Trajectory Surface Hopping}
+
+  Traditionally, SOC is added to nonrelativistic wave functions 
+  \emph{a posteriori} in TSH through the SO part of the 
+  Hamiltonian, yielding an extraneous coupling in the electronic equations of motion
+
+%  \begin{equation*}
+%    h_\mathrm{DC}^\mathrm{SO} (i) = \frac{1}{2c^2} \sum_{A=1}^{N_\mathrm{atoms}}
+%      \int_{\mathbb{R}^3}\mathrm{d}^3\vc{R}
+%      \frac{\Gamma_A(\vc{R})
+%        (( \vc{r}_i - \vc{R} ) \times \vc{p}_i)\cdot \vc{s}_i}
+%	{\vert \vc{r}_i - \vc{R} \vert^3}
+%  \end{equation*}
+%
+%  This yields an extraneous coupling in the electronic equations of motion
 
   \begin{equation*}
     H_{KJ} = \delta_{KJ}\mathcal{E}_J(t) +
     {\color{red}
-      \innerop{\Phi_K(\vc{R}(t),t)}{\mathcal{H}_{SO}^{DC}}{\Phi_J(\vc{R}(t),t)}
+      \innerop{\Phi_K(\vc{R}(t),t)}{\mathcal{H}_{SO}^{2C}}{\Phi_J(\vc{R}(t),t)}
     }
     - i d_{KJ}^\xi (t) \partial_t R_{\xi}(t) 
   \end{equation*}
+
+  \vfill
   \blfootnote{\tiny Chang, A.H.H.; \emph{JCP} \textbf{1993} 99, 6824}
   \blfootnote{\tiny Daniel, C.; \emph{JCP} \textbf{1997} 106, 1421}
 \end{frame}
+
+% SOC in TSH currently (2)
+\begin{frame}
+  \frametitle{Phenomenological Addition of Spin--Orbit Coupling (SOC) in
+  Trajectory Surface Hopping}
+
+  Traditionally, SOC is added to nonrelativistic wave functions 
+  \emph{a posteriori} in TSH through the SO part of the 
+  Hamiltonian, yielding an extraneous coupling in the electronic equations of motion
+
+%  \begin{equation*}
+%    h_\mathrm{DC}^\mathrm{SO} (i) = \frac{1}{2c^2} \sum_{A=1}^{N_\mathrm{atoms}}
+%      \int_{\mathbb{R}^3}\mathrm{d}^3\vc{R}
+%      \frac{\Gamma_A(\vc{R})
+%        (( \vc{r}_i - \vc{R} ) \times \vc{p}_i)\cdot \vc{s}_i}
+%	{\vert \vc{r}_i - \vc{R} \vert^3}
+%  \end{equation*}
+%
+%  This yields an extraneous coupling in the electronic equations of motion
+
+  \begin{equation*}
+    H_{KJ} = \delta_{KJ}\mathcal{E}_J(t) +
+    {\color{red}
+      \innerop{\Phi_K(\vc{R}(t),t)}{\mathcal{H}_{SO}^{2C}}{\Phi_J(\vc{R}(t),t)}
+    }
+    - i d_{KJ}^\xi (t) \partial_t R_{\xi}(t) 
+  \end{equation*}
+
+  \vfill
+  \begin{center}
+  {\LARGE \bf The Hamiltonian is not diagonal in the electronic adiabats!}
+  \end{center}
+  \blfootnote{\tiny Chang, A.H.H.; \emph{JCP} \textbf{1993} 99, 6824}
+  \blfootnote{\tiny Daniel, C.; \emph{JCP} \textbf{1997} 106, 1421}
+\end{frame}
+
+% SOC in TSH currently (3)
+\begin{frame}
+  \frametitle{Phenomenological Addition of Spin--Orbit Coupling (SOC) in
+  Trajectory Surface Hopping}
+
+  To properly account for SOC in TSH, each of the electronic adiabats must
+  be mutually optimized under a relativistic Hamiltonian
+
+  \begin{equation*}
+    d_{JK}^\xi \propto \frac{\innerop{\Phi_J}{(\partial_\xi \mathcal{H}_{el})}{\Phi_K}}{\mathcal{E}_K - \mathcal{E}_J}
+  \end{equation*}
+  ~\\
+  ~\\
+  ~\\
+
+  SOC couples the adiabatic states through the non--adiabatic coupling
+
+  \begin{equation*}
+    \partial_\xi \mathcal{H}^{2C}_{el} \leftarrow \partial_\xi \mathcal{H}^{2C}_\mathrm{SO}
+  \end{equation*}
+
+  and thus enters into the expression for the hopping probablity.
+\end{frame}
+
+
+%% How we're going to solve it with relativistic surface hopping dynamics
+%\begin{frame}
+%  \frametitle{Solution: Relativistic Non--Adiabatic Molecular Dynamics}
+%
+%  To properly account for SOC in TSH, each of the electronic adiabats must
+%  be mutually optimized under a relativistic Hamiltonian
+%
+%  \begin{equation*}
+%    d_{JK}^\xi \propto \frac{\innerop{\Phi_I}{(\partial_\xi \mathcal{H})}{\Phi_J}}{\mathcal{E}_K - \mathcal{E}_J}
+%  \end{equation*}
+%  ~\\
+%  ~\\
+%  ~\\
+%
+%  SOC couples the adiabatic states through the non--adiabatic coupling
+%
+%  \begin{equation*}
+%    \partial_\xi \mathcal{H}^{DC} \leftarrow \partial_\xi \mathcal{H}^{DC}_\mathrm{SO}
+%  \end{equation*}
+%
+%  and thus enters into the expression for the hopping probablity.
+%\end{frame}
 
 % Treatment of ISC within TSH (3) -- No to SOC 
 \begin{frame}
@@ -420,33 +539,93 @@
   \end{mylist}
 \end{frame}
 
-% How we're going to solve it with relativistic surface hopping dynamics
 \begin{frame}
-  \frametitle{Solution: Relativistic Non--Adiabatic Molecular Dynamics}
-
-  To properly account for SOC in TSH, each of the electronic adiabats must
-  be mutually optimized under a relativistic Hamiltonian
-
-  \begin{equation*}
-    d_{JK}^\xi \propto \frac{\innerop{\Phi_I}{(\partial_\xi \mathcal{H})}{\Phi_J}}{\mathcal{E}_K - \mathcal{E}_J}
-  \end{equation*}
-  ~\\
-  ~\\
-  ~\\
-
-  SOC couples the adiabatic states through the non--adiabatic coupling
-
-  \begin{equation*}
-    \partial_\xi \mathcal{H}^{DC} \leftarrow \partial_\xi \mathcal{H}^{DC}_\mathrm{SO}
-  \end{equation*}
-
-  and thus enters into the expression for the hopping probablity.
+  \frametitle{}
+  \begin{center}
+  {\LARGE \bf Solution: \\~\\ Explicit Treatment of Relativisitc Effects in the Electronic Manifold!}
+  \end{center}
 \end{frame}
 
+\begin{frame}
+  \frametitle{}
+  \begin{center}
+  {\LARGE \bf Solution: \\~\\ Relativistic Trajectory Surface Hopping \\~\\(RTSH)}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Treatment of ISC within Relativistic Trajectory Surface Hopping}
+  \begin{center}
+  \includegraphics[width=0.7\textwidth]{ISC} 
+  \end{center}
+  \vspace{-0.5cm}
+  RTSH treatment of ISC: 
+  \begin{mylist}
+    \item[\done] Electronic Non--Adiabaticity
+    \item[\done] Correlated Treatment of Electrons
+    \item[\done] Proper Treatment of Spin--Orbit Coupling
+  \end{mylist}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+  {\LARGE \bf Research in the Li Group}
+  \includegraphics[width=\textwidth]{Venn}
+\end{center}
+\end{frame}
+\begin{frame}
+\begin{center}
+  {\LARGE \bf Research in the Li Group}
+  \includegraphics[width=\textwidth]{VennWPic}
+\end{center}
+\end{frame}
 
 % Previous Work
 \begin{frame}
   \frametitle{Previous Work towards Relativistic Non--Adiabatic Molecular Dynamics}
+
+  {\Large \bf Relativistic Electronic Structure Theory:}\vspace{0.1cm}\\
+
+  \textbf{DBWY}; Egidi, F.; Li, X.; ``Relativisitc Two--Component Particle--Particle
+    \\$\quad$Tamm--Dancoff Approximation", \emph{JCTC}, \textbf{2016} Just Accepted.\\
+
+  ~\\
+  {\Large \bf Non--Adiabatic Molecular Dynamics:}\vspace{0.1cm}\\
+
+  \textbf{DBWY}; Lingerfelt, D.; Petrone, A.; Yang, Y.; Yang, W.; Li. X;
+    ``Ab \\$\quad$Initio Surface Hopping Dynamics within the Particle--Particle
+    \\$\quad$Tamm--Dancoff Approximation", \emph{JCP Comm.}, \textbf{2016} Submitted.\\\vspace{0.20cm}
+  Lingerfelt, D.; \textbf{DBWY}; Petrone, A.; Li, X.; ``Direct Ab Initio
+    \\$\quad$(Meta--)Surface--Hopping Dynamics", \emph{JCTC}, \textbf{2016}, 12(3),
+    935--920.\\\vspace{0.20cm}
+  \textbf{DBWY}; Goings, J.J.; Li, X.; ``Accelerating Real--Time Time--Dependent
+    \\$\quad$Density Functional Theory with a Non--Recursive Chebyshev Expansion 
+    \\$\quad$of the Quantum Propagator" \emph{JCTC} \textbf{2016} Just Accepted.
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Previous Work towards Relativistic Non--Adiabatic Molecular Dynamics}
+
+  {\Large \bf Relativistic Electronic Structure Theory:}\vspace{0.1cm}\\
+
+  \textbf{DBWY}; Egidi, F.; Li, X.; ``Relativisitc Two--Component Particle--Particle
+    \\$\quad$Tamm--Dancoff Approximation", \emph{JCTC}, \textbf{2016} Just Accepted.\\
+
+  ~\\
+  {\Large \bf Non--Adiabatic Molecular Dynamics:}\vspace{0.1cm}\\
+
+  \textbf{DBWY}; Lingerfelt, D.; Petrone, A.; Yang, Y.; Yang, W.; Li. X;
+    ``Ab \\$\quad$Initio Surface Hopping Dynamics within the Particle--Particle
+    \\$\quad$Tamm--Dancoff Approximation", \emph{JCP Comm.}, \textbf{2016} Submitted.\\\vspace{0.20cm}{\color{gray!40}
+  Lingerfelt, D.; \textbf{DBWY}; Petrone, A.; Li, X.; ``Direct Ab Initio
+    \\$\quad$(Meta--)Surface--Hopping Dynamics", \emph{JCTC}, \textbf{2016}, 12(3),
+    935--920.\\\vspace{0.20cm}
+  \textbf{DBWY}; Goings, J.J.; Li, X.; ``Accelerating Real--Time Time--Dependent
+    \\$\quad$Density Functional Theory with a Non--Recursive Chebyshev Expansion 
+    \\$\quad$of the Quantum Propagator" \emph{JCTC} \textbf{2016} Just Accepted.
+  }
+
 \end{frame}
 
 % pp-TDA
@@ -527,10 +706,20 @@
      \multirow{2}{*}{Si$^{2+}$} & $^3$P$_1-^3$P$_0$ & 19.46 & 16.55 \\ 
      & $^3$P$_2-^3$P$_1$ & 37.88 & 32.06 \\    \hline
     \end{tabular}
+    \caption{Selected Fine Structure Splittings calculated from the X2C--pp--TDA method. All results are in meV.}
   \end{table}
   }
   \blfootnote{\tiny DBWY, Egidi, F.; Li, X.; \emph{JCTC} \textbf{2016} Just Accepted}
   \blfootnote{\tiny Kramida, A.; \emph{et al.}; \emph{NIST Atomic Spectra Datapage}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Trajectory Surface Hopping within the pp--TDA}
+  \begin{center}
+    \includegraphics[width=\textwidth]{GSCI}
+  \end{center}
+  \blfootnote{\tiny DBWY, Lingerfelt, D.; Petrone, A.; Li, X.; \emph{JCP Comm.} \textbf{2016} Submitted.}
+  \blfootnote{\tiny Lingerfelt, D.; DBWY, Petrone, A.; Li, X.; \emph{JCTC} \textbf{2016} 12(3), 935--945.}
 \end{frame}
 
 \begin{frame}
@@ -548,14 +737,26 @@
   \label{fig:hops}
   \end{subfigure}
   \vspace{-0.4cm}
-  \caption{\tiny \footnotesize (a) Potential energy surfaces for ground and excited
-  states, and the coupling strength between the two states with respect to the
-  dihedral angle in the vicinity of the minimum energy crossing point between
-  S$_0$ and S$_1$ from the pp-TDA (top frame) and CIS (bottom frame) approaches.
-  (b) Color maps showing the distribution of configurations at which hops from
-  S$_1$ to S$_0$ occur for the different initial velocities resolved at the
-  pp-TDA (top frame) and CIS (bottom frame) levels of theory (area in red box
-  magnified, after normalization, 1000$\times$ for visibility.)}
+  \caption{(a) Potential energy surfaces and NAC strengths for S$_1$ and S$_0$ with CIS
+  and the pp-TDA.\\
+  (b) Velocity dependent hopping distribution for CIS and the pp-TDA.}
+%  \caption{\tiny \footnotesize (a) Potential energy surfaces for ground and excited
+%  states, and the coupling strength between the two states with respect to the
+%  dihedral angle in the vicinity of the minimum energy crossing point between
+%  S$_0$ and S$_1$ from the pp-TDA (top frame) and CIS (bottom frame) approaches.
+%  (b) Color maps showing the distribution of configurations at which hops from
+%  S$_1$ to S$_0$ occur for the different initial velocities resolved at the
+%  pp-TDA (top frame) and CIS (bottom frame) levels of theory (area in red box
+%  magnified, after normalization, 1000$\times$ for visibility.)}
   \end{figure}
+  \blfootnote{\tiny DBWY, Lingerfelt, D.; Petrone, A.; Li, X.; \emph{JCP Comm.} \textbf{2016} Submitted.}
+\end{frame}
+
+\begin{frame}
+\frametitle{}
+\pbox[c][20pt][b]{0.59\textwidth}{Instabilities in the $N-2$ particle reference yield an unphysical cusp in PES at planar geometry\\~\\~\\} 
+\hfill  \includegraphics[width=0.4\textwidth]{GSGeom}
+
+\includegraphics[width=0.75\textwidth]{ppTDAPES} \hfill
 \end{frame}
 \end{document}
